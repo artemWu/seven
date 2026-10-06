@@ -1,4 +1,5 @@
 import Button from "./button";
+import Reveal from "./Reveal";
 
 const reviews = [
   {
@@ -30,6 +31,11 @@ const reviews = [
   },
 ];
 
+const reviewItems = Array.from({ length: 21 }, (_, index) => ({
+  ...reviews[index % reviews.length],
+  id: `${reviews[index % reviews.length].name}-${index}`,
+}));
+
 function Star() {
   return (
     <svg
@@ -49,16 +55,16 @@ function Star() {
 export default function ReviewsSection() {
   return (
     <section className="reviews-section" id="reviews">
-      <h2 className="reviews-section__title">
-        Нам доверяют
-      </h2>
+      <Reveal y={12}>
+        <h2 className="reviews-section__title">Что говорят о нас</h2>
+      </Reveal>
 
+      <Reveal className="reviews-section__content-reveal" delay={140} y={24}>
       <div className="reviews-section__list">
-        {reviews.map((review) => (
-          <article
-            className={`review-card ${review.variant}`}
-            key={review.name}
-          >
+        {Array.from({ length: 3 }, (_, rowIndex) => (
+          <div className={`reviews-section__row reviews-section__row--${rowIndex + 1}`} key={rowIndex}>
+            {reviewItems.slice(rowIndex * 7, rowIndex * 7 + 7).map((review) => (
+              <article className={`review-card ${review.variant}`} key={review.id}>
             <div
               className="review-card__glass"
               aria-hidden="true"
@@ -102,18 +108,18 @@ export default function ReviewsSection() {
                 </div>
               </div>
             </div>
-          </article>
+              </article>
+            ))}
+          </div>
         ))}
       </div>
+      </Reveal>
 
-      <Button
-        href="https://yandex.com/maps/org/svet/68361411731/reviews/"
-        target="_blank"
-        rel="noopener noreferrer"
-        theme="dark"
-      >
-        все отзывы
-      </Button>
+      <Reveal delay={240} y={16}>
+        <Button href="#reviews" target="_blank" rel="noopener noreferrer" theme="dark">
+          все отзывы
+        </Button>
+      </Reveal>
     </section>
   );
 }

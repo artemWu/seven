@@ -9,8 +9,8 @@ export default function Footer() {
         <div className="footer__brand">
 
           <Image
-            src="/svg/logo.png"
-            alt="Свет, парикмахерская"
+            src="/svg/seven-sign.svg"
+            alt="7barbershop"
             width={224}
             height={60}
             className="footer__logo"
@@ -44,19 +44,19 @@ export default function Footer() {
           </div>
 
           <a
-            href="tel:+79669791100"
+            href="tel:+70000000000"
             className="footer__link"
           >
-            +7 (966) 979-11-00
+            +7 (000) 000-00-00
           </a>
 
           <a
-            href="https://yandex.com/maps/org/svet/68361411731/"
+            href="#location"
             target="_blank"
             rel="noopener noreferrer"
             className="footer__link footer__link--address"
           >
-            г. Москва, Большой Полуярославский пер. 10, корп. 2
+            PLACEHOLDER ADDRESS
           </a>
         </div>
 
@@ -77,7 +77,7 @@ export default function Footer() {
 
         {/* COPYRIGHT */}
         <div className="footer__copyright">
-          © 2026 Свет. Все права защищены
+          © 2026 Seven. Все права защищены
         </div>
 
       </div>

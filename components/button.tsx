@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
+
 type ButtonProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   href?: string;
-  target?: React.HTMLAttributeAnchorTarget;
+  target?: "_self" | "_blank" | "_parent" | "_top";
   rel?: string;
-  theme?: "default" | "dark";
+  theme?: "default" | "dark" | "primary";
 };
 
 export default function Button({
@@ -13,8 +15,7 @@ export default function Button({
   rel,
   theme = "default",
 }: ButtonProps) {
-  const buttonClassName = `button button--glass${theme === "dark" ? " button--dark" : ""}`;
-
+  const buttonClassName = `button button--glass${theme === "dark" ? " button--dark" : theme === "primary" ? " button--primary" : ""}`;
   if (href) {
     return (
       <a className={buttonClassName} href={href} target={target} rel={rel}>

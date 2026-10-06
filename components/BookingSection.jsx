@@ -18,7 +18,7 @@ export default function BookingSection() {
       >
         <a
           className="booking-button"
-          href="https://n365899.yclients.com/company/348811/personal/menu?o="
+          href="https://n399707.yclients.com/group:12717/city:all#1"
           target="_blank"
           rel="noopener noreferrer"
         >

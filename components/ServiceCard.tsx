@@ -65,7 +65,7 @@ export default function ServiceCard({
             </div>
           </div>
 
-            <Button href="https://n365899.yclients.com/company/348811/personal/menu?o=">
+            <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer">
               Записаться
             </Button>
           </div>

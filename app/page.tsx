@@ -1,13 +1,16 @@
 import Image from "next/image";
-import BorderGlow from "@/components/BorderGlow";
-import ServiceCard from "../components/ServiceCard";
 import TeamSection from "../components/TeamSection";
+import WhyUsSection from "../components/WhyUsSection";
+import AboutSection from "../components/AboutSection";
 import ReviewsSection from "../components/ReviewsSection";
 import BookingSection from "../components/BookingSection";
 import ContactsSection from "../components/ContactsSection";
 import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import Button from "../components/button";
+import ServicesTable from "../components/ServicesTable";
+import Header from "../components/Header";
+import BookingModal from "../components/BookingModal";
 
 export default function Home() {
   return (
@@ -18,17 +21,13 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "HairSalon",
-            name: "Свет",
+            name: "Seven",
             description:
-              "Парикмахерская «Свет» в Москве, рядом с метро Курская и Чкаловская.",
-            telephone: "+7 (966) 979-11-00",
-            url: "https://svethair.ru/",
-            image:
-              "https://svethair.ru/images/hero-portrait.webp",
+              "Starter schema placeholder for 7barbershop.",
             address: {
               "@type": "PostalAddress",
-              streetAddress: "Большой Полуярославский пер. 10, корп. 2",
-              addressLocality: "Москва",
+              streetAddress: "PLACEHOLDER",
+              addressLocality: "PLACEHOLDER",
               addressCountry: "RU",
             },
             openingHoursSpecification: {
@@ -53,89 +52,53 @@ export default function Home() {
           }),
         }}
       />
-      <header className="site-header" aria-label="Основная навигация">
-        <a className="site-header__logo" href="#top" aria-label="Свет — наверх">
-          <Image
-            src="/svg/mini-logo.png"
-            alt="Свет"
-            width={48}
-            height={41}
-            priority
-            unoptimized
-          />
-        </a>
-
-        <nav className="site-header__nav-shell">
-          <a href="#services">Услуги</a>
-          <a href="#team">Команда</a>
-          <a href="#reviews">Нам доверяют</a>
-          <a href="#contacts">Контакты</a>
-        </nav>
-      </header>
+      <Header />
+      <BookingModal />
       <main>
       {/* HERO */}
       <section className="hero" id="top">
         <div
           className="hero__content"
-          aria-label="Парикмахерская Свет"
+          aria-label="7barbershop"
         >
-          <Image
-            src="/svg/logo.png"
-            alt="Свет, парикмахерская"
-            width={600}
-            height={600}
-            className="hero__logo hero-animate hero-animate--logo"
-            priority
-            unoptimized
-          />
+          <Reveal delay={120} y={10}>
+            <Image
+              src="/svg/seven-sign.svg"
+              alt="7barbershop"
+              width={600}
+              height={246}
+              className="hero__logo"
+              priority
+              unoptimized
+            />
+          </Reveal>
 
-          <h1 className="hero__title hero-animate hero-animate--location">
-            Парикмахерская «Свет» в Москве
-          </h1>
+          <Reveal delay={260} y={16}>
+            <h1 className="hero__title">7barbershop</h1>
+          </Reveal>
 
-          <div className="location hero-animate hero-animate--location">
-            <p className="location__station">
-              Курская · Чкаловская
-            </p>
+          <Reveal delay={340} y={16}>
+            <div className="location">
+              <div className="location__stations" aria-label="Локации барбершопа">
+                <span className="location-tag"><img src="/svg/geotag.svg" alt="" /> м. Сокол</span>
+                <span className="location-tag"><img src="/svg/geotag.svg" alt="" /> м. Варшавская</span>
+                <span className="location-tag"><img src="/svg/geotag.svg" alt="" /> м. Преображенская площадь</span>
+              </div>
 
-            <p className="location__hours">
-              с 10:00 до 22:00
-            </p>
+              <p className="location__hours">с 10:00 до 22:00</p>
+              <p className="location__schedule">Ежедневно</p>
+            </div>
+          </Reveal>
 
-            <p className="location__schedule">
-              Ежедневно
-            </p>
-          </div>
-
-          <BorderGlow
-            className="booking-glow"
-            edgeSensitivity={12}
-            glowColor="29 12 58"
-            backgroundColor="#171513"
-            borderRadius={12}
-            glowRadius={40}
-            glowIntensity={1.45}
-            coneSpread={28}
-            animated
-            colors={[
-              "#a29588",
-              "#f2ebe4",
-              "#a29588",
-            ]}
-            fillOpacity={0.18}
-          >
-            <a
-              className="booking-button"
-              href="https://n365899.yclients.com/company/348811/personal/menu?o="
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>Записаться</span>
-            </a>
-          </BorderGlow>
+          <Reveal delay={440} y={16}>
+            <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer" theme="dark">
+              Записаться
+            </Button>
+          </Reveal>
         </div>
 
-        <div className="hero__portraits hero-animate hero-animate--portrait">
+        <Reveal delay={80} y={0} className="hero__portraits-reveal">
+        <div className="hero__portraits">
           <div
             className="hero__portrait hero__portrait--left"
             role="img"
@@ -148,6 +111,7 @@ export default function Home() {
             aria-label="Портрет второго мастера парикмахерской"
           />
         </div>
+        </Reveal>
       </section>
 
       {/* SERVICES */}
@@ -161,49 +125,15 @@ export default function Home() {
           </Reveal>
         </h2>
 
-        <div className="services__list">
-          <Reveal
-            delay={0}
-            y={24}
-          >
-            <ServiceCard
-              title="Стрижки"
-              price="от 2 500 ₽"
-              image="/images/haircut.webp"
-              background="beige"
-            />
-          </Reveal>
-
-          <Reveal
-            delay={90}
-            y={24}
-          >
-            <ServiceCard
-              title="Моделирование"
-              price="от 2 000 ₽"
-              image="/images/beard.webp"
-              background="brown"
-            />
-          </Reveal>
-
-          <Reveal
-            delay={180}
-            y={24}
-          >
-            <ServiceCard
-              title="Уход за лицом"
-              price="от 1 000 ₽"
-              image="/images/care.webp"
-              background="gray"
-            />
-          </Reveal>
-        </div>
+        <Reveal delay={140} y={24}>
+          <ServicesTable />
+        </Reveal>
 
         <Button
-          href="https://n365899.yclients.com/company/348811/personal/select-services?o="
+          href="https://n399707.yclients.com/group:12717/city:all#1"
           target="_blank"
           rel="noopener noreferrer"
-          theme="dark"
+          theme="primary"
         >
           все услуги
         </Button>
@@ -214,10 +144,16 @@ export default function Home() {
         <TeamSection />
       </Reveal>
 
-      {/* REVIEWS */}
       <Reveal y={28}>
-        <ReviewsSection />
+        <WhyUsSection />
       </Reveal>
+
+      <Reveal y={28}>
+        <AboutSection />
+      </Reveal>
+
+      {/* REVIEWS */}
+      <ReviewsSection />
 
       {/* CONTACTS */}
       <Reveal y={28}>
