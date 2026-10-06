@@ -774,6 +774,10 @@ main {
   width: auto;
 }
 
+@media (max-width: 899px) {
+  .hero__logo { width: 164px; }
+}
+
 .hero__title {
   margin: -12px 0 12px;
 
@@ -878,6 +882,7 @@ main {
   corner-shape: superellipse(1.8);
   background: #fff;
   color: #17151a;
+  box-shadow: 0 10px 28px rgb(22 22 24 / 5%);
 }
 
 .barber-card--purple {
@@ -902,6 +907,16 @@ main {
 
 @media (max-width: 899px) { .barbers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-inline: 0; } .barber-card-reveal, .barber-card-reveal--purple, .barber-card-reveal:nth-child(3), .barber-card-reveal:nth-child(4), .barber-card-reveal:nth-child(5), .barber-card-reveal:nth-child(8), .barber-card-reveal:nth-child(11), .barber-card-reveal:nth-child(12) { grid-column: span 1; } .barber-card { height: auto; aspect-ratio: 1; } .barber-card__copy { padding: 12px; } }
 @media (max-width: 520px) { .barbers-grid { grid-template-columns: 1fr; } }
+
+@media (max-width: 899px) {
+  .barbers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .barber-card-reveal { grid-column: span 1; }
+  .barber-card-reveal:nth-child(3n) { grid-column: 1 / -1; }
+  .barber-card { aspect-ratio: 1; }
+  .barber-card-reveal:nth-child(3n) .barber-card { aspect-ratio: 2 / 1; }
+  .barber-card h3 { font-size: 16px; line-height: 16px; }
+  .barber-card p { margin-top: 4px; font-size: 12px; line-height: 12px; }
+}
 
 .services__title {
   margin: 0;
@@ -3175,13 +3190,17 @@ main {
 }
 
 .reviews-section { overflow: visible; }
-.reviews-section__list { position: relative; width: 100vw; max-width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); overflow: hidden; box-sizing: border-box; }
+.reviews-section__list { position: relative; width: 100vw; max-width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); overflow-x: clip; overflow-y: visible; box-sizing: border-box; }
 .reviews-section__list::before, .reviews-section__list::after { content: ""; position: absolute; z-index: 2; top: 0; bottom: 0; pointer-events: none; }
 .reviews-section__list::before { left: 0; width: 56px; background: linear-gradient(to right, var(--background) 0%, rgb(250 250 250 / 0) 100%); }
 .reviews-section__list::after { right: 0; width: 56px; background: linear-gradient(to left, var(--background) 0%, rgb(250 250 250 / 0) 100%); }
 .reviews-section__row { width: max-content; }
 .reviews-section__content-reveal { width: 100%; }
 .reviews-section > .reveal:first-child { width: 100%; display: flex; justify-content: center; }
+
+@media (min-width: 900px) {
+  .reviews-section__row { margin-left: calc((100vw - 2032px) / 2); }
+}
 
 
 /* DESKTOP SECTION SPACING */
