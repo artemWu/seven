@@ -116,10 +116,8 @@ export default function ReviewsSection() {
                   </div>
                 </div>
 
-                <div className="review-card__text-wrap" data-full-text={review.text}>
-                  <div className="review-card__text">
-                    {review.text}
-                  </div>
+                <div className="review-card__text">
+                  {review.text}
                 </div>
               </div>
             </div>

@@ -3162,55 +3162,6 @@ button:active {
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
-
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
-  overflow-wrap: anywhere;
-}
-
-.review-card__text-wrap {
-  position: relative;
-  min-width: 0;
-}
-
-@media (min-width: 901px) {
-  .review-card__text-wrap::after {
-    position: absolute;
-    z-index: 20;
-    left: 0;
-    bottom: calc(100% + 10px);
-    width: min(360px, 28vw);
-    max-height: 180px;
-    padding: 14px 16px;
-    border: 1px solid rgb(255 255 255 / 18%);
-    border-radius: 20px;
-    corner-shape: superellipse(1.5);
-    background: linear-gradient(135deg, #161618, #646466);
-    color: #fff;
-    content: attr(data-full-text);
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.45;
-    text-align: left;
-    white-space: normal;
-    overflow: auto;
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(6px) scale(.98);
-    transform-origin: bottom left;
-    box-shadow: 0 12px 28px rgb(22 22 24 / 22%);
-    transition: opacity 180ms ease, visibility 180ms ease, transform 220ms cubic-bezier(.22, 1, .36, 1);
-  }
-
-  .review-card__text-wrap:hover::after,
-  .review-card__text-wrap:focus-within::after {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
-  }
 }
 
 /* Reviews use the same clean cards and typography as the About block. */
@@ -3232,7 +3183,6 @@ button:active {
 @keyframes reviews-drift-right { from { transform: translateX(0); } to { transform: translateX(180px); } }
 @keyframes reviews-drift-left { from { transform: translateX(0); } to { transform: translateX(-260px); } }
 .review-card { height: 250px; }
-.review-card { overflow: visible; }
 
 .review-card { height: 204px; }
 
