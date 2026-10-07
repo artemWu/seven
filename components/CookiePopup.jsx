@@ -25,21 +25,21 @@ export default function CookiePopup() {
 
   return (
     <aside className="cookie-popup" role="dialog" aria-label="Уведомление о cookies">
+      <img className="cookie-popup__image" src="/images/cookie-heart.webp" alt="" />
       <div className="cookie-popup__content">
-        <p className="cookie-popup__title">Чтобы сайт работал лучше</p>
+        <p className="cookie-popup__title">Мы заботимся о вашем удобстве</p>
         <p className="cookie-popup__text">
-          Мы используем cookies, чтобы сайт работал удобнее. Продолжая пользоваться
-          сайтом, вы соглашаетесь с их использованием.
+          Все на сайте — <strong>для вас</strong>, cookies — для нас. Собираем их, чтобы
+          сделать сайт еще удобнее. Настроить можно в браузере
         </p>
-      </div>
-
-      <div className="cookie-popup__actions">
-        <a href="/privacy" className="cookie-popup__link">
-          Подробнее
-        </a>
-        <button type="button" className="cookie-popup__button" onClick={acceptCookies}>
-          Принять
-        </button>
+        <div className="cookie-popup__actions">
+          <a href="/privacy" className="cookie-popup__settings">
+            Настройки
+          </a>
+          <button type="button" className="cookie-popup__button" onClick={acceptCookies}>
+            Принять
+          </button>
+        </div>
       </div>
     </aside>
   );
