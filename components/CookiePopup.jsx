@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Button from "./button";
 
 const COOKIE_CONSENT_KEY = "svet-cookie-consent";
 
@@ -33,12 +34,12 @@ export default function CookiePopup() {
           сделать сайт еще удобнее. Настроить можно в браузере
         </p>
         <div className="cookie-popup__actions">
-          <a href="/privacy" className="cookie-popup__settings">
+          <Button href="/privacy" theme="default">
             Настройки
-          </a>
-          <button type="button" className="cookie-popup__button" onClick={acceptCookies}>
+          </Button>
+          <Button theme="primary" onClick={acceptCookies}>
             Принять
-          </button>
+          </Button>
         </div>
       </div>
     </aside>

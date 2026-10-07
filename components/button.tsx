@@ -6,6 +6,7 @@ type ButtonProps = {
   target?: "_self" | "_blank" | "_parent" | "_top";
   rel?: string;
   theme?: "default" | "dark" | "primary";
+  onClick?: () => void;
 };
 
 export default function Button({
@@ -14,6 +15,7 @@ export default function Button({
   target,
   rel,
   theme = "default",
+  onClick,
 }: ButtonProps) {
   const buttonClassName = `button button--glass${theme === "dark" ? " button--dark" : theme === "primary" ? " button--primary" : ""}`;
   if (href) {
@@ -25,7 +27,7 @@ export default function Button({
   }
 
   return (
-    <button className={buttonClassName} type="button">
+    <button className={buttonClassName} type="button" onClick={onClick}>
       <span className="button__text">{children}</span>
     </button>
   );

@@ -375,7 +375,8 @@ button:active {
   margin-top: 34px;
 }
 
-.cookie-popup__settings {
+.cookie-popup__settings,
+.cookie-popup .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -390,26 +391,22 @@ button:active {
   text-decoration: none;
 }
 
-.cookie-popup__button {
+.cookie-popup .button {
   min-width: 140px;
   min-height: 52px;
   padding: 0 22px;
   border: 0;
   border-radius: 14px;
-  background: linear-gradient(135deg, #8b4de0, #a278e4);
+  background: transparent;
   color: #fff;
   cursor: pointer;
   font: inherit;
-  font-size: 12px;
+  font-size: 18px;
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
-.cookie-popup__button:hover {
-  opacity: .86;
-}
-
-.cookie-popup__button:active {
-  transform: scale(.97);
+.cookie-popup .button--primary {
+  background: linear-gradient(135deg, #8b4de0, #a278e4);
 }
 
 @keyframes cookie-popup-in {
@@ -434,7 +431,7 @@ button:active {
   .cookie-popup__title { font-size: 18px; }
   .cookie-popup__text { margin-top: 8px; font-size: 14px; }
   .cookie-popup__actions { justify-content: flex-start; gap: 8px; margin-top: 18px; }
-  .cookie-popup__settings, .cookie-popup__button { min-width: 0; min-height: 42px; padding: 0 14px; font-size: 14px; }
+  .cookie-popup .button { min-width: 0; min-height: 42px; padding: 0 14px; font-size: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
