@@ -3234,7 +3234,7 @@ button:active {
 .review-card { height: 250px; }
 .review-card { overflow: visible; }
 
-.review-card { height: fit-content; }
+.review-card { height: 204px; }
 
 @media (max-width: 900px) {
   .reviews-section__row { grid-template-columns: repeat(7, min(78vw, 280px)); }
