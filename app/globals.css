@@ -3162,6 +3162,12 @@ button:active {
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
+
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow-wrap: anywhere;
 }
 
 /* Reviews use the same clean cards and typography as the About block. */
