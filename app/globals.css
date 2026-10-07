@@ -269,12 +269,12 @@ button:active {
 .cookie-popup {
   position: fixed;
   z-index: 1000;
-  right: auto;
+  right: 30px;
   bottom: 16px;
-  left: 50%;
+  left: auto;
   width: 33.333vw;
   min-width: 420px;
-  margin-left: -16.6665vw;
+  margin-left: 0;
   display: grid;
   grid-template-columns: 196px minmax(0, 1fr);
   align-items: center;
@@ -351,7 +351,7 @@ button:active {
 
 .cookie-popup__title {
   color: #17151a;
-  font-size: 26px;
+  font-size: 16px;
   line-height: 1.1;
   font-weight: 600;
 }
@@ -360,7 +360,7 @@ button:active {
   max-width: 780px;
   margin-top: 18px;
   color: #17151a;
-  font-size: 21px;
+  font-size: 14px;
   line-height: 1.2;
 }
 
