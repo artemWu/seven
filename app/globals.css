@@ -269,8 +269,8 @@ button:active {
 .cookie-popup {
   position: fixed;
   z-index: 1000;
-  right: 30px;
-  bottom: 16px;
+  right: 12px;
+  bottom: 12px;
   left: auto;
   width: 33.333vw;
   min-width: 420px;
@@ -278,8 +278,8 @@ button:active {
   display: grid;
   grid-template-columns: 196px minmax(0, 1fr);
   align-items: center;
-  gap: 32px;
-  padding: 18px 20px;
+  gap: 24px;
+  padding: 12px;
   border: 0;
   border-radius: 38px;
   corner-shape: round;
@@ -335,6 +335,9 @@ button:active {
   min-width: 0;
   width: auto;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
 }
 
 .cookie-popup__image {
@@ -358,7 +361,7 @@ button:active {
 
 .cookie-popup__text {
   max-width: 780px;
-  margin-top: 18px;
+  margin-top: 4px;
   color: #17151a;
   font-size: 14px;
   line-height: 1.2;
@@ -372,7 +375,7 @@ button:active {
   align-items: center;
   justify-content: flex-end;
   gap: 14px;
-  margin-top: 34px;
+  margin-top: 24px;
 }
 
 .cookie-popup__settings,
