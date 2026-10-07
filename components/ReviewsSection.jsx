@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "./button";
 import Reveal from "./Reveal";
 
@@ -66,6 +67,20 @@ function Star() {
 }
 
 export default function ReviewsSection() {
+  const [hint, setHint] = useState(null);
+
+  const showHint = (event, text) => {
+    const width = 360;
+    const height = 190;
+    const gap = 16;
+    const x = Math.min(event.clientX + gap, window.innerWidth - width - 12);
+    const y = event.clientY + height + gap > window.innerHeight
+      ? Math.max(12, event.clientY - height - gap)
+      : event.clientY + gap;
+
+    setHint({ text, x: Math.max(12, x), y });
+  };
+
   return (
     <section className="reviews-section" id="reviews">
       <Reveal y={12}>
@@ -116,7 +131,12 @@ export default function ReviewsSection() {
                   </div>
                 </div>
 
-                <div className="review-card__text-wrap" data-full-text={review.text}>
+                <div
+                  className="review-card__text-wrap"
+                  onMouseEnter={(event) => showHint(event, review.text)}
+                  onMouseMove={(event) => showHint(event, review.text)}
+                  onMouseLeave={() => setHint(null)}
+                >
                   <div className="review-card__text">
                     {review.text}
                   </div>
@@ -129,6 +149,16 @@ export default function ReviewsSection() {
         ))}
       </div>
       </Reveal>
+
+      {hint && (
+        <div
+          className="reviews-section__tooltip"
+          style={{ left: hint.x, top: hint.y }}
+          role="tooltip"
+        >
+          {hint.text}
+        </div>
+      )}
 
       <Reveal delay={240} y={16}>
         <Button href="#reviews" target="_blank" rel="noopener noreferrer" theme="dark">

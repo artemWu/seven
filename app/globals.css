@@ -3175,42 +3175,39 @@ button:active {
   min-width: 0;
 }
 
-@media (min-width: 901px) {
-  .review-card__text-wrap::after {
-    position: absolute;
-    z-index: 20;
-    left: 0;
-    bottom: calc(100% + 10px);
-    width: min(360px, 28vw);
-    max-height: 180px;
-    padding: 14px 16px;
-    border: 1px solid rgb(255 255 255 / 18%);
-    border-radius: 20px;
-    corner-shape: superellipse(1.5);
-    background: linear-gradient(135deg, #161618, #646466);
-    color: #fff;
-    content: attr(data-full-text);
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.45;
-    text-align: left;
-    white-space: normal;
-    overflow: auto;
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(6px) scale(.98);
-    transform-origin: bottom left;
-    box-shadow: 0 12px 28px rgb(22 22 24 / 22%);
-    transition: opacity 180ms ease, visibility 180ms ease, transform 220ms cubic-bezier(.22, 1, .36, 1);
-  }
+.reviews-section__tooltip {
+  position: fixed;
+  z-index: 9999;
+  width: min(360px, calc(100vw - 24px));
+  max-height: 190px;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 20px;
+  corner-shape: superellipse(1.5);
+  background: linear-gradient(135deg, #161618, #646466);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  text-align: left;
+  overflow: auto;
+  pointer-events: none;
+  box-shadow: 0 12px 28px rgb(22 22 24 / 22%);
+  animation: reviews-tooltip-in 160ms ease both;
+}
 
-  .review-card__text-wrap:hover::after,
-  .review-card__text-wrap:focus-within::after {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
-  }
+@keyframes reviews-tooltip-in {
+  from { opacity: 0; transform: scale(.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (min-width: 901px) {
+  .review-card__text-wrap { cursor: help; }
+}
+
+@media (max-width: 900px) {
+  .reviews-section__tooltip { display: none; }
 }
 
 /* Reviews use the same clean cards and typography as the About block. */
