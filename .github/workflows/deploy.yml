@@ -41,6 +41,11 @@ jobs:
       - name: Build
         run: pnpm exec next build
 
+      - name: Fix public asset paths for project Pages site
+        run: |
+          find out -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' \) -print0 \
+            | xargs -0 perl -pi -e 's#(?<!/seven)/(images|svg|icons)/#/seven/$1/#g'
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
