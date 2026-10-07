@@ -201,6 +201,22 @@ main {
   }
 }
 
+/* Shared interaction feedback for text links and controls. */
+a,
+button {
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+a:hover,
+button:hover {
+  opacity: .6 !important;
+}
+
+a:active,
+button:active {
+  transform: scale(.9) !important;
+}
+
 @media (max-width: 899px) {
   .why-us__viewport {
     position: relative;
@@ -621,67 +637,6 @@ main {
   color: #77716c;
   font-size: 10px;
   line-height: 12px;
-}
-
-/* =========================
-   BOOKING BUTTON
-========================= */
-
-.booking-glow {
-  width: 178px;
-  height: 48px;
-  margin-top: 24px;
-}
-
-.booking-button {
-  position: relative;
-
-  display: grid;
-  place-items: center;
-
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-
-  border: 0;
-  border-radius: 12px;
-
-  background: transparent;
-
-  color: #d8d2cc;
-
-  font-size: 16px;
-  font-weight: 400;
-
-  text-decoration: none;
-
-  transition:
-    transform 180ms ease,
-    background-color 180ms ease;
-}
-
-.booking-button > span {
-  position: relative;
-  z-index: 2;
-
-  display: inline-block;
-
-  transform: scaleX(1.1);
-  transform-origin: center;
-}
-
-.booking-button:hover {
-  background: rgba(255, 255, 255, 0.025);
-}
-
-.booking-button:active {
-  transform: scale(0.98);
-}
-
-.booking-button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
 }
 
 .booking-modal {
@@ -1458,6 +1413,16 @@ main {
 
 .button--primary {
   background: linear-gradient(90deg, #9d7fd9 0%, #7b61c9 100%);
+}
+
+.booking-section .button--dark {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  corner-shape: superellipse(1.5);
+  background: linear-gradient(90deg, #9d7fd9 0%, #7b61c9 100%);
+  background-clip: padding-box;
+  animation: hero-button-pulse 2.4s ease-in-out infinite;
 }
 
 .button--glass::before {
@@ -2260,9 +2225,6 @@ main {
     scroll-behavior: auto;
   }
 
-  .booking-glow {
-    --edge-proximity: 100;
-  }
 }
 
 
@@ -2749,6 +2711,35 @@ main {
     inset 0 0 40px rgba(0, 0, 0, 0.08);
 }
 
+/* Contacts card: branch switcher and address details. */
+.contacts-card { border-radius: 24px; background: #fff; color: #17151a; box-shadow: 0 10px 28px rgb(22 22 24 / 5%); }
+.contacts-card__glass { display: none; }
+.contacts-card__inner { padding: 28px 24px 24px; gap: 0; }
+.contacts-card .services-table__tabs { width: 100%; margin-bottom: 0; }
+.contacts-card .services-table__tab { flex: 1 1 0; padding-inline: 10px; }
+.contacts-card__tabs { display: flex; align-items: center; gap: 0; min-height: 62px; padding: 4px; border-radius: 16px; background: #fafafa; }
+.contacts-card__tab { flex: 1; min-height: 54px; padding: 0 10px; border: 0; border-radius: 14px; background: transparent; color: #45434a; font: inherit; font-size: 15px; font-weight: 600; white-space: nowrap; cursor: pointer; }
+.contacts-card__tab--active { background: linear-gradient(135deg, #7454c8, #a184e6); color: #fff; }
+.contacts-card__details { position: relative; flex: 1; min-height: 350px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.contacts-card__copy { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 12px; }
+.contacts-card__address { color: #17151a; font-size: 24px; font-weight: 600; line-height: 1.05; letter-spacing: -.05em; opacity: 1; text-decoration: none; }
+.contacts-card__phone, .contacts-card__station { color: #17151a; font-size: 16px; font-weight: 500; line-height: 1; letter-spacing: -.03em; opacity: 1; text-decoration: none; }
+.contacts-card__email { color: #8b4bdd; font-size: 18px; font-weight: 600; line-height: 1; letter-spacing: -.03em; text-decoration: none; }
+.contacts-map__frame { filter: none; }
+.contacts-map::after { display: none; }
+
+@media (max-width: 767px) {
+  .contacts-card__inner { padding: 16px; }
+  .contacts-card__details { min-height: 260px; }
+  .contacts-card__address { font-size: 24px; }
+}
+
+@media (max-width: 899px) {
+  .contacts-card { height: auto; }
+  .contacts-card__inner { height: auto; }
+  .contacts-card__details { min-height: 220px; flex: none; }
+}
+
 /* ========================================
    FOOTER
 ======================================== */
@@ -2898,6 +2889,25 @@ main {
   text-align: center;
 }
 
+/* Updated footer layout. */
+.footer { min-height: 0; padding: 16px; background: var(--background); }
+.footer__inner { max-width: none; min-height: 470px; padding: 28px 26px 20px; border-radius: 44px; corner-shape: superellipse(1.8); background: linear-gradient(135deg, #171719 0%, #646466 100%); color: #fff; }
+.footer__brand { width: 100%; height: auto; flex-direction: column; align-items: flex-start; justify-content: flex-start; }
+.footer__hours { display: flex; flex-direction: column; gap: 8px; margin-top: 28px; color: rgba(255,255,255,.72); font-size: 15px; line-height: 1; }
+.footer__hours strong { color: #fff; font-size: 22px; }
+.footer__disclaimer { max-width: 360px; margin: auto 0 0; color: rgba(255,255,255,.35); font-size: 11px; line-height: 1.35; }
+.footer__group-title { color: rgba(255,255,255,.5); font-size: 14px; font-weight: 400; }
+.footer__contact-label { color: rgba(255,255,255,.5); font-size: 14px; line-height: 1.2; font-weight: 400; }
+.footer__contact-group { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.footer__contact-group .footer__contact-label { color: rgba(255,255,255,.5); font-size: 14px; line-height: 1.2; text-transform: none; }
+.footer__contact-value { color: #fff; font-size: 16px; line-height: 1.45; font-weight: 500; text-decoration: none; }
+.footer__link { color: #fff; opacity: 1; font-size: 16px; line-height: 1.45; font-weight: 500; }
+.footer__copyright { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 24px; margin-top: auto; padding-bottom: 0; color: rgba(255,255,255,.5); opacity: 1; font-size: 11px; line-height: 1.35; text-align: left; }
+.footer__copyright .footer__disclaimer { max-width: 360px; margin: 0; }
+.footer__copyright a { color: inherit; text-decoration: none; white-space: nowrap; }
+.footer__copyright a { justify-self: center; }
+.footer__copyright strong { justify-self: end; color: #9a6af1; font-size: 16px; font-weight: 500; white-space: nowrap; }
+
 
 /* ========================================
    FOOTER DESKTOP
@@ -2907,11 +2917,11 @@ main {
   .footer {
     min-height: auto;
 
-    padding: 80px 24px 40px;
+    padding: 16px;
   }
 
   .footer__inner {
-    max-width: 1200px;
+    max-width: none;
 
     display: grid;
     grid-template-columns:
@@ -2922,7 +2932,7 @@ main {
 
     align-items: start;
 
-    gap: 48px;
+    gap: 72px;
   }
 
   .footer__brand {
@@ -2943,10 +2953,22 @@ main {
 
     width: 100%;
 
-    margin-top: 48px;
+    margin-top: auto;
 
-    text-align: center;
+    text-align: left;
   }
+}
+
+@media (max-width: 767px) {
+  .footer { padding: 8px 4px 16px; }
+  .footer__inner { min-height: 620px; padding: 28px 20px 20px; align-items: flex-start; gap: 28px; }
+  .footer__brand { width: 100%; height: auto; align-items: flex-start; justify-content: flex-start; }
+  .footer__logo { width: 190px; }
+  .footer__group { align-items: flex-start; }
+  .footer__group-title, .footer__link { text-align: left; }
+  .footer__link { font-size: 18px; }
+  .footer__copyright { grid-template-columns: 1fr; gap: 14px; width: 100%; }
+  .footer__copyright strong { justify-self: start; }
 }
 
 /* ========================================
@@ -3097,10 +3119,11 @@ main {
 
 @media (min-width: 768px) {
   .contacts-section__content {
-    max-width: 1200px;
+    max-width: none;
+    grid-auto-rows: 520px;
 
     display: grid;
-    grid-template-columns: minmax(300px, 1fr) minmax(0, 2fr);
+    grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
 
     align-items: stretch;
   }
@@ -3108,11 +3131,13 @@ main {
   .contacts-card {
     grid-column: 1;
     grid-row: 1;
+    height: 520px;
   }
 
   .contacts-map {
     grid-column: 2;
     grid-row: 1;
+    height: 520px;
   }
 
   .contacts-section__image {

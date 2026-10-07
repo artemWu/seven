@@ -1,30 +1,11 @@
-import BorderGlow from "@/components/BorderGlow";
+import Button from "./button";
 
 export default function BookingSection() {
   return (
     <section className="booking-section">
-      <BorderGlow
-        className="booking-glow"
-        edgeSensitivity={12}
-        glowColor="29 12 58"
-        backgroundColor="#171513"
-        borderRadius={12}
-        glowRadius={40}
-        glowIntensity={1.45}
-        coneSpread={28}
-        animated
-        colors={["#a29588", "#f2ebe4", "#a29588"]}
-        fillOpacity={0.18}
-      >
-        <a
-          className="booking-button"
-          href="https://n399707.yclients.com/group:12717/city:all#1"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span>Записаться</span>
-        </a>
-      </BorderGlow>
+      <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer" theme="dark">
+        Записаться
+      </Button>
     </section>
   );
 }
