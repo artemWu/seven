@@ -129,7 +129,7 @@ export default function ReviewsSection() {
       </Reveal>
 
       <Reveal delay={240} y={16}>
-        <Button href="#reviews" target="_blank" rel="noopener noreferrer" theme="dark">
+        <Button href="#reviews" target="_blank" rel="noopener noreferrer" theme="secondary">
           все отзывы
         </Button>
       </Reveal>

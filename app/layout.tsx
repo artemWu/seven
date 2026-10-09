@@ -23,6 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(() => { const ua = navigator.userAgent; const safari = /Safari/i.test(ua) && !/Chrome|CriOS|Android/i.test(ua); document.documentElement.classList.add(safari ? "is-safari" : "is-chrome-like"); })();`,
+        }}
+      />
       <body className="antialiased">
         {children}
         <CookiePopup />

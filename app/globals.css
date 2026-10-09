@@ -201,6 +201,48 @@ main {
   }
 }
 
+@media (max-width: 760px) {
+  .button,
+  .hero .button--dark,
+  .booking-section .button--dark,
+  .site-header__cta .button {
+    border-radius: 12px !important;
+  }
+
+  .services-table__tabs,
+  .services-table__tab-indicator,
+  .services-table__tab,
+  .contacts-card__tabs,
+  .contacts-card__tab {
+    border-radius: 12px !important;
+  }
+}
+
+/* Mobile cards: use a plain radius. This intentionally does not depend on
+   browser detection, since Safari may not expose corner-shape reliably to
+   @supports. */
+@media (max-width: 760px) {
+  .service-card,
+  .why-us__card,
+  .team-card,
+  .about-section__card,
+  .review-card {
+    border-radius: 24px !important;
+  }
+
+  .barber-card {
+    border-radius: 16px !important;
+  }
+}
+
+/* Barber/team cards use a slightly larger mobile radius in every browser. */
+@media (max-width: 760px) {
+  .team-card,
+  .barber-card {
+    border-radius: 24px !important;
+  }
+}
+
 /* Shared interaction feedback for text links and controls. */
 a,
 button {
@@ -246,7 +288,7 @@ button:active {
 }
 
 /* Safari fallback: use stable rounded corners instead of experimental superellipse shaping. */
-@supports (-webkit-touch-callout: none) {
+html.is-safari {
   * {
     corner-shape: round;
   }
@@ -276,14 +318,14 @@ button:active {
   min-width: 420px;
   margin-left: 0;
   display: grid;
-  grid-template-columns: 196px minmax(0, 1fr);
+  grid-template-columns: fit-content(150px) minmax(0, 1fr);
   align-items: center;
   gap: 24px;
   padding: 12px;
   border: 0;
   border-radius: 38px;
   corner-shape: round;
-  background: #f4f4f4;
+  background: rgb(255 255 255 / 80%);
   color: #17151a;
   isolation: isolate;
   overflow: hidden;
@@ -341,8 +383,8 @@ button:active {
 }
 
 .cookie-popup__image {
-  width: 188px;
-  height: 188px;
+  width: 150px;
+  height: 150px;
   object-fit: contain;
   border-radius: 28px;
 }
@@ -384,20 +426,25 @@ button:active {
   align-items: center;
   justify-content: center;
   min-width: 164px;
-  min-height: 52px;
-  padding: 0 22px;
+  min-height: 44px;
+  padding: 0 18px;
   border: 1px solid #8b4de0;
   border-radius: 14px;
+  corner-shape: round;
   color: #17151a;
   font-size: 18px;
   font-weight: 600;
   text-decoration: none;
 }
 
+@supports (corner-shape: superellipse(1.5)) {
+  .cookie-popup .button { corner-shape: superellipse(1.5); }
+}
+
 .cookie-popup .button {
-  min-width: 140px;
-  min-height: 52px;
-  padding: 0 22px;
+  min-width: 120px;
+  min-height: 44px;
+  padding: 0 18px;
   border: 0;
   border-radius: 14px;
   background: transparent;
@@ -433,7 +480,7 @@ button:active {
   .cookie-popup__image { width: 74px; height: 74px; border-radius: 18px; }
   .cookie-popup__title { font-size: 18px; }
   .cookie-popup__text { margin-top: 8px; font-size: 14px; }
-  .cookie-popup__actions { justify-content: flex-start; gap: 8px; margin-top: 18px; }
+  .cookie-popup__actions { justify-content: flex-end; gap: 8px; margin-top: 18px; }
   .cookie-popup .button { min-width: 0; min-height: 42px; padding: 0 14px; font-size: 14px; }
 }
 
@@ -928,7 +975,7 @@ button:active {
 
 .services-table {
   width: 100%;
-  margin: 8px auto 36px;
+  margin: 8px auto 0;
   padding: 24px;
   border-radius: 24px;
   background: #fff;
@@ -1046,12 +1093,24 @@ button:active {
 }
 
 .services-table__scroll {
-  overflow: visible;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
 }
 
 .services-table__scroll-mask {
   position: relative;
   min-width: 0;
+  max-width: 100%;
+}
+
+@media (min-width: 761px) {
+  .services-table__scroll {
+    align-self: start;
+    height: fit-content;
+  }
 }
 
 @media (max-width: 760px) {
@@ -1108,6 +1167,7 @@ button:active {
 .services-table table {
   width: 100%;
   min-width: 760px;
+  table-layout: fixed;
   border-collapse: collapse;
 }
 
@@ -1127,6 +1187,11 @@ button:active {
 
 .services-table thead th:first-child,
 .services-table tbody th { text-align: left; }
+
+.services-table thead th:first-child,
+.services-table tbody th {
+  width: 40%;
+}
 
 .services-table__level {
   position: relative;
@@ -1197,6 +1262,21 @@ button:active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
+}
+
+.services-table__hint {
+  background: linear-gradient(135deg, #111113 0%, #3b3b40 100%);
+  color: #fff;
+}
+
+.services-table__hint-trigger:hover .services-table__hint,
+.services-table__hint-trigger:focus-visible .services-table__hint {
+  opacity: 1;
+}
+
+.services-table__hint-trigger:hover,
+.services-table__hint-trigger:focus-visible {
+  opacity: 1 !important;
 }
 
 .services-table tbody th {
@@ -1447,8 +1527,26 @@ button:active {
   background-clip: padding-box;
 }
 
+.button--glass.button--secondary {
+  border: 1px solid #8b4de0;
+}
+
 .button--primary {
   background: linear-gradient(90deg, #9d7fd9 0%, #7b61c9 100%);
+}
+
+.button--primary .button__text,
+.button--dark .button__text {
+  color: #fff;
+}
+
+.button--secondary {
+  border: 1px solid #8b4de0;
+  background: transparent;
+}
+
+.button--secondary .button__text {
+  color: #17151a;
 }
 
 .booking-section .button--dark {
@@ -1512,6 +1610,24 @@ button:active {
 
   transform: scaleX(1.1);
   transform-origin: center;
+}
+
+.button--small {
+  min-height: 40px;
+  padding: 6px 14px;
+  border-radius: 12px;
+}
+
+.button--small .button__text {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.cookie-popup .button--small {
+  min-width: 0;
+  min-height: 40px;
+  padding: 6px 14px;
+  font-size: 12px;
 }
 
 /* =========================
@@ -2996,7 +3112,7 @@ button:active {
 }
 
 @media (max-width: 767px) {
-  .footer { padding: 8px 4px 16px; }
+  .footer { margin-top: 60px; padding: 8px 4px 16px; }
   .footer__inner { min-height: 620px; padding: 28px 20px 20px; align-items: flex-start; gap: 28px; }
   .footer__brand { width: 100%; height: auto; align-items: flex-start; justify-content: flex-start; }
   .footer__logo { width: 190px; }
@@ -3208,6 +3324,39 @@ button:active {
 
 /* Reviews use the same clean cards and typography as the About block. */
 .review-card { border-radius: 36px; corner-shape: superellipse(1.8); background: #fff; color: #17151a; box-shadow: 0 10px 28px rgb(22 22 24 / 5%); }
+
+/* Safari: keep ordinary rounded corners. This must come after the component
+   rules because those rules otherwise override the earlier Safari fallback. */
+html.is-safari {
+  *,
+  *::before,
+  *::after {
+    corner-shape: round !important;
+  }
+
+  .service-card,
+  .why-us__card,
+  .team-card {
+    border-radius: 24px !important;
+    corner-shape: round !important;
+    overflow: hidden;
+    isolation: isolate;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .about-section__card,
+  .review-card {
+    border-radius: 36px !important;
+    corner-shape: round !important;
+    overflow: hidden;
+    isolation: isolate;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
 .review-card__glass { display: none; }
 .review-card__inner { padding: 16px; }
 .review-card__name, .review-card__text { color: #17151a; }
@@ -3217,6 +3366,7 @@ button:active {
 
 .reviews-section { overflow: hidden; }
 .reviews-section__list { width: max-content; display: flex; flex-direction: column; gap: 12px; align-self: center; }
+.reviews-section > .reveal:last-child { width: fit-content; align-self: center; }
 .reviews-section__row { display: grid; grid-template-columns: repeat(7, 280px); gap: 12px; will-change: transform; }
 .reviews-section__row--1, .reviews-section__row--3 { animation: reviews-drift-right 42s ease-in-out infinite alternate; }
 .reviews-section__row--2 { animation: reviews-drift-left 48s ease-in-out infinite alternate; }

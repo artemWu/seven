@@ -133,7 +133,7 @@ export default function Home() {
           href="https://n399707.yclients.com/group:12717/city:all#1"
           target="_blank"
           rel="noopener noreferrer"
-          theme="primary"
+          theme="secondary"
         >
           все услуги
         </Button>
