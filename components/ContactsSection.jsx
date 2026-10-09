@@ -19,6 +19,14 @@ export default function ContactsSection() {
         Контакты
       </h2>
 
+      <div className="contacts-mobile-tabs">
+        <ServicesTabs
+          items={branches.map(({ name }) => name)}
+          activeIndex={activeBranch}
+          onChange={setActiveBranch}
+        />
+      </div>
+
       <div className="contacts-section__content">
 
         {/* MAP */}

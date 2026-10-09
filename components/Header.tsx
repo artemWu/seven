@@ -21,21 +21,6 @@ export default function Header() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const previousBodyOverflow = document.body.style.overflow;
-    const previousHtmlOverflow = document.documentElement.style.overflow;
-
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
-    }
-
-    return () => {
-      document.body.style.overflow = previousBodyOverflow;
-      document.documentElement.style.overflow = previousHtmlOverflow;
-    };
-  }, [isMenuOpen]);
-
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
@@ -79,7 +64,7 @@ export default function Header() {
       </button>
 
       <div className={`mobile-menu${isMenuOpen ? " mobile-menu--open" : ""}`} aria-hidden={!isMenuOpen}>
-        <div className="mobile-menu__topline"><span>Навигация</span><span>Сотрудничество</span></div>
+        <div className="mobile-menu__topline"><span>Навигация</span></div>
         <div className="mobile-menu__links">
           <nav aria-label="Мобильная навигация">
             <a href="#top" onClick={closeMenu}>о нас</a>
@@ -88,6 +73,7 @@ export default function Header() {
             <a href="#reviews" onClick={closeMenu}>галерея</a>
           </nav>
           <nav aria-label="Сотрудничество">
+            <span className="mobile-menu__subheading">Сотрудничество</span>
             <a href="#contacts" onClick={closeMenu}>вакансии</a>
             <a href="#masterclasses" onClick={closeMenu}>мастер-классы</a>
             <a href="#contacts" onClick={closeMenu}>стать моделью</a>
