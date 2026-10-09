@@ -22,8 +22,18 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+    };
   }, [isMenuOpen]);
 
   const closeMenu = () => setIsMenuOpen(false);

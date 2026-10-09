@@ -32,6 +32,10 @@ body {
   font-variation-settings: "wdth" 125;
 }
 
+body {
+  padding-top: env(safe-area-inset-top);
+}
+
 a {
   -webkit-tap-highlight-color: transparent;
 }
@@ -315,7 +319,7 @@ button:active {
     width: 24px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 150ms ease;
+  transition: opacity 420ms ease;
   }
   .why-us__viewport::before { left: 0; background: linear-gradient(to right, var(--background), transparent); }
   .why-us__viewport::after { right: 0; background: linear-gradient(to left, var(--background), transparent); }
@@ -3170,7 +3174,7 @@ html.is-safari {
   width: 100%;
   min-width: 0;
   opacity: 0;
-  transform: translateY(var(--reveal-y, 24px));
+  transform: translate(var(--reveal-x, 0px), var(--reveal-y, 24px));
   transition:
     opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 700ms cubic-bezier(0.22, 1, 0.36, 1);

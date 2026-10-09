@@ -7,9 +7,11 @@ export default function Reveal({
   className = "",
   delay = 0,
   y = 24,
+  x = 0,
+  visibleOnMount = false,
 }) {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(visibleOnMount);
 
   useEffect(() => {
     const element = ref.current;
@@ -47,6 +49,7 @@ export default function Reveal({
       style={{
         "--reveal-delay": `${delay}ms`,
         "--reveal-y": `${y}px`,
+        "--reveal-x": `${x}px`,
       }}
     >
       {children}

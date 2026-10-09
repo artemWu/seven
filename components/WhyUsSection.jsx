@@ -17,8 +17,8 @@ export default function WhyUsSection() {
   const handleScroll = () => {
     setIsScrolling(true);
     window.clearTimeout(scrollTimeout.current);
-    scrollTimeout.current = window.setTimeout(() => setIsScrolling(false), 300);
+    scrollTimeout.current = window.setTimeout(() => setIsScrolling(false), 120);
   };
 
-  return <section className="why-us" id="why-us"><Reveal y={18}><h2 className="why-us__eyebrow">почему мы</h2></Reveal><div className={`why-us__viewport${isScrolling ? " why-us__viewport--scrolling" : ""}`}><div className="why-us__grid" onScroll={handleScroll}>{reasons.map((reason, index) => <Reveal key={reason.title} delay={index * 90} y={24}><article className={`why-us__card why-us__card--${reason.theme}`}><div className="why-us__copy"><h3>{reason.title}</h3><p>{reason.text}</p></div><img className="why-us__image" src={reason.image} alt="" /></article></Reveal>)}</div></div></section>;
+  return <section className="why-us" id="why-us"><Reveal y={18}><h2 className="why-us__eyebrow">почему мы</h2></Reveal><div className={`why-us__viewport${isScrolling ? " why-us__viewport--scrolling" : ""}`}><div className="why-us__grid" onScroll={handleScroll}>{reasons.map((reason, index) => <Reveal key={reason.title} delay={index === 1 ? 0 : index * 90} y={0} x={28} visibleOnMount={index === 1}><article className={`why-us__card why-us__card--${reason.theme}`}><div className="why-us__copy"><h3>{reason.title}</h3><p>{reason.text}</p></div><img className="why-us__image" src={reason.image} alt="" /></article></Reveal>)}</div></div></section>;
 }
