@@ -21,9 +21,16 @@ export default function Header() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isMenuOpen]);
+
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
     <header
-      className={`site-header${isLight ? " site-header--light" : ""}`}
+      className={`site-header${isLight ? " site-header--light" : ""}${isMenuOpen ? " site-header--menu-open" : ""}`}
       aria-label="Основная навигация"
     >
       <a className="site-header__logo" href="#top" aria-label="Seven — наверх">
@@ -60,6 +67,33 @@ export default function Header() {
         <Image src="/icons/menu.svg" alt="" width={24} height={24} priority />
         <Image src="/icons/close.svg" alt="" width={24} height={24} priority />
       </button>
+
+      <div className={`mobile-menu${isMenuOpen ? " mobile-menu--open" : ""}`} aria-hidden={!isMenuOpen}>
+        <div className="mobile-menu__topline"><span>Навигация</span><span>Сотрудничество</span></div>
+        <div className="mobile-menu__links">
+          <nav aria-label="Мобильная навигация">
+            <a href="#top" onClick={closeMenu}>о нас</a>
+            <a href="#services" onClick={closeMenu}>услуги</a>
+            <a href="#team" onClick={closeMenu}>команда</a>
+            <a href="#reviews" onClick={closeMenu}>галерея</a>
+          </nav>
+          <nav aria-label="Сотрудничество">
+            <a href="#contacts" onClick={closeMenu}>вакансии</a>
+            <a href="#masterclasses" onClick={closeMenu}>мастер-классы</a>
+            <a href="#contacts" onClick={closeMenu}>стать моделью</a>
+          </nav>
+        </div>
+        <div className="mobile-menu__contacts">
+          <span>Номер сети</span>
+          <a href="tel:+79777977177">+7 (977) 797 71 77</a>
+          <a href="mailto:7studioru@gmail.com">7studioru@gmail.com</a>
+        </div>
+        <div className="mobile-menu__footer">
+          <div className="mobile-menu__hours">Ежедневно<strong>с 10:00 до 22:00</strong></div>
+          <Image src="/svg/seven-sign.svg" alt="7barbershop" width={224} height={60} unoptimized />
+          <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer" theme="primary">Записаться</Button>
+        </div>
+      </div>
     </header>
   );
 }

@@ -49,12 +49,12 @@ export default function Footer() {
         <div className="footer__group">
           <div className="footer__contact-group">
             <div className="footer__contact-label">Номер сети</div>
-            <a href="tel:+79992508424" className="footer__contact-value">+7 (999) 250 84 24</a>
+            <a href="tel:+79777977177" className="footer__contact-value">+7 (977) 797 71 77</a>
           </div>
           <div className="footer__contact-group">
             <div className="footer__contact-label">Сокол</div>
             <a href="#contacts" className="footer__contact-value">ул. Усиевича 27 к2</a>
-            <a href="tel:+79992508424" className="footer__contact-value">+7 (999) 250 84 24</a>
+            <a href="tel:+79646401594" className="footer__contact-value">+7 (964) 640 15 94</a>
           </div>
           <div className="footer__contact-group">
             <div className="footer__contact-label">Варшавская</div>

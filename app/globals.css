@@ -72,6 +72,10 @@ main {
   display: none;
 }
 
+.mobile-menu {
+  display: none;
+}
+
 @media (max-width: 899px) {
   .services,
   .team-section,
@@ -198,6 +202,41 @@ main {
   .site-header__menu-toggle.is-open img:last-child {
     opacity: 1;
     transform: rotate(0) scale(1);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 66px 16px 16px;
+    color: #fff;
+    background: linear-gradient(135deg, #18181a 0%, #656568 100%);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition: opacity 260ms ease, transform 320ms cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .mobile-menu--open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .mobile-menu__topline, .mobile-menu__links { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .mobile-menu__topline { margin-bottom: 12px; color: rgb(255 255 255 / 55%); font-size: 14px; text-transform: lowercase; }
+  .mobile-menu__links { padding-inline: 0; }
+  .mobile-menu__links nav { display: flex; flex-direction: column; gap: 16px; }
+  .mobile-menu__links a, .mobile-menu__contacts a { color: #fff; font-size: 16px; font-weight: 600; line-height: 1.15; text-decoration: none; }
+  .mobile-menu__contacts { display: flex; flex-direction: column; gap: 12px; margin-top: 52px; }
+  .mobile-menu__contacts span { color: rgb(255 255 255 / 55%); font-size: 14px; text-transform: lowercase; }
+  .mobile-menu__contacts a { font-size: 16px; }
+  .mobile-menu__footer { display: flex; flex-direction: column; gap: 24px; margin-top: auto; padding-top: 28px; border-top: 0; }
+  .mobile-menu__hours { display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: rgb(255 255 255 / 72%); text-transform: lowercase; }
+  .mobile-menu__hours strong { color: #fff; font-size: 16px; }
+  .mobile-menu__footer > img { width: min(170px, 58vw); height: auto; }
+  .mobile-menu__footer .button { width: 100%; min-height: 56px; border-radius: 16px !important; }
+
+  .site-header--menu-open .site-header__logo img,
+  .site-header--menu-open .site-header__menu-toggle img {
+    filter: brightness(0) invert(1);
   }
 }
 
