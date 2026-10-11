@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import ServicesTabs from "./ServicesTabs";
 
 type ServiceCategory = {
@@ -92,7 +93,7 @@ export default function ServicesTable() {
     <span className={`services-table__level services-table__level--${level}`}>
       <span>{lines.map((line) => <span key={line}>{line}<br /></span>)}</span>
       <button className="services-table__hint-trigger" type="button" aria-label={`Подробнее о грейде ${levelLabels[level]}`}>
-        <img src="/svg/interactive-icon.svg" alt="" />
+        <Image src="/svg/interactive-icon.svg" alt="" width={20} height={20} />
         <span className="services-table__hint">
           <strong>{levelLabels[level]}</strong>
           <span>{levelHints[level]}</span>
@@ -107,7 +108,7 @@ export default function ServicesTable() {
 
       <div className="services-table__content" key={category.label}>
         <div className="services-table__photo-wrap">
-          <img className="services-table__photo" src={category.image} alt="" />
+          <Image className="services-table__photo" src={category.image} alt="" width={520} height={520} sizes="(max-width: 760px) 60vw, 28vw" />
         </div>
         <div className={`services-table__scroll-mask${hasMoreColumns ? " services-table__scroll-mask--right" : ""}`}>
           <div

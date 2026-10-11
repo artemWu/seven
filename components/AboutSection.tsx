@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import Reveal from "./Reveal";
 
 type CountUpProps = { value: number; suffix?: string };
@@ -53,7 +54,7 @@ export default function AboutSection() {
                 {fact.value === "ТОП-10" ? <><span>ТОП-</span><CountUp value={10} /></> : fact.value === "83%" ? <CountUp value={83} suffix="%" /> : fact.value}
               </h3>
               <p>{fact.label}</p>
-              {fact.image && <img className="about-section__image" src={fact.image} alt="Награда Яндекс Карты" />}
+              {fact.image && <Image className="about-section__image" src={fact.image} alt="Награда Яндекс Карты" width={240} height={240} sizes="(max-width: 760px) 40vw, 20vw" />}
             </article>
           </Reveal>
         ))}

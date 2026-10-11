@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Button from "./button";
 
 const COOKIE_CONSENT_KEY = "svet-cookie-consent";
@@ -25,7 +26,7 @@ export default function CookiePopup() {
 
   return (
     <aside className="cookie-popup" role="dialog" aria-label="Уведомление о cookies">
-      <img className="cookie-popup__image" src="/images/cookie-heart.webp" alt="" />
+      <Image className="cookie-popup__image" src="/images/cookie-heart.webp" alt="" width={160} height={160} sizes="160px" />
       <div className="cookie-popup__content">
         <p className="cookie-popup__title">Мы заботимся о вашем удобстве</p>
         <p className="cookie-popup__text">

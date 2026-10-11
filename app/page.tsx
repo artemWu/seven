@@ -80,9 +80,9 @@ export default function Home() {
           <Reveal delay={340} y={16}>
             <div className="location">
               <div className="location__stations" aria-label="Локации барбершопа">
-                <span className="location-tag"><img src="/svg/geotag.svg" alt="" /> м. Сокол</span>
-                <span className="location-tag"><img src="/svg/geotag.svg" alt="" /> м. Варшавская</span>
-                <span className="location-tag"><img src="/svg/geotag.svg" alt="" /> м. Преображенская площадь</span>
+                <span className="location-tag"><Image src="/svg/geotag.svg" alt="" width={20} height={20} /> м. Сокол</span>
+                <span className="location-tag"><Image src="/svg/geotag.svg" alt="" width={20} height={20} /> м. Варшавская</span>
+                <span className="location-tag"><Image src="/svg/geotag.svg" alt="" width={20} height={20} /> м. Преображенская площадь</span>
               </div>
 
               <p className="location__hours">с 10:00 до 22:00</p>

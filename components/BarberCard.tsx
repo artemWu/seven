@@ -5,6 +5,8 @@ type BarberCardProps = {
   theme?: "light" | "dark" | "purple";
 };
 
+import Image from "next/image";
+
 export default function BarberCard({ name, role, image, theme = "light" }: BarberCardProps) {
   return (
     <article className={`barber-card barber-card--${theme}`}>
@@ -13,7 +15,7 @@ export default function BarberCard({ name, role, image, theme = "light" }: Barbe
         <p>{role}</p>
       </div>
       <div className="barber-card__media">
-        <img className="barber-card__image" src={image} alt={`${name}, ${role}`} />
+        <Image className="barber-card__image" src={image} alt={`${name}, ${role}`} fill sizes="(max-width: 760px) 50vw, 25vw" style={{ objectFit: "contain", objectPosition: "center bottom" }} />
       </div>
     </article>
   );

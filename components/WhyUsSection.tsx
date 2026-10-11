@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import Reveal from "./Reveal";
 
 type Reason = { title: string; text: string; image: string; theme: "dark" | "purple" };
@@ -30,7 +31,7 @@ export default function WhyUsSection() {
             <Reveal key={reason.title} delay={index === 1 ? 0 : index * 90} y={0} x={28} visibleOnMount={index === 1}>
               <article className={`why-us__card why-us__card--${reason.theme}`}>
                 <div className="why-us__copy"><h3>{reason.title}</h3><p>{reason.text}</p></div>
-                <img className="why-us__image" src={reason.image} alt="" />
+                <Image className="why-us__image" src={reason.image} alt="" width={720} height={520} sizes="(max-width: 760px) 80vw, 40vw" />
               </article>
             </Reveal>
           ))}
