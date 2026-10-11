@@ -250,34 +250,36 @@ main {
     corner-shape: round !important;
   }
 
-  /* Safari fallback: keep the same visual language, but reduce the
-     conventional radius by roughly 20% when superellipse is unavailable. */
-  .barber-card { border-radius: 26px !important; }
-  .why-us__card { border-radius: 37px !important; }
-  .about-section__card { border-radius: 29px !important; }
-  .review-card { border-radius: 19px !important; }
-  .footer__inner { border-radius: 35px !important; }
+  /* Safari fallback: use explicit conventional radii instead of superellipse. */
+  .barber-card { border-radius: 20px !important; }
+  .why-us__card { border-radius: 24px !important; }
+  .about-section__card { border-radius: 24px !important; }
+  .review-card { border-radius: 20px !important; }
+  .footer__inner { border-radius: 32px !important; }
 }
 
 @supports not (corner-shape: superellipse(1.5)) {
+  .button,
   .services-table__tabs,
+  .services-table__tab-indicator,
   .services-table__tab,
   .contacts-card__tabs,
   .contacts-card__tab,
-  .cookie-popup,
-  .cookie-popup .button,
-  .booking-section,
-    .booking-section .button {
+  .booking-section .button,
+  .site-header__cta .button,
+  .hero .button--dark {
     corner-shape: round !important;
   }
 
+  .button,
   .services-table__tabs,
-  .contacts-card__tabs { border-radius: 13px !important; }
+  .services-table__tab-indicator,
   .services-table__tab,
+  .contacts-card__tabs,
   .contacts-card__tab,
-  .cookie-popup .button,
-  .booking-section .button { border-radius: 11px !important; }
-  .cookie-popup { border-radius: 30px !important; }
+  .booking-section .button,
+  .site-header__cta .button,
+  .hero .button--dark { border-radius: 12px !important; }
 }
 
 /* Shared interaction feedback for text links and controls. */
