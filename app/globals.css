@@ -239,6 +239,47 @@ main {
   }
 }
 
+/* Safari fallback must come last so unsupported/partial corner-shape
+   declarations above cannot win the cascade. */
+@supports not (corner-shape: superellipse(1.8)) {
+  .barber-card,
+  .why-us__card,
+  .about-section__card,
+  .review-card,
+  .footer__inner {
+    corner-shape: round !important;
+  }
+
+  /* Safari fallback: keep the same visual language, but reduce the
+     conventional radius by roughly 20% when superellipse is unavailable. */
+  .barber-card { border-radius: 26px !important; }
+  .why-us__card { border-radius: 37px !important; }
+  .about-section__card { border-radius: 29px !important; }
+  .review-card { border-radius: 19px !important; }
+  .footer__inner { border-radius: 35px !important; }
+}
+
+@supports not (corner-shape: superellipse(1.5)) {
+  .services-table__tabs,
+  .services-table__tab,
+  .contacts-card__tabs,
+  .contacts-card__tab,
+  .cookie-popup,
+  .cookie-popup .button,
+  .booking-section,
+    .booking-section .button {
+    corner-shape: round !important;
+  }
+
+  .services-table__tabs,
+  .contacts-card__tabs { border-radius: 13px !important; }
+  .services-table__tab,
+  .contacts-card__tab,
+  .cookie-popup .button,
+  .booking-section .button { border-radius: 11px !important; }
+  .cookie-popup { border-radius: 30px !important; }
+}
+
 /* Shared interaction feedback for text links and controls. */
 a,
 button {
@@ -695,12 +736,14 @@ button:active {
 }
 
 .location__hours {
-  margin-top: 32px;
+  margin-top: 24px;
 
   color: #ffffff;
   font-size: 12px;
   line-height: 12px;
 }
+
+.location .location__hours { margin-top: 24px; }
 
 .location__schedule {
   margin-top: 16px;
@@ -803,6 +846,7 @@ button:active {
 
 @media (max-width: 899px) {
   .hero__logo { width: 164px; }
+  .location .location__hours { margin-top: 24px; }
 }
 
 .hero__title {
@@ -2114,8 +2158,8 @@ button:active {
 .about-section__card--dark { background: linear-gradient(135deg, #202024, #5a5a5e); color: #fff; }
 .about-section__card h3 { margin: 0; font-size: 32px; line-height: 32px; font-weight: 600; letter-spacing: -.045em; }
 .about-section__card p { margin: 0; font-size: 20px; line-height: 20px; font-weight: 500; letter-spacing: -.03em; }
-.about-section__image { position: absolute; top: 16px; right: 12px; width: 30%; height: 58%; object-fit: contain; object-position: top right; }
-@media (max-width: 899px) { .about-section { padding-top: 80px; } .about-section__grid { grid-template-columns: 1fr; gap: 12px; overflow: visible; padding-inline: 0; } .about-section__grid > .reveal { min-width: 0; } .about-section__card { min-height: 220px; } }
+.about-section__image { position: absolute; top: 32px; right: 0; width: 54%; height: 43%; object-fit: contain; object-position: top right; }
+@media (max-width: 899px) { .about-section { padding-top: 80px; } .about-section__grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; column-gap: 12px !important; row-gap: 12px !important; overflow: visible; padding-inline: 0; } .about-section__grid > .reveal { width: auto; min-width: 0; } .about-section__card { width: 100%; min-width: 0; min-height: 0; aspect-ratio: 1; } .about-section__card h3 { font-size: 24px; line-height: 1; } .about-section__card p { font-size: 16px; line-height: 1.15; } }
 
 /* =========================
    DESKTOP
@@ -3069,7 +3113,32 @@ button:active {
 .footer__copyright .footer__disclaimer { max-width: 360px; margin: 0; }
 .footer__copyright a { color: inherit; text-decoration: none; white-space: nowrap; }
 .footer__copyright a { justify-self: center; }
-.footer__copyright strong { justify-self: end; color: #9a6af1; font-size: 16px; font-weight: 500; white-space: nowrap; }
+.footer__copyright .footer__designer { justify-self: end; }
+.footer__designer {
+  justify-self: end;
+  color: #9a6af1;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  background: linear-gradient(110deg, #9a6af1 10%, #ffffff 38%, #d7a8ff 50%, #9a6af1 72%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: footer-designer-shimmer 4.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.footer__designer:hover { animation-duration: 2.2s; }
+
+@keyframes footer-designer-shimmer {
+  0%, 100% { background-position: 100% 50%; }
+  50% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer__designer { animation: none; }
+}
 
 
 /* ========================================
@@ -3131,7 +3200,7 @@ button:active {
   .footer__group-title, .footer__link { text-align: left; }
   .footer__link { font-size: 18px; }
   .footer__copyright { grid-template-columns: 1fr; gap: 14px; width: 100%; }
-  .footer__copyright strong { justify-self: start; }
+  .footer__copyright .footer__designer { justify-self: start; }
 }
 
 /* ========================================
@@ -3356,8 +3425,22 @@ button:active {
 .review-card { height: 204px; }
 
 @media (max-width: 900px) {
-  .reviews-section__row { grid-template-columns: repeat(7, min(78vw, 280px)); }
+  .reviews-section__list { width: 100%; overflow: visible; }
+  .reviews-section__row {
+    width: 100vw;
+    grid-template-columns: repeat(7, min(78vw, 280px));
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+    padding-inline: 16px;
+    margin-left: 0 !important;
+    scrollbar-width: none;
+    animation: none !important;
+  }
+  .reviews-section__row::-webkit-scrollbar { display: none; }
   .review-card { height: 240px; }
+  .review-card__text { -webkit-line-clamp: 7; }
 }
 
 

@@ -11,14 +11,25 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Seven",
-  description: "Starter project for 7barbershop.",
+  title: "Барбершоп Семь в Москве, м. Сокол, Курская, Варшавская",
+  description:
+    "Записаться онлайн или по телефону в мужскую парикмахерскую в Москве. В барбершопе VII сделать модную мужскую стрижку у лучших мастеров!",
   icons: {
     icon: "/favicon.png",
     apple: "/favicon.png",
   },
-  openGraph: { title: "Seven", description: "Starter project for 7barbershop.", type: "website" },
-  twitter: { card: "summary", title: "Seven", description: "Starter project for 7barbershop." },
+  openGraph: {
+    title: "Барбершоп Семь в Москве, м. Сокол, Курская, Варшавская",
+    description:
+      "Записаться онлайн или по телефону в мужскую парикмахерскую в Москве. В барбершопе VII сделать модную мужскую стрижку у лучших мастеров!",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Барбершоп Семь в Москве, м. Сокол, Курская, Варшавская",
+    description:
+      "Записаться онлайн или по телефону в мужскую парикмахерскую в Москве. В барбершопе VII сделать модную мужскую стрижку у лучших мастеров!",
+  },
   other: {
     "codex-preview": "development",
   },

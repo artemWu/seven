@@ -26,7 +26,15 @@ export default function Footer() {
             Навигация
           </div>
 
+          <a href="#top" className="footer__link">
+            Главная
+          </a>
+
           <a href="#services" className="footer__link">
+            Услуги
+          </a>
+
+          <a href="#about" className="footer__link">
             О нас
           </a>
 
@@ -37,11 +45,15 @@ export default function Footer() {
           <a href="#reviews" className="footer__link">
             Галерея
           </a>
+
+          <a href="#contacts" className="footer__link">
+            Контакты
+          </a>
         </div>
 
         <div className="footer__group">
           <div className="footer__group-title">Сотрудничество</div>
-          <a href="#masterclasses" className="footer__link">Мастер-классы</a>
+          <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer" className="footer__link">Мастер-классы</a>
           <a href="#contacts" className="footer__link">Стать моделью</a>
           <a href="#contacts" className="footer__link">Вакансии</a>
         </div>
@@ -54,22 +66,22 @@ export default function Footer() {
           </div>
           <div className="footer__contact-group">
             <div className="footer__contact-label">{branches[0].name}</div>
-            <a href="#contacts" className="footer__contact-value">ул. {branches[0].address}</a>
+            <a href={branches[0].mapSrc} target="_blank" rel="noopener noreferrer" className="footer__contact-value">ул. {branches[0].address}</a>
             <a href={`tel:${(branches[0].footerPhone ?? branches[0].phone).replace(/[^\d+]/g, "")}`} className="footer__contact-value">{branches[0].footerPhone ?? branches[0].phone}</a>
           </div>
           <div className="footer__contact-group">
             <div className="footer__contact-label">{branches[2].name}</div>
-            <a href="#contacts" className="footer__contact-value">М. {branches[2].name}, {branches[2].address}</a>
+            <a href={branches[2].mapSrc} target="_blank" rel="noopener noreferrer" className="footer__contact-value">{branches[2].address}</a>
             <a href={`tel:${branches[2].phone.replace(/[^\d+]/g, "")}`} className="footer__contact-value">{branches[2].phone}</a>
           </div>
           <div className="footer__contact-group">
             <div className="footer__contact-label">{branches[1].name}</div>
-            <a href="#contacts" className="footer__contact-value">М. {branches[1].name}, {branches[1].address}</a>
+            <a href={branches[1].mapSrc} target="_blank" rel="noopener noreferrer" className="footer__contact-value">{branches[1].address}</a>
             <a href={`tel:${branches[1].phone.replace(/[^\d+]/g, "")}`} className="footer__contact-value">{branches[1].phone}</a>
           </div>
           <div className="footer__contact-group">
             <div className="footer__contact-label">{branches[3].name}</div>
-            <a href="#contacts" className="footer__contact-value">М. {branches[3].name} площадь, ул. {branches[3].address}</a>
+            <a href={branches[3].mapSrc} target="_blank" rel="noopener noreferrer" className="footer__contact-value">{branches[3].address}</a>
             <a href={`tel:${branches[3].phone.replace(/[^\d+]/g, "")}`} className="footer__contact-value">{branches[3].phone}</a>
           </div>
           <div className="footer__contact-group">
@@ -86,7 +98,14 @@ export default function Footer() {
         <div className="footer__copyright">
           <span className="footer__disclaimer">Вся представленная на сайте информация, касающаяся цен и услуг, носит информационный характер и не является публичной офертой. Для получения подробной информации, требуется консультация и осмотр. Опубликованная на данном сайте информация может быть изменена в любое время без предварительного уведомления.</span>
           <a href="/privacy">Политика конфиденциальности</a>
-          <strong>Designed by Artem Wu</strong>
+          <a
+            className="footer__designer"
+            href="https://t.me/wuprogress"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Designed by Artem Wu
+          </a>
         </div>
 
       </div>

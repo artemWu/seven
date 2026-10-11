@@ -25,7 +25,7 @@ export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps
 
       <div className={styles.links}>
         <nav aria-label="Мобильная навигация">
-          <a href="#top" onClick={onClose}>о нас</a>
+          <a href="#about" onClick={onClose}>о нас</a>
           <a href="#services" onClick={onClose}>услуги</a>
           <a href="#team" onClick={onClose}>команда</a>
           <a href="#reviews" onClick={onClose}>галерея</a>
@@ -33,7 +33,7 @@ export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps
         <nav aria-label="Сотрудничество">
           <span className={styles.subheading}>Сотрудничество</span>
           <a href="#contacts" onClick={onClose}>вакансии</a>
-          <a href="#masterclasses" onClick={onClose}>мастер-классы</a>
+          <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer" onClick={onClose}>мастер-классы</a>
           <a href="#contacts" onClick={onClose}>стать моделью</a>
         </nav>
       </div>

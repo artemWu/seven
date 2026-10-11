@@ -129,7 +129,7 @@ export default function ReviewsSection() {
       </Reveal>
 
       <Reveal delay={240} y={16}>
-        <Button href="#reviews" target="_blank" rel="noopener noreferrer" theme="secondary">
+        <Button href="https://yandex.com/maps/org/sem_/101291141746/reviews/?ll=37.618444%2C55.654924&z=16" target="_blank" rel="noopener noreferrer" theme="secondary">
           все отзывы
         </Button>
       </Reveal>

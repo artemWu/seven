@@ -76,7 +76,7 @@ export default function Header() {
         <a href="#team">Команда</a>
         <a href="#reviews">Галерея</a>
         <a href="#contacts">Контакты</a>
-        <a href="#masterclasses">Мастер-классы</a>
+        <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer">Мастер-классы</a>
       </nav>
 
       <div className="site-header__cta">
