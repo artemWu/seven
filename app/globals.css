@@ -1,10 +1,14 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
 
 :root {
   --background: #fafafa;
   --foreground: #161618;
   --accent: #a29588;
+  --font-montserrat: "Montserrat", sans-serif;
+  --radius-card: 24px;
+  --radius-button: 12px;
+  --shadow-card: 0 10px 28px rgb(22 22 24 / 5%);
+  --mobile-gutter: 16px;
 }
 
 * {
@@ -22,9 +26,7 @@ body {
   background: var(--background);
   color: var(--foreground);
 
-  font-family:
-    "Montserrat",
-    sans-serif;
+  font-family: var(--font-montserrat);
 
 }
 
@@ -65,10 +67,6 @@ main {
 }
 
 .site-header {
-  display: none;
-}
-
-.mobile-menu {
   display: none;
 }
 
@@ -165,7 +163,6 @@ main {
     width: 24px;
     height: 24px;
     filter: brightness(0) invert(1);
-    transition: opacity 220ms ease, transform 260ms ease;
   }
 
   .site-header__menu-toggle img {
@@ -207,47 +204,9 @@ main {
     transform: rotate(0) scale(1);
   }
 
-  .mobile-menu {
-    position: fixed;
-    z-index: 1001;
-    top: 64px;
-    right: 4px;
-    bottom: 0;
-    left: auto;
-    width: min(70vw, 520px);
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    border-radius: 16px;
-    color: #fff;
-    background: linear-gradient(135deg, rgb(24 24 26 / 80%) 0%, rgb(101 101 104 / 80%) 100%);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-12px);
-    transition: opacity 260ms ease, transform 320ms cubic-bezier(.22, 1, .36, 1);
-  }
-
-  .mobile-menu--open { opacity: 1; pointer-events: auto; transform: translateY(0); }
   .site-header--menu-open .site-header__menu-toggle {
     z-index: 1002;
   }
-  .mobile-menu__topline, .mobile-menu__links, .mobile-menu__contacts { width: 100%; }
-  .mobile-menu__topline, .mobile-menu__links { display: grid; grid-template-columns: 1fr; gap: 16px; }
-  .mobile-menu__topline { margin-bottom: 8px; color: rgb(255 255 255 / 55%); font-size: 12px; text-transform: lowercase; }
-  .mobile-menu__subheading { margin-bottom: 0; color: rgb(255 255 255 / 55%); font-size: 12px; text-transform: lowercase; }
-  .mobile-menu__links { padding-inline: 0; }
-  .mobile-menu__links nav { display: flex; flex-direction: column; gap: 8px; }
-  .mobile-menu__links a, .mobile-menu__contacts a { color: #fff; font-size: 14px; font-weight: 600; line-height: 1.15; text-decoration: none; }
-  .mobile-menu__contacts { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
-  .mobile-menu__contacts span { color: rgb(255 255 255 / 55%); font-size: 12px; text-transform: lowercase; }
-  .mobile-menu__contacts a { font-size: 14px; }
-  .mobile-menu__footer { display: flex; flex-direction: column; gap: 24px; margin-top: auto; padding-top: 16px; border-top: 0; }
-  .mobile-menu__hours { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: rgb(255 255 255 / 72%); text-transform: lowercase; }
-  .mobile-menu__hours strong { color: #fff; font-size: 14px; }
-  .mobile-menu__footer > img { width: min(145px, 52vw); height: auto; }
-  .mobile-menu__footer .button { width: 100%; min-height: 48px; border-radius: 16px !important; }
 
 }
 
@@ -255,41 +214,28 @@ main {
   .button,
   .hero .button--dark,
   .booking-section .button--dark,
-  .site-header__cta .button {
-    border-radius: 12px !important;
-  }
-
+  .site-header__cta .button,
   .services-table__tabs,
   .services-table__tab-indicator,
   .services-table__tab,
   .contacts-card__tabs,
   .contacts-card__tab {
-    border-radius: 12px !important;
+    border-radius: var(--radius-button) !important;
   }
-}
 
-/* Mobile cards: use a plain radius. This intentionally does not depend on
-   browser detection, since Safari may not expose corner-shape reliably to
-   @supports. */
-@media (max-width: 760px) {
+  /* Mobile cards use a plain radius because Safari may not expose
+     corner-shape reliably to @supports. */
   .service-card,
   .why-us__card,
-  .team-card,
   .about-section__card,
   .review-card {
-    border-radius: 24px !important;
+    border-radius: var(--radius-card) !important;
   }
 
-  .barber-card {
-    border-radius: 16px !important;
-  }
-}
-
-/* Barber/team cards use a slightly larger mobile radius in every browser. */
-@media (max-width: 760px) {
+  /* Barber/team cards use a slightly larger mobile radius in every browser. */
   .team-card,
   .barber-card {
-    border-radius: 24px !important;
+    border-radius: var(--radius-card) !important;
   }
 }
 
@@ -335,13 +281,6 @@ button:active {
   .why-us__grid { width: 100%; max-width: none; margin-left: 0; }
   .why-us__grid::before,
   .why-us__grid::after { display: none; }
-}
-
-/* Safari fallback: use stable rounded corners instead of experimental superellipse shaping. */
-html.is-safari {
-  * {
-    corner-shape: round;
-  }
 }
 
 /* =========================
@@ -3397,38 +3336,6 @@ html.is-safari {
 /* Reviews use the same clean cards and typography as the About block. */
 .review-card { border-radius: 36px; corner-shape: superellipse(1.8); background: #fff; color: #17151a; box-shadow: 0 10px 28px rgb(22 22 24 / 5%); }
 
-/* Safari: keep ordinary rounded corners. This must come after the component
-   rules because those rules otherwise override the earlier Safari fallback. */
-html.is-safari {
-  *,
-  *::before,
-  *::after {
-    corner-shape: round !important;
-  }
-
-  .service-card,
-  .why-us__card,
-  .team-card {
-    border-radius: 24px !important;
-    corner-shape: round !important;
-    overflow: hidden;
-    isolation: isolate;
-    -webkit-mask-image: -webkit-radial-gradient(white, black);
-    transform: translateZ(0);
-    will-change: transform;
-  }
-
-  .about-section__card,
-  .review-card {
-    border-radius: 36px !important;
-    corner-shape: round !important;
-    overflow: hidden;
-    isolation: isolate;
-    -webkit-mask-image: -webkit-radial-gradient(white, black);
-    transform: translateZ(0);
-    will-change: transform;
-  }
-}
 .review-card__glass { display: none; }
 .review-card__inner { padding: 16px; }
 .review-card__name, .review-card__text { color: #17151a; }
@@ -3446,8 +3353,6 @@ html.is-safari {
 /* Все ряды стартуют из одной центральной позиции, затем расходятся в разные стороны. */
 @keyframes reviews-drift-right { from { transform: translateX(0); } to { transform: translateX(180px); } }
 @keyframes reviews-drift-left { from { transform: translateX(0); } to { transform: translateX(-260px); } }
-.review-card { height: 250px; }
-
 .review-card { height: 204px; }
 
 @media (max-width: 900px) {

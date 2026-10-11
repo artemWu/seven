@@ -1,12 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "./button";
+import MobileMenu from "./MobileMenu";
+import { BOOKING_URL } from "@/data/site";
 
 export default function Header() {
   const [isLight, setIsLight] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const hero = document.querySelector(".hero");
@@ -22,6 +27,32 @@ export default function Header() {
   }, []);
 
   const closeMenu = () => setIsMenuOpen(false);
+
+  useEffect(() => {
+    const menu = mobileMenuRef.current;
+    if (!menu) return;
+
+    menu.inert = !isMenuOpen;
+
+    if (!isMenuOpen) {
+      previousFocusRef.current?.focus();
+      previousFocusRef.current = null;
+      return;
+    }
+
+    previousFocusRef.current = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMenuOpen(false);
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    requestAnimationFrame(() => menuToggleRef.current?.focus());
+
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMenuOpen]);
 
   return (
     <header
@@ -49,47 +80,23 @@ export default function Header() {
       </nav>
 
       <div className="site-header__cta">
-        <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer" theme="dark">Записаться</Button>
+        <Button href={BOOKING_URL} target="_blank" rel="noopener noreferrer" theme="dark">Записаться</Button>
       </div>
 
       <button
+        ref={menuToggleRef}
         className={`site-header__menu-toggle${isMenuOpen ? " is-open" : ""}`}
         type="button"
         aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={isMenuOpen}
+        aria-controls="mobile-menu"
         onClick={() => setIsMenuOpen((open) => !open)}
       >
         <Image src="/icons/menu.svg" alt="" width={24} height={24} priority />
         <Image src="/icons/close.svg" alt="" width={24} height={24} priority />
       </button>
 
-      <div className={`mobile-menu${isMenuOpen ? " mobile-menu--open" : ""}`} aria-hidden={!isMenuOpen}>
-        <div className="mobile-menu__topline"><span>Навигация</span></div>
-        <div className="mobile-menu__links">
-          <nav aria-label="Мобильная навигация">
-            <a href="#top" onClick={closeMenu}>о нас</a>
-            <a href="#services" onClick={closeMenu}>услуги</a>
-            <a href="#team" onClick={closeMenu}>команда</a>
-            <a href="#reviews" onClick={closeMenu}>галерея</a>
-          </nav>
-          <nav aria-label="Сотрудничество">
-            <span className="mobile-menu__subheading">Сотрудничество</span>
-            <a href="#contacts" onClick={closeMenu}>вакансии</a>
-            <a href="#masterclasses" onClick={closeMenu}>мастер-классы</a>
-            <a href="#contacts" onClick={closeMenu}>стать моделью</a>
-          </nav>
-        </div>
-        <div className="mobile-menu__contacts">
-          <span>Номер сети</span>
-          <a href="tel:+79777977177">+7 (977) 797 71 77</a>
-          <a href="mailto:7studioru@gmail.com">7studioru@gmail.com</a>
-        </div>
-        <div className="mobile-menu__footer">
-          <div className="mobile-menu__hours">Ежедневно<strong>с 10:00 до 22:00</strong></div>
-          <Image src="/svg/seven-sign.svg" alt="7barbershop" width={224} height={60} unoptimized />
-          <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer" theme="primary">Записаться</Button>
-        </div>
-      </div>
+      <MobileMenu isOpen={isMenuOpen} menuRef={mobileMenuRef} onClose={closeMenu} />
     </header>
   );
 }

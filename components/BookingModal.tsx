@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-const bookingUrl = "https://n399707.yclients.com/group:12717/city:all#1";
+import { BOOKING_URL } from "@/data/site";
+
+const bookingUrl = BOOKING_URL;
 
 export default function BookingModal() {
   const [open, setOpen] = useState(false);

@@ -1,6 +1,14 @@
 import type { Metadata, Viewport } from "next";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import CookiePopup from "@/components/CookiePopup";
+
+const montserrat = Montserrat({
+  subsets: ["cyrillic", "latin"],
+  display: "swap",
+  variable: "--font-montserrat",
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Seven",
@@ -34,12 +42,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `(() => { const ua = navigator.userAgent; const safari = /Safari/i.test(ua) && !/Chrome|CriOS|Android/i.test(ua); document.documentElement.classList.add(safari ? "is-safari" : "is-chrome-like"); })();`,
-        }}
-      />
-      <body className="antialiased">
+      <body className={`${montserrat.variable} antialiased`}>
         {children}
         <CookiePopup />
       </body>
