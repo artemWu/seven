@@ -22,6 +22,9 @@ const team: TeamMember[] = [
   { name: "Имам", role: "Топ-барбер", image: "/images/barbers/имам.webp", theme: "dark" },
   { name: "Анна Ашрапова", role: "Барбер", image: "/images/barbers/анна ашрапова.webp", theme: "purple" },
   { name: "Тулиген", role: "Старший барбер", image: "/images/barbers/тулиген.webp", theme: "light" },
+  { name: "Александр", role: "Барбер", image: "/images/barbers/александр.webp", theme: "light" },
+  { name: "Михаил", role: "Барбер", image: "/images/barbers/михаил.webp", theme: "dark" },
+  { name: "Тимур", role: "Барбер", image: "/images/barbers/тимур.webp", theme: "light" },
 ];
 
 export default function TeamSection() {
