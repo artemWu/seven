@@ -298,6 +298,15 @@ button:active {
   transform: scale(.9) !important;
 }
 
+@media (hover: none), (pointer: coarse) {
+  a:hover,
+  button:hover,
+  .button:hover {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}
+
 @media (max-width: 899px) {
   .why-us__viewport {
     position: relative;
@@ -3418,8 +3427,9 @@ button:active {
 .reviews-section__list { width: max-content; display: flex; flex-direction: column; gap: 12px; align-self: center; }
 .reviews-section > .reveal:last-child { width: fit-content; align-self: center; }
 .reviews-section__row { display: grid; grid-template-columns: repeat(7, 280px); gap: 12px; will-change: transform; }
-.reviews-section__row--1, .reviews-section__row--3 { animation: reviews-drift-right 42s ease-in-out infinite alternate; }
-.reviews-section__row--2 { animation: reviews-drift-left 48s ease-in-out infinite alternate; }
+.reviews-section__row--1 { animation: reviews-drift-right 29s ease-in-out infinite alternate; }
+.reviews-section__row--3 { animation: reviews-drift-right 31s ease-in-out infinite alternate; }
+.reviews-section__row--2 { animation: reviews-drift-left 33s ease-in-out infinite alternate; }
 .reviews-section__list:hover .reviews-section__row, .reviews-section__list:focus-within .reviews-section__row { animation-play-state: paused; }
 /* Все ряды стартуют из одной центральной позиции, затем расходятся в разные стороны. */
 @keyframes reviews-drift-right { from { transform: translateX(0); } to { transform: translateX(180px); } }
@@ -3429,20 +3439,24 @@ button:active {
 @media (max-width: 900px) {
   .reviews-section__list { width: 100%; overflow: visible; }
   .reviews-section__row {
-    width: 100vw;
+    width: max-content;
     grid-template-columns: repeat(7, min(78vw, 280px));
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    touch-action: pan-x;
-    -webkit-overflow-scrolling: touch;
-    padding-inline: 16px;
+    overflow: visible;
+    padding-inline: 0;
     margin-left: 0 !important;
-    scrollbar-width: none;
-    animation: none !important;
   }
-  .reviews-section__row::-webkit-scrollbar { display: none; }
   .review-card { height: 240px; }
   .review-card__text { -webkit-line-clamp: 7; }
+
+  .reviews-section__row--1,
+  .reviews-section__row--3 {
+    animation-name: reviews-drift-right-mobile;
+  }
+
+  @keyframes reviews-drift-right-mobile {
+    from { transform: translateX(-180px); }
+    to { transform: translateX(0); }
+  }
 }
 
 

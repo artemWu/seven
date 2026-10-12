@@ -134,6 +134,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
           theme="secondary"
+          size="small"
         >
           все услуги
         </Button>
