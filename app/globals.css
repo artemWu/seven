@@ -105,7 +105,7 @@ main {
   .site-header {
     position: fixed;
     z-index: 1000;
-    top: 16px;
+    top: 20px;
     left: 0;
     display: flex;
     align-items: center;
@@ -343,6 +343,114 @@ button:active {
   min-height: 100svh;
   background: #020202;
   color: #e4dfda;
+  padding: 32px 24px 140px;
+}
+
+.privacy-page__back {
+  position: fixed;
+  top: 28px;
+  left: 32px;
+  z-index: 3;
+  color: rgb(242 235 228 / 62%);
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.privacy-page__back:hover { color: #f2ebe4; }
+
+.privacy-document {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  padding-top: 17vh;
+  text-align: center;
+}
+
+.privacy-document__eyebrow {
+  margin-bottom: 24px;
+  color: #a29588;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.privacy-document h1 {
+  max-width: 680px;
+  margin: 0 auto;
+  color: #f2ebe4;
+  font-size: clamp(34px, 6vw, 68px);
+  font-weight: 300;
+  line-height: .98;
+  letter-spacing: -.055em;
+}
+
+.privacy-document__lead {
+  margin: 24px 0 82px;
+  color: #a29588;
+  font-size: 12px;
+  letter-spacing: .02em;
+}
+
+.privacy-document__body {
+  margin-top: 34px;
+  text-align: left;
+}
+
+.privacy-document__body p {
+  margin: 0 auto 24px;
+  color: rgb(228 223 218 / 74%);
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 760ms cubic-bezier(.22, 1, .36, 1) var(--privacy-delay), transform 760ms cubic-bezier(.22, 1, .36, 1) var(--privacy-delay);
+}
+
+/* Privacy page follows the light visual language of the main page. */
+.privacy-page {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.privacy-page__back { color: rgb(22 22 24 / 58%); }
+.privacy-page__back:hover { color: var(--foreground); }
+.privacy-document__eyebrow,
+.privacy-document__lead { color: rgb(22 22 24 / 52%); }
+.privacy-document h1 { color: #161618 !important; }
+.privacy-document__body p {
+  color: rgb(22 22 24 / 76%);
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.privacy-paragraph-reveal {
+  margin-bottom: 24px;
+}
+
+.privacy-paragraph-reveal .reveal {
+  margin: 0;
+}
+
+.privacy-page--visible .privacy-document__body p {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .privacy-document__body p {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .privacy-page { padding: 24px 20px 96px; }
+  .privacy-page__back { top: calc(20px + env(safe-area-inset-top)); left: 20px; }
+  .privacy-document { padding-top: 18vh; }
+  .privacy-document__lead { margin-bottom: 56px; }
+  .privacy-document__body p { font-size: 16px; line-height: 1.6; }
 }
 
 /* =========================
@@ -1144,7 +1252,9 @@ button:active {
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
-  overflow-y: hidden;
+  /* Keep the level description visible outside the table row. The hint is
+     positioned below the header and must not be clipped by this wrapper. */
+  overflow-y: visible;
   overscroll-behavior-x: contain;
 }
 
@@ -1317,6 +1427,18 @@ button:active {
   color: #fff;
 }
 
+/* Portal version: it lives under body, outside the table's horizontal
+   scroller, so long descriptions are never clipped by the table bounds. */
+.services-table__hint--portal {
+  position: fixed;
+  z-index: 2000;
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: none;
+}
+
 .services-table__hint-trigger:hover .services-table__hint,
 .services-table__hint-trigger:focus-visible .services-table__hint {
   opacity: 1;
@@ -1345,9 +1467,12 @@ button:active {
     width: 100%;
     padding: 0;
     border: 0;
-    background: rgb(0 0 0 / 42%);
+    appearance: none;
+    background: transparent;
+    color: transparent;
     opacity: 1;
     animation: bottom-sheet-backdrop-in 260ms ease both;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .bottom-sheet__backdrop:active {

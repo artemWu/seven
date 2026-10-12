@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import ServicesTabs from "./ServicesTabs";
 import BottomSheet from "./BottomSheet";
@@ -77,6 +78,9 @@ const categories: ServiceCategory[] = [
 export default function ServicesTable() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [openHint, setOpenHint] = useState<keyof typeof levelHints | null>(null);
+  const [hoveredHint, setHoveredHint] = useState<keyof typeof levelHints | null>(null);
+  const [hintPosition, setHintPosition] = useState({ top: 0, left: 0 });
+  const hintTriggerRef = useRef<HTMLButtonElement>(null);
   const [hasMoreColumns, setHasMoreColumns] = useState(true);
   const tableScrollRef = useRef<HTMLDivElement>(null);
   const category = categories[activeIndex];
@@ -101,20 +105,42 @@ export default function ServicesTable() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [openHint]);
 
+  useEffect(() => {
+    if (!hoveredHint || !hintTriggerRef.current) return;
+
+    const updateHintPosition = () => {
+      const rect = hintTriggerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      setHintPosition({
+        top: rect.bottom + 12,
+        left: Math.max(16, rect.right - 360),
+      });
+    };
+
+    updateHintPosition();
+    window.addEventListener("resize", updateHintPosition);
+    window.addEventListener("scroll", updateHintPosition, true);
+    return () => {
+      window.removeEventListener("resize", updateHintPosition);
+      window.removeEventListener("scroll", updateHintPosition, true);
+    };
+  }, [hoveredHint]);
+
   const renderLevel = (level: keyof typeof levelHints, lines: string[]) => (
     <span className={`services-table__level services-table__level--${level}`}>
       <span>{lines.map((line) => <span key={line}>{line}<br /></span>)}</span>
       <button
         className="services-table__hint-trigger"
         type="button"
+        ref={hoveredHint === level ? hintTriggerRef : undefined}
         aria-label={`Подробнее о грейде ${levelLabels[level]}`}
         onClick={() => setOpenHint((current) => current === level ? null : level)}
+        onMouseEnter={() => setHoveredHint(level)}
+        onMouseLeave={() => setHoveredHint(null)}
+        onFocus={() => setHoveredHint(level)}
+        onBlur={() => setHoveredHint(null)}
       >
         <Image src="/svg/interactive-icon.svg" alt="" width={20} height={20} />
-        <span className="services-table__hint">
-          <strong>{levelLabels[level]}</strong>
-          <span>{levelHints[level]}</span>
-        </span>
       </button>
     </span>
   );
@@ -166,6 +192,17 @@ export default function ServicesTable() {
       >
         {openHint ? <p>{levelHints[openHint]}</p> : null}
       </BottomSheet>
+
+      {hoveredHint && typeof document !== "undefined" ? createPortal(
+        <span
+          className="services-table__hint services-table__hint--portal"
+          style={{ top: hintPosition.top, left: hintPosition.left }}
+        >
+          <strong>{levelLabels[hoveredHint]}</strong>
+          <span>{levelHints[hoveredHint]}</span>
+        </span>,
+        document.body,
+      ) : null}
     </div>
   );
 }

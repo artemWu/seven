@@ -6,8 +6,12 @@ import Button from "./button";
 import MobileMenu from "./MobileMenu";
 import { BOOKING_URL } from "@/data/site";
 
-export default function Header() {
-  const [isLight, setIsLight] = useState(false);
+type HeaderProps = {
+  forceLight?: boolean;
+};
+
+export default function Header({ forceLight = false }: HeaderProps) {
+  const [isLight, setIsLight] = useState(forceLight);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuToggleRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -59,7 +63,7 @@ export default function Header() {
       className={`site-header${isLight ? " site-header--light" : ""}${isMenuOpen ? " site-header--menu-open" : ""}`}
       aria-label="Основная навигация"
     >
-      <a className="site-header__logo" href="#top" aria-label="Seven — наверх">
+      <a className="site-header__logo" href="/" aria-label="Seven — на главную">
         <Image
           src="/svg/littlelogo.svg"
           alt="Seven"
@@ -71,7 +75,7 @@ export default function Header() {
       </a>
 
       <nav className="site-header__nav-shell">
-        <a className="site-header__nav-link--active" href="#top">Главная</a>
+        <a className="site-header__nav-link--active" href="/">Главная</a>
         <a href="#services">Услуги</a>
         <a href="#team">Команда</a>
         <a href="#reviews">Галерея</a>
