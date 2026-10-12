@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import ServicesTabs from "./ServicesTabs";
+import BottomSheet from "./BottomSheet";
 
 type ServiceCategory = {
   label: string;
@@ -75,6 +76,7 @@ const categories: ServiceCategory[] = [
 
 export default function ServicesTable() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [openHint, setOpenHint] = useState<keyof typeof levelHints | null>(null);
   const [hasMoreColumns, setHasMoreColumns] = useState(true);
   const tableScrollRef = useRef<HTMLDivElement>(null);
   const category = categories[activeIndex];
@@ -89,10 +91,25 @@ export default function ServicesTable() {
     const frame = requestAnimationFrame(updateScrollMask);
     return () => cancelAnimationFrame(frame);
   }, [category.label]);
+
+  useEffect(() => {
+    if (!openHint) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpenHint(null);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [openHint]);
+
   const renderLevel = (level: keyof typeof levelHints, lines: string[]) => (
     <span className={`services-table__level services-table__level--${level}`}>
       <span>{lines.map((line) => <span key={line}>{line}<br /></span>)}</span>
-      <button className="services-table__hint-trigger" type="button" aria-label={`Подробнее о грейде ${levelLabels[level]}`}>
+      <button
+        className="services-table__hint-trigger"
+        type="button"
+        aria-label={`Подробнее о грейде ${levelLabels[level]}`}
+        onClick={() => setOpenHint((current) => current === level ? null : level)}
+      >
         <Image src="/svg/interactive-icon.svg" alt="" width={20} height={20} />
         <span className="services-table__hint">
           <strong>{levelLabels[level]}</strong>
@@ -141,6 +158,14 @@ export default function ServicesTable() {
           </div>
         </div>
       </div>
+
+      <BottomSheet
+        title={openHint ? levelLabels[openHint] : ""}
+        open={openHint !== null}
+        onClose={() => setOpenHint(null)}
+      >
+        {openHint ? <p>{levelHints[openHint]}</p> : null}
+      </BottomSheet>
     </div>
   );
 }

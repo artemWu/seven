@@ -1327,6 +1327,117 @@ button:active {
   opacity: 1 !important;
 }
 
+.bottom-sheet,
+.bottom-sheet__backdrop {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .services-table__hint {
+    display: none;
+  }
+
+  .bottom-sheet__backdrop {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: rgb(0 0 0 / 42%);
+    opacity: 1;
+    animation: bottom-sheet-backdrop-in 260ms ease both;
+  }
+
+  .bottom-sheet__backdrop:active {
+    transform: none !important;
+  }
+
+  .bottom-sheet {
+    position: fixed;
+    z-index: 1001;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    min-height: 50dvh;
+    padding: 28px 20px calc(24px + env(safe-area-inset-bottom));
+    border-radius: 28px 28px 0 0;
+    background: #fff;
+    color: #17151a;
+    box-shadow: 0 -12px 36px rgb(22 22 24 / 18%);
+    animation: bottom-sheet-in 260ms cubic-bezier(.22, 1, .36, 1) both;
+  }
+
+  .bottom-sheet--closing {
+    animation: bottom-sheet-out 260ms cubic-bezier(.22, 1, .36, 1) both;
+  }
+
+  .bottom-sheet__backdrop--closing {
+    animation: bottom-sheet-backdrop-out 260ms cubic-bezier(.22, 1, .36, 1) both;
+  }
+
+
+  .bottom-sheet__handle {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 42px;
+    height: 4px;
+    border-radius: 999px;
+    background: #c7c7ca;
+    transform: translateX(-50%);
+  }
+
+  .bottom-sheet__close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #17151a;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .bottom-sheet__title {
+    display: block;
+    margin-bottom: 12px;
+    padding-right: 36px;
+    font-size: 20px;
+  }
+
+  .bottom-sheet__content p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+@keyframes bottom-sheet-in {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes bottom-sheet-out {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+@keyframes bottom-sheet-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bottom-sheet-backdrop-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 .services-table tbody th {
   min-width: 280px;
   font-weight: 600;
