@@ -28,7 +28,7 @@ export default function WhyUsSection() {
       <div className={`why-us__viewport${isScrolling ? " why-us__viewport--scrolling" : ""}`}>
         <div className="why-us__grid" onScroll={handleScroll}>
           {reasons.map((reason, index) => (
-            <Reveal key={reason.title} delay={index === 1 ? 0 : index * 90} y={0} x={28} visibleOnMount={index === 1}>
+            <Reveal key={reason.title} delay={index * 90} y={0} x={0}>
               <article className={`why-us__card why-us__card--${reason.theme}`}>
                 <div className="why-us__copy"><h3>{reason.title}</h3><p>{reason.text}</p></div>
                 <Image className="why-us__image" src={reason.image} alt="" width={720} height={520} sizes="(max-width: 760px) 80vw, 40vw" />
