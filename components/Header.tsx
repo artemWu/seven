@@ -86,10 +86,23 @@ export default function Header({ forceLight = false }: HeaderProps) {
       if (event.key === "Escape") setIsMenuOpen(false);
     };
 
+    const handleFocusIn = (event: FocusEvent) => {
+      const target = event.target;
+      if (
+        target instanceof Node
+        && !menu.contains(target)
+        && !menuToggleRef.current?.contains(target)
+      ) setIsMenuOpen(false);
+    };
+
     document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("focusin", handleFocusIn);
     requestAnimationFrame(() => menuToggleRef.current?.focus());
 
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("focusin", handleFocusIn);
+    };
   }, [isMenuOpen]);
 
   return (

@@ -12,6 +12,7 @@ import Button from "../components/button";
 import ServicesTable from "../components/ServicesTable";
 import Header from "../components/Header";
 import BookingModal from "../components/BookingModal";
+import MobileBookingButton from "../components/MobileBookingButton";
 import { branches, NETWORK_PHONE } from "@/data/branches";
 
 export default function Home({
@@ -75,6 +76,7 @@ export default function Home({
       />
       <Header />
       <BookingModal />
+      <MobileBookingButton />
       <main>
       {/* HERO */}
       <section className="hero" id="top">
@@ -112,9 +114,11 @@ export default function Home({
           </Reveal>
 
           <Reveal delay={440} y={16}>
-            <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer" theme="dark">
-              Записаться
-            </Button>
+            <div className="hero__cta-desktop">
+              <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer" theme="dark">
+                Записаться
+              </Button>
+            </div>
           </Reveal>
         </div>
 

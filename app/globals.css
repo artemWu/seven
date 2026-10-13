@@ -104,7 +104,7 @@ main {
 
   .site-header {
     position: fixed;
-    z-index: 1000;
+    z-index: 10320;
     top: 20px;
     left: 0;
     display: flex;
@@ -205,7 +205,7 @@ main {
   }
 
   .site-header--menu-open .site-header__menu-toggle {
-    z-index: 1002;
+    z-index: 10322;
   }
 
 }
@@ -963,9 +963,12 @@ button:active {
   width: auto;
 }
 
+.hero__cta-mobile { display: none; }
+
 @media (max-width: 899px) {
   .hero__logo { width: 164px; }
   .location .location__hours { margin-top: 24px; }
+
 }
 
 .hero__title {
@@ -2971,6 +2974,60 @@ button:active {
     scroll-behavior: auto;
   }
 
+}
+
+@media (max-width: 899px) {
+  .hero__cta-desktop { display: none; }
+
+  .hero__cta-mobile {
+    position: fixed;
+    z-index: 10310;
+    right: 24px;
+    bottom: calc(46px + env(safe-area-inset-bottom));
+    left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    overflow: hidden;
+    border-radius: 16px;
+    corner-shape: superellipse(1.5);
+    background: linear-gradient(90deg, #9d7fd9 0%, #7b61c9 100%);
+    color: #fff;
+    text-decoration: none;
+    animation: none;
+  }
+
+  .hero__cta-mobile-label {
+    position: absolute;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 44px;
+    opacity: calc(1 - min(1, var(--booking-progress, 0) * 2));
+    transform: scale(calc(1 - (min(1, var(--booking-progress, 0) * 2) * .12)));
+    will-change: opacity, transform;
+    transition: none;
+  }
+
+  .hero__cta-mobile-icon {
+    position: absolute;
+    display: block;
+    opacity: max(0, calc((var(--booking-progress, 0) - .5) * 2));
+    transform: scale(calc(.7 + (max(0, calc((var(--booking-progress, 0) - .5) * 2)) * .3)));
+    will-change: opacity, transform;
+  }
+
+}
+
+/* Safari renders corner-shape differently on the compact CTA. */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 899px) {
+    .hero__cta-mobile {
+      border-radius: 12px !important;
+      corner-shape: round !important;
+    }
+  }
 }
 
 
