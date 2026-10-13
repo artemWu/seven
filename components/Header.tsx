@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import { useEffect, useRef, useState } from "react";
 import Button from "./button";
 import MobileMenu from "./MobileMenu";
@@ -14,8 +15,12 @@ type HeaderProps = {
 export default function Header({ forceLight = false }: HeaderProps) {
   const [isLight, setIsLight] = useState(forceLight);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBranchesOpen, setIsBranchesOpen] = useState(false);
+  const [branchesMenuPosition, setBranchesMenuPosition] = useState({ top: 0, left: 0 });
+  const branchesCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuToggleRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const branchesTriggerRef = useRef<HTMLSpanElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -32,6 +37,34 @@ export default function Header({ forceLight = false }: HeaderProps) {
   }, []);
 
   const closeMenu = () => setIsMenuOpen(false);
+
+  const openBranchesMenu = () => {
+    if (branchesCloseTimerRef.current) clearTimeout(branchesCloseTimerRef.current);
+    setIsBranchesOpen(true);
+  };
+
+  const scheduleBranchesMenuClose = () => {
+    if (branchesCloseTimerRef.current) clearTimeout(branchesCloseTimerRef.current);
+    branchesCloseTimerRef.current = setTimeout(() => setIsBranchesOpen(false), 120);
+  };
+
+  useEffect(() => {
+    if (!isBranchesOpen) return;
+
+    const updateBranchesMenuPosition = () => {
+      const rect = branchesTriggerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      setBranchesMenuPosition({ top: rect.bottom + 12, left: rect.left + rect.width / 2 });
+    };
+
+    updateBranchesMenuPosition();
+    window.addEventListener("resize", updateBranchesMenuPosition);
+    window.addEventListener("scroll", updateBranchesMenuPosition, true);
+    return () => {
+      window.removeEventListener("resize", updateBranchesMenuPosition);
+      window.removeEventListener("scroll", updateBranchesMenuPosition, true);
+    };
+  }, [isBranchesOpen]);
 
   useEffect(() => {
     const menu = mobileMenuRef.current;
@@ -75,22 +108,52 @@ export default function Header({ forceLight = false }: HeaderProps) {
         />
       </Link>
 
-      <nav className="site-header__nav-shell">
+      <nav
+        className="site-header__nav-shell"
+        style={{
+          backdropFilter: "blur(4px)",
+          WebkitBackdropFilter: "blur(4px)",
+        }}
+      >
         <Link className="site-header__nav-link--active" href="/">Главная</Link>
         <a href="#services">Услуги</a>
         <a href="#team">Команда</a>
         <div className="site-header__branches">
-          <span className="site-header__branches-trigger" tabIndex={0}>Филиалы</span>
-          <div className="site-header__branches-menu" role="menu">
-            <Link href="/barbershop-na-sokole" role="menuitem">Сокол</Link>
-            <Link href="/barbershop-na-preobrazhenskoj" role="menuitem">Преображенская</Link>
-            <Link href="/barbershop-na-varshavskoj" role="menuitem">Варшавская</Link>
-          </div>
+          <span
+            ref={branchesTriggerRef}
+            className="site-header__branches-trigger"
+            tabIndex={0}
+            onMouseEnter={openBranchesMenu}
+            onFocus={openBranchesMenu}
+            onMouseLeave={scheduleBranchesMenuClose}
+            onBlur={scheduleBranchesMenuClose}
+          >Филиалы</span>
         </div>
         <a href="#reviews">Отзывы</a>
         <a href="#contacts">Контакты</a>
         <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer">Мастер-классы</a>
       </nav>
+
+      {isBranchesOpen && typeof document !== "undefined" ? createPortal(
+        <div
+          className={`site-header__branches-menu site-header__branches-menu--portal${isLight ? " site-header__branches-menu--light" : ""}`}
+          role="menu"
+          onMouseEnter={openBranchesMenu}
+          onMouseLeave={scheduleBranchesMenuClose}
+          style={{
+            position: "fixed",
+            top: branchesMenuPosition.top,
+            left: branchesMenuPosition.left,
+            backdropFilter: "blur(4px)",
+            WebkitBackdropFilter: "blur(4px)",
+          }}
+        >
+          <Link href="/barbershop-na-sokole" role="menuitem">Сокол</Link>
+          <Link href="/barbershop-na-preobrazhenskoj" role="menuitem">Преображенская</Link>
+          <Link href="/barbershop-na-varshavskoj" role="menuitem">Варшавская</Link>
+        </div>,
+        document.body,
+      ) : null}
 
       <div className="site-header__cta">
         <Button href={BOOKING_URL} target="_blank" rel="noopener noreferrer" theme="dark">Записаться</Button>
