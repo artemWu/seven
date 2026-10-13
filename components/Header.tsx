@@ -79,7 +79,15 @@ export default function Header({ forceLight = false }: HeaderProps) {
         <Link className="site-header__nav-link--active" href="/">Главная</Link>
         <a href="#services">Услуги</a>
         <a href="#team">Команда</a>
-        <a href="#reviews">Галерея</a>
+        <div className="site-header__branches">
+          <span className="site-header__branches-trigger" tabIndex={0}>Филиалы</span>
+          <div className="site-header__branches-menu" role="menu">
+            <Link href="/barbershop-na-sokole" role="menuitem">Сокол</Link>
+            <Link href="/barbershop-na-preobrazhenskoj" role="menuitem">Преображенская</Link>
+            <Link href="/barbershop-na-varshavskoj" role="menuitem">Варшавская</Link>
+          </div>
+        </div>
+        <a href="#reviews">Отзывы</a>
         <a href="#contacts">Контакты</a>
         <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer">Мастер-классы</a>
       </nav>

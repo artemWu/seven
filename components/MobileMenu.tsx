@@ -3,6 +3,7 @@ import Image from "next/image";
 import Button from "./button";
 import styles from "./MobileMenu.module.css";
 import { BOOKING_URL } from "@/data/site";
+import Link from "next/link";
 
 type MobileMenuProps = {
   isOpen: boolean;
@@ -28,7 +29,13 @@ export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps
           <a href="#about" onClick={onClose}>о нас</a>
           <a href="#services" onClick={onClose}>услуги</a>
           <a href="#team" onClick={onClose}>команда</a>
-          <a href="#reviews" onClick={onClose}>галерея</a>
+          <a href="#reviews" onClick={onClose}>отзывы</a>
+        </nav>
+        <nav aria-label="Филиалы">
+          <span className={styles.subheading}>Филиалы</span>
+          <Link href="/barbershop-na-sokole" onClick={onClose}>сокол</Link>
+          <Link href="/barbershop-na-preobrazhenskoj" onClick={onClose}>преображенская</Link>
+          <Link href="/barbershop-na-varshavskoj" onClick={onClose}>варшавская</Link>
         </nav>
         <nav aria-label="Сотрудничество">
           <span className={styles.subheading}>Сотрудничество</span>

@@ -3,6 +3,7 @@ import TeamSection from "../components/TeamSection";
 import WhyUsSection from "../components/WhyUsSection";
 import AboutSection from "../components/AboutSection";
 import ReviewsSection from "../components/ReviewsSection";
+import HaircutsSection from "../components/HaircutsSection";
 import BookingSection from "../components/BookingSection";
 import ContactsSection from "../components/ContactsSection";
 import Footer from "../components/Footer";
@@ -11,8 +12,32 @@ import Button from "../components/button";
 import ServicesTable from "../components/ServicesTable";
 import Header from "../components/Header";
 import BookingModal from "../components/BookingModal";
+import { branches, NETWORK_PHONE } from "@/data/branches";
 
-export default function Home() {
+export default function Home({
+  location,
+  teamNames,
+}: {
+  location?: { station: string; titleSuffix: string };
+  teamNames?: string[];
+}) {
+  const isBranchPage = Boolean(location);
+  const currentBranch = location
+    ? branches.find((branch) => branch.station === location.station)
+    : undefined;
+  const schemaAddresses = currentBranch
+    ? {
+        "@type": "PostalAddress",
+        streetAddress: currentBranch.address,
+        addressLocality: "Москва",
+        addressCountry: "RU",
+      }
+    : branches.map((branch) => ({
+        "@type": "PostalAddress",
+        streetAddress: branch.address,
+        addressLocality: "Москва",
+        addressCountry: "RU",
+      }));
   return (
     <>
       <script
@@ -23,13 +48,9 @@ export default function Home() {
             "@type": "HairSalon",
             name: "Seven",
             description:
-              "Starter schema placeholder for 7barbershop.",
-            address: {
-              "@type": "PostalAddress",
-              streetAddress: "PLACEHOLDER",
-              addressLocality: "PLACEHOLDER",
-              addressCountry: "RU",
-            },
+              "Барбершоп СЕМЬ Тони Селезнёва в Москве.",
+            telephone: currentBranch?.phone ?? NETWORK_PHONE,
+            address: schemaAddresses,
             openingHoursSpecification: {
               "@type": "OpeningHoursSpecification",
               dayOfWeek: [
@@ -74,15 +95,15 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={260} y={16}>
-            <h1 className="hero__title">7barbershop</h1>
+            <h1 className="hero__title">Барбершоп СЕМЬ Тони Селезнёва в Москве{location?.titleSuffix ?? ""}</h1>
           </Reveal>
 
           <Reveal delay={340} y={16}>
             <div className="location">
               <div className="location__stations" aria-label="Локации барбершопа">
-                <span className="location-tag"><Image src="/svg/geotag.svg" alt="" width={20} height={20} /> м. Сокол</span>
-                <span className="location-tag"><Image src="/svg/geotag.svg" alt="" width={20} height={20} /> м. Варшавская</span>
-                <span className="location-tag"><Image src="/svg/geotag.svg" alt="" width={20} height={20} /> м. Преображенская площадь</span>
+                {(isBranchPage ? [location!.station] : ["м. Сокол", "м. Варшавская", "м. Преображенская площадь"]).map((station) => (
+                  <span className="location-tag" key={station}><Image src="/svg/geotag.svg" alt="" width={20} height={20} /> {station}</span>
+                ))}
               </div>
 
               <p className="location__hours">с 10:00 до 22:00</p>
@@ -142,7 +163,7 @@ export default function Home() {
 
       {/* TEAM */}
       <Reveal y={28}>
-        <TeamSection />
+        <TeamSection onlyNames={teamNames} />
       </Reveal>
 
       <Reveal y={28}>
@@ -156,9 +177,14 @@ export default function Home() {
       {/* REVIEWS */}
       <ReviewsSection />
 
+      {/* HAIRCUTS */}
+      <Reveal y={28}>
+        <HaircutsSection />
+      </Reveal>
+
       {/* CONTACTS */}
       <Reveal y={28}>
-        <ContactsSection />
+        <ContactsSection initialBranchName={location?.station.replace("м. ", "")} />
       </Reveal>
 
       {/* BOOKING */}

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import ServicesTabs from "./ServicesTabs";
 import { branches, CONTACT_EMAIL } from "@/data/branches";
 
-export default function ContactsSection() {
-  const [activeBranch, setActiveBranch] = useState(0);
+export default function ContactsSection({ initialBranchName }: { initialBranchName?: string }) {
+  const initialBranch = initialBranchName ? branches.findIndex(({ name }) => name === initialBranchName) : 0;
+  const [activeBranch, setActiveBranch] = useState(initialBranch >= 0 ? initialBranch : 0);
   const branch = branches[activeBranch] ?? branches[0];
   const branchNames = branches.map(({ name }) => name);
 
@@ -30,6 +32,15 @@ export default function ContactsSection() {
                 <a className="contacts-card__email" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
               </div>
             </div>
+            <Image
+              className="contacts-card__pin"
+              src="/images/contacts-pin.webp"
+              alt=""
+              width={190}
+              height={224}
+              aria-hidden="true"
+              unoptimized
+            />
           </div>
         </div>
       </div>
