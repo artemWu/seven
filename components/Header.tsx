@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Button from "./button";
 import MobileMenu from "./MobileMenu";
@@ -63,7 +64,7 @@ export default function Header({ forceLight = false }: HeaderProps) {
       className={`site-header${isLight ? " site-header--light" : ""}${isMenuOpen ? " site-header--menu-open" : ""}`}
       aria-label="Основная навигация"
     >
-      <a className="site-header__logo" href="/" aria-label="Seven — на главную">
+      <Link className="site-header__logo" href="/" aria-label="Seven — на главную">
         <Image
           src="/svg/littlelogo.svg"
           alt="Seven"
@@ -72,10 +73,10 @@ export default function Header({ forceLight = false }: HeaderProps) {
           priority
           unoptimized
         />
-      </a>
+      </Link>
 
       <nav className="site-header__nav-shell">
-        <a className="site-header__nav-link--active" href="/">Главная</a>
+        <Link className="site-header__nav-link--active" href="/">Главная</Link>
         <a href="#services">Услуги</a>
         <a href="#team">Команда</a>
         <a href="#reviews">Галерея</a>
