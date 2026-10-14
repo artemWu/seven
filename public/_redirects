@@ -22,7 +22,6 @@
 /komanda                              /#team 301
 /galereya                             /#haircuts 301
 /kontakty                             /#contacts 301
-/privacy-policy                       /privacy 301
 
 # Старые ссылки на филиалы сохраняем с новыми trailing slash
 /barbershop-na-sokole                 /barbershop-na-sokole/ 301

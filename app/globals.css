@@ -3833,7 +3833,7 @@ button:active {
   .footer__group-title, .footer__link { text-align: left; }
   .footer__link { font-size: 18px; }
   .footer__copyright { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; width: 100%; text-align: left; }
-  .footer__copyright > a[href="/privacy"] { order: -1; align-self: flex-start; }
+  .footer__copyright > a[href="/privacy-policy"] { order: -1; align-self: flex-start; }
   .footer__copyright .footer__designer { justify-self: start; }
 }
 

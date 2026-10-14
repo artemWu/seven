@@ -34,7 +34,7 @@ export default function CookiePopup() {
           сделать сайт еще удобнее. Настроить можно в браузере
         </p>
         <div className="cookie-popup__actions">
-          <Button href="/privacy" theme="secondary" size="small">Настройки</Button>
+          <Button href="/privacy-policy" theme="secondary" size="small">Настройки</Button>
           <Button theme="primary" size="small" onClick={acceptCookies}>Принять</Button>
         </div>
       </div>

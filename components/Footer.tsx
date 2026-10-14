@@ -97,7 +97,7 @@ export default function Footer() {
         {/* COPYRIGHT */}
         <div className="footer__copyright">
           <span className="footer__disclaimer">Вся представленная на сайте информация, касающаяся цен и услуг, носит информационный характер и не является публичной офертой. Для получения подробной информации, требуется консультация и осмотр. Опубликованная на данном сайте информация может быть изменена в любое время без предварительного уведомления.</span>
-          <a href="/privacy">Политика конфиденциальности</a>
+          <a href="/privacy-policy">Политика конфиденциальности</a>
           <a
             className="footer__designer"
             href="https://t.me/wuprogress"
