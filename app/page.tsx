@@ -11,6 +11,7 @@ import Reveal from "../components/Reveal";
 import Button from "../components/button";
 import ServicesTable from "../components/ServicesTable";
 import Header from "../components/Header";
+import TitleQuote from "../components/TitleQuote";
 import BookingModal from "../components/BookingModal";
 import MobileBookingButton from "../components/MobileBookingButton";
 import { branches, NETWORK_PHONE } from "@/data/branches";
@@ -152,6 +153,8 @@ export default function Home({
         </div>
         </Reveal>
       </section>
+
+      <TitleQuote />
 
       {/* SERVICES */}
       <section

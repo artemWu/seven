@@ -1049,6 +1049,53 @@ button:active {
   padding-inline: 0;
 }
 
+.title-quote {
+  padding: 110px 24px 90px;
+  text-align: center;
+}
+
+.title-quote-title {
+  max-width: 900px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, .78);
+  font-size: clamp(28px, 4vw, 58px);
+  font-weight: 500;
+  letter-spacing: -.04em;
+  line-height: 1.08;
+}
+
+.title-quote-title-accent {
+  color: #a579ed;
+}
+
+.quoteFirstPart,
+.quoteAccentPart {
+  opacity: clamp(
+    0.2,
+    calc(
+      0.2 +
+      (var(--quote-progress, 0) - var(--quote-char-start, 0)) *
+      var(--quote-char-factor, 1) *
+      0.8
+    ),
+    1
+  );
+  transition: opacity 0.22s ease-in-out;
+}
+
+.quoteAccentPart {
+  background: none !important;
+  -webkit-text-fill-color: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quoteFirstPart,
+  .quoteAccentPart {
+    opacity: 1;
+    transition: none;
+  }
+}
+
 .barbers-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
