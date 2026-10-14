@@ -73,6 +73,7 @@ main {
 @media (max-width: 899px) {
   .services,
   .team-section,
+  .haircuts-section,
   .why-us,
   .about-section,
   .reviews-section,
@@ -4172,6 +4173,7 @@ button:active {
 @media (max-width: 899px) {
   .services,
   .team-section,
+  .haircuts-section,
   .why-us,
   .about-section,
   .reviews-section,
