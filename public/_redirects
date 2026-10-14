@@ -1,0 +1,33 @@
+# Старые страницы услуг → соответствующие разделы новой главной
+/uslugi                               /#services 301
+/uslugi/mujskie-strigki                /#services 301
+/uslugi/strigka-borody                 /#services 301
+/uslugi/modniye-mujskie-strigki        /#haircuts 301
+/uslugi/mujskie-strigki-lysye          /#services 301
+/uslugi/detskie-strizhki               /#services 301
+
+# Старые страницы отдельных стрижек → галерея
+/uslugi/mujskie-strigki/britanka       /#haircuts 301
+/uslugi/mujskie-strigki/flow           /#haircuts 301
+/uslugi/mujskie-strigki/frindzh        /#haircuts 301
+/uslugi/mujskie-strigki/crop           /#haircuts 301
+/uslugi/mujskie-strigki/quiff          /#haircuts 301
+/uslugi/mujskie-strigki/kanadka        /#haircuts 301
+/uslugi/mujskie-strigki/anderkat       /#haircuts 301
+/uslugi/mujskie-strigki/exekutiv       /#haircuts 301
+/uslugi/mujskie-strigki/fade           /#haircuts 301
+/uslugi/mujskie-strigki/mohawk         /#haircuts 301
+
+# Старые общие разделы
+/komanda                              /#team 301
+/galereya                             /#haircuts 301
+/kontakty                             /#contacts 301
+/privacy-policy                       /privacy 301
+
+# Старые ссылки на филиалы сохраняем с новыми trailing slash
+/barbershop-na-sokole                 /barbershop-na-sokole/ 301
+/barbershop-na-varshavskoj            /barbershop-na-varshavskoj/ 301
+/barbershop-na-preobrazhenskoj        /barbershop-na-preobrazhenskoj/ 301
+
+# Старые ссылки без пути → новая главная
+/                                    / 200
