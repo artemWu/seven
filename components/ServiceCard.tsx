@@ -1,6 +1,7 @@
 import Button from "../components/button";
 import Image from "next/image";
 import Link from "next/link";
+import { BOOKING_URL } from "@/data/site";
 
 type ServiceCardBackground = "beige" | "brown" | "gray";
 
@@ -73,7 +74,7 @@ export default function ServiceCard({
           </div>
 
             {showBooking && (
-              <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer">
+              <Button href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
                 Записаться
               </Button>
             )}

@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "./button";
 import MobileMenu from "./MobileMenu";
 import { BOOKING_URL } from "@/data/site";
+import { sitePath } from "@/lib/site-path";
 
 type HeaderProps = {
   forceLight?: boolean;
@@ -129,8 +130,8 @@ export default function Header({ forceLight = false }: HeaderProps) {
         }}
       >
         <Link className="site-header__nav-link--active" href="/">Главная</Link>
-        <a href="#services">Услуги</a>
-        <a href="#team">Команда</a>
+        <a href={sitePath("/#services")}>Услуги</a>
+        <a href={sitePath("/#team")}>Команда</a>
         <div className="site-header__branches">
           <span
             ref={branchesTriggerRef}
@@ -143,8 +144,8 @@ export default function Header({ forceLight = false }: HeaderProps) {
           >Филиалы</span>
         </div>
         <Link href="/galereya">Галерея</Link>
-        <a href="#reviews">Отзывы</a>
-        <a href="#contacts">Контакты</a>
+        <a href={sitePath("/#reviews")}>Отзывы</a>
+        <a href={sitePath("/#contacts")}>Контакты</a>
         <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer">Мастер-классы</a>
       </nav>
 

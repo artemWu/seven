@@ -16,6 +16,7 @@ import ServicesCards from "../components/ServicesCards";
 import BookingModal from "../components/BookingModal";
 import MobileBookingButton from "../components/MobileBookingButton";
 import { branches, NETWORK_PHONE } from "@/data/branches";
+import { BOOKING_URL } from "@/data/site";
 
 export default function Home({
   location,
@@ -125,7 +126,7 @@ export default function Home({
 
           <Reveal delay={440} y={16}>
             <div className="hero__cta-desktop">
-              <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer" theme="dark">
+              <Button href={BOOKING_URL} target="_blank" rel="noopener noreferrer" theme="dark">
                 Записаться
               </Button>
             </div>
@@ -177,7 +178,7 @@ export default function Home({
         </Reveal>
 
         <Button
-          href="https://n399707.yclients.com/group:12717/city:all#1"
+          href={BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
           theme="secondary"

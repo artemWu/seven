@@ -3,23 +3,33 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "./button";
-
-const COOKIE_CONSENT_KEY = "svet-cookie-consent";
+import { sitePath } from "@/lib/site-path";
+import { COOKIE_CONSENT_EVENT, COOKIE_CONSENT_KEY } from "@/lib/cookie-consent";
 
 export default function CookiePopup() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const consent = window.localStorage.getItem(COOKIE_CONSENT_KEY);
-    if (consent) return;
+    let consent: string | null = null;
+    try {
+      consent = window.localStorage.getItem(COOKIE_CONSENT_KEY);
+    } catch {
+      consent = null;
+    }
+    if (consent === "accepted") return;
 
     const timer = window.setTimeout(() => setIsVisible(true), 500);
     return () => window.clearTimeout(timer);
   }, []);
 
   function acceptCookies() {
-    window.localStorage.setItem(COOKIE_CONSENT_KEY, "accepted");
-    setIsVisible(false);
+    try {
+      window.localStorage.setItem(COOKIE_CONSENT_KEY, "accepted");
+      window.dispatchEvent(new Event(COOKIE_CONSENT_EVENT));
+      setIsVisible(false);
+    } catch {
+      // Without persistent consent, analytics must remain disabled.
+    }
   }
 
   if (!isVisible) return null;
@@ -34,7 +44,7 @@ export default function CookiePopup() {
           сделать сайт еще удобнее. Настроить можно в браузере
         </p>
         <div className="cookie-popup__actions">
-          <Button href="/privacy-policy" theme="secondary" size="small">Настройки</Button>
+          <Button href={sitePath("/privacy-policy")} theme="secondary" size="small">Настройки</Button>
           <Button theme="primary" size="small" onClick={acceptCookies}>Принять</Button>
         </div>
       </div>

@@ -8,7 +8,9 @@
   "scripts": {
     "install:ci": "bash scripts/install-pnpm.sh",
     "dev": "node scripts/run-framework.mjs dev",
-    "build": "node scripts/run-framework.mjs build",
+    "build": "SITE_TARGET=production NEXT_PUBLIC_SITE_TARGET=production node scripts/run-framework.mjs build",
+    "build:production": "SITE_TARGET=production NEXT_PUBLIC_SITE_TARGET=production node scripts/run-framework.mjs build",
+    "build:github-pages": "SITE_TARGET=github-pages NEXT_PUBLIC_SITE_TARGET=github-pages node scripts/run-framework.mjs build",
     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"

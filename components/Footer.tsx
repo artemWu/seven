@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { branches, NETWORK_PHONE, trainingContact } from "@/data/branches";
+import { sitePath } from "@/lib/site-path";
 
 export default function Footer() {
   return (
@@ -26,27 +27,27 @@ export default function Footer() {
             Навигация
           </div>
 
-          <a href="#top" className="footer__link">
+          <a href={sitePath("/#top")} className="footer__link">
             Главная
           </a>
 
-          <a href="#services" className="footer__link">
+          <a href={sitePath("/#services")} className="footer__link">
             Услуги
           </a>
 
-          <a href="#about" className="footer__link">
+          <a href={sitePath("/#about")} className="footer__link">
             Цифры
           </a>
 
-          <a href="#team" className="footer__link">
+          <a href={sitePath("/#team")} className="footer__link">
             Команда
           </a>
 
-          <a href="#reviews" className="footer__link">
+          <a href={sitePath("/galereya")} className="footer__link">
             Галерея
           </a>
 
-          <a href="#contacts" className="footer__link">
+          <a href={sitePath("/#contacts")} className="footer__link">
             Контакты
           </a>
         </div>
@@ -97,7 +98,7 @@ export default function Footer() {
         {/* COPYRIGHT */}
         <div className="footer__copyright">
           <span className="footer__disclaimer">Вся представленная на сайте информация, касающаяся цен и услуг, носит информационный характер и не является публичной офертой. Для получения подробной информации, требуется консультация и осмотр. Опубликованная на данном сайте информация может быть изменена в любое время без предварительного уведомления.</span>
-          <a href="/privacy-policy">Политика конфиденциальности</a>
+          <a href={sitePath("/privacy-policy")}>Политика конфиденциальности</a>
           <a
             className="footer__designer"
             href="https://t.me/wuprogress"

@@ -32,7 +32,7 @@ function CountUp({ value, suffix = "" }: CountUpProps) {
     return () => observer.disconnect();
   }, [suffix, value]);
 
-  return <span ref={ref}>0{suffix}</span>;
+  return <span ref={ref}>{value}{suffix}</span>;
 }
 
 const facts: Fact[] = [

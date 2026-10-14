@@ -3,6 +3,7 @@ import Image from "next/image";
 import Button from "./button";
 import styles from "./MobileMenu.module.css";
 import { BOOKING_URL } from "@/data/site";
+import { sitePath } from "@/lib/site-path";
 import Link from "next/link";
 
 type MobileMenuProps = {
@@ -26,10 +27,10 @@ export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps
 
       <div className={styles.links}>
         <nav aria-label="Мобильная навигация">
-          <a href="#about" onClick={onClose}>цифры</a>
-          <a href="#services" onClick={onClose}>услуги</a>
-          <a href="#team" onClick={onClose}>команда</a>
-          <a href="#reviews" onClick={onClose}>отзывы</a>
+          <a href={sitePath("/#about")} onClick={onClose}>цифры</a>
+          <a href={sitePath("/#services")} onClick={onClose}>услуги</a>
+          <a href={sitePath("/#team")} onClick={onClose}>команда</a>
+          <a href={sitePath("/#reviews")} onClick={onClose}>отзывы</a>
           <Link href="/galereya" onClick={onClose}>галерея</Link>
         </nav>
         <nav aria-label="Филиалы">
@@ -40,9 +41,9 @@ export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps
         </nav>
         <nav aria-label="Сотрудничество">
           <span className={styles.subheading}>Сотрудничество</span>
-          <a href="#contacts" onClick={onClose}>вакансии</a>
+          <a href={sitePath("/#contacts")} onClick={onClose}>вакансии</a>
           <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer" onClick={onClose}>мастер-классы</a>
-          <a href="#contacts" onClick={onClose}>стать моделью</a>
+          <a href={sitePath("/#contacts")} onClick={onClose}>стать моделью</a>
         </nav>
       </div>
 

@@ -45,6 +45,9 @@ jobs:
         run: pnpm exec tsc --noEmit --pretty false
 
       - name: Build
+        env:
+          SITE_TARGET: github-pages
+          NEXT_PUBLIC_SITE_TARGET: github-pages
         run: pnpm exec next build
 
       - name: Fix public asset paths for project Pages site

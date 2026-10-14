@@ -1,16 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import CookiePopup from "@/components/CookiePopup";
+import YandexMetrika from "@/components/YandexMetrika";
 
-const montserrat = Montserrat({
-  subsets: ["cyrillic", "latin"],
+const montserrat = localFont({
+  src: "../public/fonts/montserrat-cyrillic.woff2",
   display: "swap",
   variable: "--font-montserrat",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: "300 700",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.7barbershop.ru"),
+  alternates: { canonical: "/" },
   title: "Барбершоп Семь в Москве, м. Сокол, Преображенская, Варшавская",
   description:
     "Записаться онлайн или по телефону в мужскую парикмахерскую в Москве. В барбершопе VII сделать модную мужскую стрижку у лучших мастеров!",
@@ -19,6 +22,7 @@ export const metadata: Metadata = {
     apple: "/favicon.png",
   },
   openGraph: {
+    url: "https://www.7barbershop.ru/",
     title: "Барбершоп Семь в Москве, м. Сокол, Преображенская, Варшавская",
     description:
       "Записаться онлайн или по телефону в мужскую парикмахерскую в Москве. В барбершопе VII сделать модную мужскую стрижку у лучших мастеров!",
@@ -32,9 +36,9 @@ export const metadata: Metadata = {
       "Записаться онлайн или по телефону в мужскую парикмахерскую в Москве. В барбершопе VII сделать модную мужскую стрижку у лучших мастеров!",
     images: ["/og-image.png"],
   },
-  other: {
-    "codex-preview": "development",
-  },
+  robots: process.env.SITE_TARGET === "github-pages"
+    ? { index: false, follow: false }
+    : { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
@@ -58,6 +62,7 @@ export default function RootLayout({
       <body className={`${montserrat.variable} antialiased`}>
         {children}
         <CookiePopup />
+        <YandexMetrika />
       </body>
     </html>
   );

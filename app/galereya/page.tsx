@@ -7,6 +7,7 @@ import Button from "@/components/button";
 import HaircutsSection from "@/components/HaircutsSection";
 import ContactsSection from "@/components/ContactsSection";
 import { branches } from "@/data/branches";
+import { BOOKING_URL } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Галерея стрижек — барбершоп СЕМЬ в Москве",
@@ -54,7 +55,7 @@ export default function GalleryPage() {
               </div>
             </Reveal>
             <Reveal delay={440} y={16}>
-              <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer" theme="dark">
+              <Button href={BOOKING_URL} target="_blank" rel="noopener noreferrer" theme="dark">
                 Записаться
               </Button>
             </Reveal>
