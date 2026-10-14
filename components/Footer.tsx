@@ -35,7 +35,7 @@ export default function Footer() {
           </a>
 
           <a href="#about" className="footer__link">
-            О нас
+            Цифры
           </a>
 
           <a href="#team" className="footer__link">

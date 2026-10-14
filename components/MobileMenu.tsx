@@ -26,7 +26,7 @@ export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps
 
       <div className={styles.links}>
         <nav aria-label="Мобильная навигация">
-          <a href="#about" onClick={onClose}>о нас</a>
+          <a href="#about" onClick={onClose}>цифры</a>
           <a href="#services" onClick={onClose}>услуги</a>
           <a href="#team" onClick={onClose}>команда</a>
           <a href="#reviews" onClick={onClose}>отзывы</a>

@@ -45,7 +45,7 @@ const facts: Fact[] = [
 export default function AboutSection() {
   return (
     <section className="about-section" id="about">
-      <Reveal y={18}><h2 className="about-section__eyebrow">о нас</h2></Reveal>
+      <Reveal y={18}><h2 className="about-section__eyebrow">цифры</h2></Reveal>
       <div className="about-section__grid">
         {facts.map((fact, index) => (
           <Reveal key={fact.value} delay={index * 90} y={24}>
