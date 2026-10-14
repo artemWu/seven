@@ -1,5 +1,6 @@
 import Button from "../components/button";
 import Image from "next/image";
+import Link from "next/link";
 
 type ServiceCardBackground = "beige" | "brown" | "gray";
 
@@ -8,6 +9,8 @@ type ServiceCardProps = {
   price: string;
   image: string;
   background: ServiceCardBackground;
+  showBooking?: boolean;
+  href?: string;
 };
 
 const backgrounds: Record<ServiceCardBackground, string> = {
@@ -21,9 +24,10 @@ export default function ServiceCard({
   price,
   image,
   background,
-  
+  showBooking = true,
+  href,
 }: ServiceCardProps) {
-  return (
+  const content = (
     <div
       className="service-card"
       style={{
@@ -68,11 +72,15 @@ export default function ServiceCard({
             </div>
           </div>
 
-            <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer">
-              Записаться
-            </Button>
+            {showBooking && (
+              <Button href="https://n399707.yclients.com/group:12717/city:all#1" target="_blank" rel="noopener noreferrer">
+                Записаться
+              </Button>
+            )}
           </div>
-        </div>
       </div>
+    </div>
   );
+
+  return href ? <Link href={href} className="service-card-link">{content}</Link> : content;
 }

@@ -39,6 +39,93 @@ main {
 }
 
 /* =========================
+   NOT FOUND
+========================= */
+
+.not-found-page {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 100svh;
+  min-height: 100dvh;
+  place-items: center;
+  overflow: clip;
+  background: linear-gradient(315deg, #161618 0%, #646466 100%);
+  color: #f4f3f7;
+}
+
+.not-found-page__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 96px 24px 32px;
+  text-align: center;
+}
+
+.not-found-page__code {
+  margin: 0;
+  color: #d9d9e1;
+  font-size: clamp(128px, 15vw, 220px);
+  font-weight: 600;
+  letter-spacing: -0.09em;
+  line-height: .86;
+}
+
+.not-found-page h1 {
+  margin: 38px 0 28px;
+  color: #f0eff4;
+  font-size: clamp(28px, 3.1vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.not-found-page__button {
+  display: inline-flex;
+  min-width: 224px;
+  min-height: 76px;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #9d7fd9 0%, #7b61c9 100%);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.not-found-page__button:hover,
+.not-found-page__button:focus-visible {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 899px) {
+  .not-found-page__content {
+    padding-top: 72px;
+  }
+
+  .not-found-page__code {
+    font-size: clamp(108px, 31vw, 180px);
+  }
+
+  .not-found-page h1 {
+    margin-top: 28px;
+    font-size: clamp(24px, 7vw, 36px);
+  }
+
+  .not-found-page__button {
+    min-height: 60px;
+    min-width: 188px;
+    border-radius: 16px;
+    font-size: 17px;
+  }
+}
+
+/* =========================
    HERO
 ========================= */
 
@@ -48,7 +135,6 @@ main {
   width: 100%;
   min-height: 100svh;
   min-height: 100dvh;
-  overflow: hidden;
 
   background: linear-gradient(315deg, #161618 0%, #646466 100%);
 }
@@ -1019,7 +1105,8 @@ button:active {
   bottom: 0;
 
   width: min(125vw, 501px);
-  height: 100%;
+  height: auto;
+  max-height: 100%;
 
   transform: translateX(-50%);
 
@@ -1050,18 +1137,35 @@ button:active {
 }
 
 .title-quote {
-  padding: 110px 24px 90px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 120px 0 0;
   text-align: center;
 }
 
 .title-quote-title {
-  max-width: 900px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 720px;
   margin: 0 auto;
-  color: rgba(255, 255, 255, .78);
-  font-size: clamp(28px, 4vw, 58px);
+  color: #17151a;
+  font-size: 24px;
   font-weight: 500;
   letter-spacing: -.04em;
-  line-height: 1.08;
+  line-height: 1.4;
+}
+
+@media (max-width: 899px) {
+  .title-quote {
+    padding: 60px 4px 0;
+  }
+
+  .title-quote-title {
+    font-size: 20px;
+    line-height: 1.35;
+  }
 }
 
 .title-quote-title-accent {
@@ -1674,6 +1778,150 @@ button:active {
   overflow: hidden;
 
   border-radius: 24px;
+}
+
+.services-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.services-cards .service-card {
+  aspect-ratio: 1.9 / 1;
+  min-height: 280px;
+  border-radius: 36px;
+  corner-shape: superellipse(1.8);
+  background: #fff !important;
+  color: #17151a;
+  box-shadow: 0 10px 28px rgb(22 22 24 / 5%);
+  cursor: pointer;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.service-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.services-cards .service-card-link:hover .service-card,
+.services-cards .service-card-link:focus-visible .service-card {
+  box-shadow: 0 14px 34px rgb(22 22 24 / 10%);
+}
+
+.services-cards .service-card__image {
+  top: auto !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: auto !important;
+  width: 36% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: right bottom !important;
+  transform: scaleX(-1);
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 68%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, #000 68%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.services-cards .service-card__overlay {
+  display: none;
+}
+
+.services-cards .service-card__footer {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  padding: 16px;
+}
+
+.services-cards .service-card__row {
+  display: block;
+  height: 100%;
+}
+
+.services-cards .service-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.services-cards .service-card__name {
+  color: #17151a;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -.045em;
+  line-height: 32px;
+  text-transform: none;
+  transform: none;
+}
+
+.services-cards .service-card__price {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  color: #17151a;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 20px;
+  opacity: 1;
+  transform: none;
+}
+
+.services-cards .service-card__price {
+  margin-top: 8px;
+}
+
+.services-cards .button {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+}
+
+@media (max-width: 760px) {
+  .services-cards {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .services-cards .service-card {
+    min-height: 240px;
+  }
+
+  .services-cards .service-card__image {
+    width: 45% !important;
+    object-fit: contain !important;
+    object-position: right bottom !important;
+  }
+
+  .services-cards .service-card__footer {
+    padding: 16px;
+  }
+
+  .services-cards .service-card__name {
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .services-cards .service-card__price {
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+
+@supports not (corner-shape: superellipse(1.8)) {
+  .services-cards .service-card {
+    border-radius: 36px;
+  }
 }
 
 /* =========================
@@ -3004,7 +3252,7 @@ button:active {
   }
 
   .hero__portrait--left {
-    left: 0;
+    left: -12px;
   }
 
   .hero__portrait--right {

@@ -75,8 +75,11 @@ const categories: ServiceCategory[] = [
   },
 ];
 
-export default function ServicesTable() {
-  const [activeIndex, setActiveIndex] = useState(0);
+export default function ServicesTable({ categoryLabel }: { categoryLabel?: string }) {
+  const [activeIndex, setActiveIndex] = useState(() => {
+    const index = categories.findIndex(({ label }) => label === categoryLabel);
+    return index >= 0 ? index : 0;
+  });
   const [openHint, setOpenHint] = useState<keyof typeof levelHints | null>(null);
   const [hoveredHint, setHoveredHint] = useState<keyof typeof levelHints | null>(null);
   const [hintPosition, setHintPosition] = useState({ top: 0, left: 0 });
@@ -147,7 +150,9 @@ export default function ServicesTable() {
 
   return (
     <div className="services-table" aria-label="Прайс-лист услуг">
-      <ServicesTabs items={categories.map(({ label }) => label)} activeIndex={activeIndex} onChange={setActiveIndex} />
+      {!categoryLabel && (
+        <ServicesTabs items={categories.map(({ label }) => label)} activeIndex={activeIndex} onChange={setActiveIndex} />
+      )}
 
       <div className="services-table__content" key={category.label}>
         <div className="services-table__photo-wrap">

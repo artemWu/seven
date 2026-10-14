@@ -12,6 +12,7 @@ import Button from "../components/button";
 import ServicesTable from "../components/ServicesTable";
 import Header from "../components/Header";
 import TitleQuote from "../components/TitleQuote";
+import ServicesCards from "../components/ServicesCards";
 import BookingModal from "../components/BookingModal";
 import MobileBookingButton from "../components/MobileBookingButton";
 import { branches, NETWORK_PHONE } from "@/data/branches";
@@ -19,9 +20,13 @@ import { branches, NETWORK_PHONE } from "@/data/branches";
 export default function Home({
   location,
   teamNames,
+  servicesVariant = "table",
+  servicesCategory,
 }: {
   location?: { station: string; titleSuffix: string };
   teamNames?: string[];
+  servicesVariant?: "table" | "cards";
+  servicesCategory?: string;
 }) {
   const isBranchPage = Boolean(location);
   const currentBranch = location
@@ -168,7 +173,7 @@ export default function Home({
         </h2>
 
         <Reveal delay={140} y={24}>
-          <ServicesTable />
+          {servicesVariant === "cards" ? <ServicesCards /> : <ServicesTable categoryLabel={servicesCategory} />}
         </Reveal>
 
         <Button

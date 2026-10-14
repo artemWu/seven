@@ -39,7 +39,7 @@ export default function TitleQuote() {
         const rect = (title ?? quote).getBoundingClientRect();
         const progress = Math.max(
           0,
-          Math.min(1, (window.innerHeight * 0.9 - rect.top) / (window.innerHeight * 0.35)),
+          Math.min(1, (window.innerHeight * 0.9 - rect.top) / (window.innerHeight * 0.45)),
         );
         quote.style.setProperty("--quote-progress", String(progress));
         raf = 0;
@@ -57,13 +57,13 @@ export default function TitleQuote() {
     };
   }, []);
 
-  const lead = "Семь раз отмерь — ";
-  const accent = "один раз отрежь";
-  const suffix = ".";
+  const lead = "В нашей команде работают опытные мастера, которые постоянно развивают навыки и изучают современные техники. Мы подбираем стрижку и бороду с учётом ";
+  const accent = "формы лица, образа жизни и индивидуального стиля гостя";
+  const suffix = ". В студии вас ждёт уютная домашняя атмосфера.";
   const totalLength = lead.length + accent.length + suffix.length;
 
   return (
-    <section className="title-quote" ref={quoteRef} aria-label="Семь раз отмерь — один раз отрежь.">
+    <section className="title-quote" ref={quoteRef} aria-label="В нашей команде работают опытные мастера, которые постоянно развивают навыки и изучают современные техники. Мы подбираем стрижку и бороду с учётом формы лица, образа жизни и индивидуального стиля гостя. В студии вас ждёт уютная домашняя атмосфера.">
       <div className="title-quote-title">
         {renderQuoteChars(lead, 0, totalLength, "quoteFirstPart")}
         <span className="title-quote-title-accent">

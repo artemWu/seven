@@ -16,5 +16,5 @@ export const metadata: Metadata = {
 };
 
 export default function ServicesPage() {
-  return <Home />;
+  return <Home servicesVariant="cards" />;
 }
