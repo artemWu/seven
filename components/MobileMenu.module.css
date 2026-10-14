@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    scrollbar-width: none;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
     padding: 16px;
@@ -33,6 +34,10 @@
       filter 380ms ease,
       transform 380ms cubic-bezier(.16, 1.2, .3, 1),
       visibility 0s linear 320ms;
+  }
+
+  .menu::-webkit-scrollbar {
+    display: none;
   }
 
   .open {
@@ -62,6 +67,13 @@
   .open .links a {
     animation: mobile-menu-link-in 240ms cubic-bezier(.22, 1, .36, 1) both;
   }
+
+  .open .contacts a {
+    animation: mobile-menu-link-in 240ms cubic-bezier(.22, 1, .36, 1) both;
+  }
+
+  .open .contacts a:nth-of-type(1) { animation-delay: 120ms; }
+  .open .contacts a:nth-of-type(2) { animation-delay: 155ms; }
 
   .open .links nav:nth-child(1) a:nth-of-type(1) { animation-delay: 120ms; }
   .open .links nav:nth-child(1) a:nth-of-type(2) { animation-delay: 155ms; }
