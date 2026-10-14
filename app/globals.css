@@ -897,7 +897,8 @@ button:active {
   display: flex;
   flex-direction: column;
   width: min(560px, 100%);
-  height: 100%;
+  height: auto;
+  max-height: 100%;
   overflow: hidden;
   background: #fff;
   box-shadow: -18px 0 50px rgb(0 0 0 / 20%);
@@ -4158,7 +4159,8 @@ button:active {
     display: block;
     left: 52%;
     width: min(100vw, 384px);
-    height: 100%;
+    height: auto;
+    max-height: 100%;
     object-position: center bottom;
   }
 

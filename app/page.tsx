@@ -132,7 +132,8 @@ export default function Home({
             className="hero__portrait hero__portrait--left"
             src="/images/hero-image-right.webp"
             alt="Мужская стрижка кроп в барбершопе СЕМЬ"
-            fill
+            width={1000}
+            height={1000}
             sizes="(max-width: 899px) 100vw, 50vw"
             priority
             unoptimized
@@ -142,7 +143,8 @@ export default function Home({
             className="hero__portrait hero__portrait--right"
             src="/images/hero-seven-left.webp"
             alt="Мужская стрижка удлинённый кроп в барбершопе СЕМЬ"
-            fill
+            width={1000}
+            height={1000}
             sizes="(max-width: 899px) 100vw, 50vw"
             priority
             unoptimized
