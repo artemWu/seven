@@ -151,18 +151,6 @@ export default function Home({
         </Reveal>
       </section>
 
-      {currentBranch && (
-        <section className="branch-seo" aria-labelledby="branch-seo-title">
-          <div className="branch-seo__inner">
-            <h2 id="branch-seo-title">Барбершоп СЕМЬ {location?.titleSuffix?.toLowerCase()}</h2>
-            <p>{currentBranch.seoIntro}</p>
-            <p className="branch-seo__details">
-              Адрес: {currentBranch.address}, {currentBranch.station}. Работаем ежедневно с 10:00 до 22:00. В филиале доступны мужские стрижки, стрижка и моделирование бороды, бритьё и уходовые процедуры.
-            </p>
-          </div>
-        </section>
-      )}
-
       {/* SERVICES */}
       <section
         className="services"
