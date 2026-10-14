@@ -159,7 +159,7 @@ export default function Home({
         </Reveal>
       </section>
 
-      <TitleQuote />
+      {(servicesVariant === "cards" || servicesCategory) && <TitleQuote />}
 
       {/* SERVICES */}
       <section
