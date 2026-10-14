@@ -4161,6 +4161,7 @@ button:active {
     width: min(100vw, 384px);
     height: auto;
     max-height: 100%;
+    content: url("/images/hero-seven-left.webp");
     object-position: center bottom;
   }
 
