@@ -460,7 +460,7 @@ button:active {
 
 .cookie-popup {
   position: fixed;
-  z-index: 1000;
+  z-index: 20000;
   right: 12px;
   bottom: 12px;
   left: auto;
@@ -2573,7 +2573,7 @@ button:active {
 .about-section__card h3 { margin: 0; font-size: 32px; line-height: 32px; font-weight: 600; letter-spacing: -.045em; }
 .about-section__card p { margin: 0; font-size: 20px; line-height: 20px; font-weight: 500; letter-spacing: -.03em; }
 .about-section__image { position: absolute; top: 32px; right: 0; width: 54%; height: 43%; object-fit: contain; object-position: top right; }
-@media (max-width: 899px) { .about-section { padding-top: 80px; } .about-section__grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; column-gap: 12px !important; row-gap: 12px !important; overflow: visible; padding-inline: 0; } .about-section__grid > .reveal { width: auto; min-width: 0; } .about-section__card { width: 100%; min-width: 0; min-height: 0; aspect-ratio: 1; } .about-section__card h3 { font-size: 24px; line-height: 1; } .about-section__card p { font-size: 16px; line-height: 1.15; } }
+@media (max-width: 899px) { .about-section { padding-top: 80px; } .about-section__grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; column-gap: 12px !important; row-gap: 12px !important; overflow: visible; padding-inline: 0; } .about-section__grid > .reveal { width: auto; min-width: 0; } .about-section__card { width: 100%; height: 185px; min-width: 0; min-height: 0; aspect-ratio: auto; } .about-section__card h3 { font-size: 24px; line-height: 1; } .about-section__card p { font-size: 16px; line-height: 1.15; } }
 
 /* =========================
    DESKTOP
@@ -2991,7 +2991,7 @@ button:active {
 
   .hero__cta-mobile {
     position: fixed;
-    z-index: 10310;
+    z-index: 1000;
     right: 24px;
     bottom: calc(46px + env(safe-area-inset-bottom));
     left: auto;
@@ -3833,7 +3833,8 @@ button:active {
   .footer__group { align-items: flex-start; }
   .footer__group-title, .footer__link { text-align: left; }
   .footer__link { font-size: 18px; }
-  .footer__copyright { grid-template-columns: 1fr; gap: 14px; width: 100%; }
+  .footer__copyright { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; width: 100%; text-align: left; }
+  .footer__copyright > a[href="/privacy"] { order: -1; align-self: flex-start; }
   .footer__copyright .footer__designer { justify-self: start; }
 }
 
