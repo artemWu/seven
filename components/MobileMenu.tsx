@@ -30,6 +30,7 @@ export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps
           <a href="#services" onClick={onClose}>услуги</a>
           <a href="#team" onClick={onClose}>команда</a>
           <a href="#reviews" onClick={onClose}>отзывы</a>
+          <Link href="/galereya" onClick={onClose}>галерея</Link>
         </nav>
         <nav aria-label="Филиалы">
           <span className={styles.subheading}>Филиалы</span>

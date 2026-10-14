@@ -142,6 +142,7 @@ export default function Header({ forceLight = false }: HeaderProps) {
             onBlur={scheduleBranchesMenuClose}
           >Филиалы</span>
         </div>
+        <Link href="/galereya">Галерея</Link>
         <a href="#reviews">Отзывы</a>
         <a href="#contacts">Контакты</a>
         <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer">Мастер-классы</a>
