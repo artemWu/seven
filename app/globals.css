@@ -1022,15 +1022,12 @@ button:active {
 
   transform: translateX(-50%);
 
-  background-image: url("/images/hero-image-right.webp");
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-size: 100% auto;
+  object-fit: contain;
+  object-position: center bottom;
 }
 
 .hero__portrait--right {
   display: none;
-  background-image: url("/images/hero-seven-left.webp");
 }
 
 /* =========================
@@ -4162,9 +4159,7 @@ button:active {
     left: 52%;
     width: min(100vw, 384px);
     height: 100%;
-    background-image: url("/images/hero-seven-left.webp");
-    background-position: center bottom;
-    background-size: 100% auto;
+    object-position: center bottom;
   }
 
   .hero__portrait--right {
