@@ -1051,6 +1051,29 @@ button:active {
   padding-inline: 0;
 }
 
+.branch-seo {
+  padding: 56px 24px 24px;
+}
+
+.branch-seo__inner {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.branch-seo h2 {
+  margin: 0 0 16px;
+  font-size: clamp(24px, 3vw, 40px);
+  line-height: 1.1;
+}
+
+.branch-seo p {
+  max-width: 720px;
+  margin: 0 0 12px;
+  color: rgba(255, 255, 255, .72);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
 .barbers-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));

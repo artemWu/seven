@@ -5,16 +5,17 @@ export type Branch = {
   footerPhone?: string;
   station: string;
   mapSrc: string;
+  seoIntro: string;
 };
 
 export const NETWORK_PHONE = "+7 (977) 797 71 77";
 export const CONTACT_EMAIL = "7studioru@gmail.com";
 
 export const branches: Branch[] = [
-  { name: "Сокол", address: "Усиевича 27 к2", phone: "+7 (964) 640 15 94", footerPhone: "+7 (964) 640 15 94", station: "м. Сокол", mapSrc: "https://yandex.ru/map-widget/v1/?um=constructor%3A2a840d82130e8367f4872fb25caed1f3cff6f936016b6270bae644723c832311&source=constructor" },
-  { name: "Курская", address: "Малый Демидовский пер. 3", phone: "+7 (916) 385 06 02", station: "м. Курская", mapSrc: "https://yandex.ru/map-widget/v1/?um=constructor%3A353e53dab1988b07e4b35732a47a0bc7ae2dfab739e50ea20ea66280abc52e91&source=constructor" },
-  { name: "Варшавская", address: "Варшавское шоссе 74к3", phone: "+7 (977) 151 65 25", station: "м. Варшавская", mapSrc: "https://yandex.ru/map-widget/v1/?um=constructor%3A74e9922e876a6a7c975b847042ae82da09e67cc6d0264e01c5eff7a696ce0829&source=constructor" },
-  { name: "Преображенская", address: "Краснобогатырская 90с2", phone: "+7 (963) 657 69 43", station: "м. Преображенская", mapSrc: "https://yandex.ru/map-widget/v1/?um=constructor%3A9c56ee52acb48fcc1ca89bb0d9a1317dfea022cc7d474f656900994d55147138&source=constructor" },
+  { name: "Сокол", address: "Усиевича 27 к2", phone: "+7 (964) 640 15 94", footerPhone: "+7 (964) 640 15 94", station: "м. Сокол", mapSrc: "https://yandex.ru/map-widget/v1/?um=constructor%3A2a840d82130e8367f4872fb25caed1f3cff6f936016b6270bae644723c832311&source=constructor", seoIntro: "Филиал СЕМЬ у метро Сокол — удобное место для мужской стрижки, оформления бороды и ухода за лицом в северной части Москвы. Запишитесь к мастеру онлайн и выберите подходящую услугу." },
+  { name: "Курская", address: "Малый Демидовский пер. 3", phone: "+7 (916) 385 06 02", station: "м. Курская", mapSrc: "https://yandex.ru/map-widget/v1/?um=constructor%3A353e53dab1988b07e4b35732a47a0bc7ae2dfab739e50ea20ea66280abc52e91&source=constructor", seoIntro: "Барбершоп СЕМЬ рядом с Курской принимает гостей в центре Москвы. Здесь можно сделать классическую или современную мужскую стрижку, оформить бороду и подобрать домашний уход." },
+  { name: "Варшавская", address: "Варшавское шоссе 74к3", phone: "+7 (977) 151 65 25", station: "м. Варшавская", mapSrc: "https://yandex.ru/map-widget/v1/?um=constructor%3A74e9922e876a6a7c975b847042ae82da09e67cc6d0264e01c5eff7a696ce0829&source=constructor", seoIntro: "Барбершоп СЕМЬ на Варшавской — филиал для тех, кто ищет мужскую стрижку и уход рядом с домом или работой. Мастера помогут подобрать форму, укладку и оформление бороды под ваш образ." },
+  { name: "Преображенская", address: "Краснобогатырская 90с2", phone: "+7 (963) 657 69 43", station: "м. Преображенская", mapSrc: "https://yandex.ru/map-widget/v1/?um=constructor%3A9c56ee52acb48fcc1ca89bb0d9a1317dfea022cc7d474f656900994d55147138&source=constructor", seoIntro: "Филиал СЕМЬ на Преображенской — место для аккуратной мужской стрижки, бритья и ухода за бородой. Перед визитом можно выбрать мастера и записаться онлайн на удобное время." },
 ];
 
 export const trainingContact = {
