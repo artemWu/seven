@@ -1,4 +1,5 @@
 import Button from "../components/button";
+import Image from "next/image";
 
 type ServiceCardBackground = "beige" | "brown" | "gray";
 
@@ -29,11 +30,13 @@ export default function ServiceCard({
         background: backgrounds[background],
       }}
     >
-      <div
+      <Image
         className="service-card__image"
-        style={{
-          backgroundImage: `url("${image}")`,
-        }}
+        src={image}
+        alt={`${title} в барбершопе СЕМЬ`}
+        fill
+        sizes="(max-width: 760px) 90vw, 33vw"
+        unoptimized
       />
 
       <div

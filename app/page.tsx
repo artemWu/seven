@@ -47,11 +47,15 @@ export default function Home({
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "HairSalon",
-            name: "Seven",
+            name: "Барбершоп СЕМЬ Тони Селезнёва",
+            image: "/og-image.png",
             description:
               "Барбершоп СЕМЬ Тони Селезнёва в Москве.",
             telephone: currentBranch?.phone ?? NETWORK_PHONE,
             address: schemaAddresses,
+            priceRange: "₽₽",
+            hasMap: currentBranch?.mapSrc,
+            sameAs: ["https://academy7.ru/"],
             openingHoursSpecification: {
               "@type": "OpeningHoursSpecification",
               dayOfWeek: [
@@ -87,7 +91,7 @@ export default function Home({
           <Reveal delay={120} y={10}>
             <Image
               src="/svg/seven-sign.svg"
-              alt="7barbershop"
+              alt="Барбершоп СЕМЬ Тони Селезнёва"
               width={600}
               height={246}
               className="hero__logo"
@@ -124,16 +128,24 @@ export default function Home({
 
         <Reveal delay={80} y={0} className="hero__portraits-reveal">
         <div className="hero__portraits">
-          <div
+          <Image
             className="hero__portrait hero__portrait--left"
-            role="img"
-            aria-label="Портрет мастера парикмахерской"
+            src="/images/hero-image-right.webp"
+            alt="Мужская стрижка кроп в барбершопе СЕМЬ"
+            fill
+            sizes="(max-width: 899px) 100vw, 50vw"
+            priority
+            unoptimized
           />
 
-          <div
+          <Image
             className="hero__portrait hero__portrait--right"
-            role="img"
-            aria-label="Портрет второго мастера парикмахерской"
+            src="/images/hero-seven-left.webp"
+            alt="Мужская стрижка удлинённый кроп в барбершопе СЕМЬ"
+            fill
+            sizes="(max-width: 899px) 100vw, 50vw"
+            priority
+            unoptimized
           />
         </div>
         </Reveal>

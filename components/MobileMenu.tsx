@@ -53,7 +53,7 @@ export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps
 
       <div className={styles.footer}>
         <div className={styles.hours}>Ежедневно<strong>с 10:00 до 22:00</strong></div>
-        <Image src="/svg/seven-sign.svg" alt="7barbershop" width={224} height={60} unoptimized />
+        <Image src="/svg/seven-sign.svg" alt="Барбершоп СЕМЬ Тони Селезнёва" width={224} height={60} unoptimized />
         <Button href={BOOKING_URL} target="_blank" rel="noopener noreferrer" theme="primary">Записаться</Button>
       </div>
     </div>

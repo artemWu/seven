@@ -151,7 +151,7 @@ export default function ServicesTable() {
 
       <div className="services-table__content" key={category.label}>
         <div className="services-table__photo-wrap">
-          <Image className="services-table__photo" src={category.image} alt="" width={520} height={520} sizes="(max-width: 760px) 60vw, 28vw" />
+          <Image className="services-table__photo" src={category.image} alt={`${category.label} в барбершопе СЕМЬ`} width={520} height={520} sizes="(max-width: 760px) 60vw, 28vw" />
         </div>
         <div className={`services-table__scroll-mask${hasMoreColumns ? " services-table__scroll-mask--right" : ""}`}>
           <div

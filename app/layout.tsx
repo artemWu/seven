@@ -23,12 +23,14 @@ export const metadata: Metadata = {
     description:
       "Записаться онлайн или по телефону в мужскую парикмахерскую в Москве. В барбершопе VII сделать модную мужскую стрижку у лучших мастеров!",
     type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Барбершоп СЕМЬ Тони Селезнёва" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Барбершоп Семь в Москве, м. Сокол, Преображенская, Варшавская",
     description:
       "Записаться онлайн или по телефону в мужскую парикмахерскую в Москве. В барбершопе VII сделать модную мужскую стрижку у лучших мастеров!",
+    images: ["/og-image.png"],
   },
   other: {
     "codex-preview": "development",

@@ -15,7 +15,7 @@ export default function BarberCard({ name, role, image, theme = "light" }: Barbe
         <p>{role}</p>
       </div>
       <div className="barber-card__media">
-        <Image className="barber-card__image" src={image} alt={`${name}, ${role}`} fill sizes="(max-width: 760px) 50vw, 25vw" style={{ objectFit: "contain", objectPosition: "right bottom" }} />
+        <Image className="barber-card__image" src={image} alt={`Барбер ${name} — ${role.toLowerCase()} барбершопа СЕМЬ`} fill sizes="(max-width: 760px) 50vw, 25vw" style={{ objectFit: "contain", objectPosition: "right bottom" }} />
       </div>
     </article>
   );

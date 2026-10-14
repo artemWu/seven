@@ -11,7 +11,7 @@ export default function Footer() {
 
           <Image
             src="/svg/seven-sign.svg"
-            alt="7barbershop"
+            alt="Барбершоп СЕМЬ Тони Селезнёва"
             width={224}
             height={60}
             className="footer__logo"

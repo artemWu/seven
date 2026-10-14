@@ -16,6 +16,18 @@ const haircutCards = [
   "/images/haircut-01.webp",
 ];
 
+const haircutNames = [
+  "Французский кроп",
+  "Текстурированный кроп",
+  "Стрижка curtains",
+  "Маллет",
+  "Квифф",
+  "Базз-кат",
+  "Кроп с фейдом",
+  "Кудрявый кроп",
+  "Удлинённый кроп",
+];
+
 export default function HaircutsSection() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const touchStartX = useRef<number | null>(null);
@@ -46,7 +58,7 @@ export default function HaircutsSection() {
         {haircutCards.map((image, index) => (
           <Reveal key={image} className={`haircut-card-reveal haircut-card-reveal--${index + 1}`} delay={index * 90} y={24}>
             <button className="haircut-card" type="button" onClick={() => setSelectedIndex(index)} aria-label={`Открыть фото стрижки ${index + 1}`}>
-              <Image className="haircut-card__image" src={image} alt={`Стрижка ${index + 1}`} fill sizes="(max-width: 899px) 50vw, 33vw" unoptimized />
+              <Image className="haircut-card__image" src={image} alt={`Мужская стрижка «${haircutNames[index]}»`} fill sizes="(max-width: 899px) 50vw, 33vw" unoptimized />
             </button>
           </Reveal>
         ))}
@@ -56,7 +68,7 @@ export default function HaircutsSection() {
           <button className="haircut-viewer__close" type="button" onClick={closeViewer} aria-label="Закрыть просмотр"><Image src="/icons/close.svg" alt="" width={24} height={24} unoptimized /></button>
           <button className="haircut-viewer__arrow haircut-viewer__arrow--prev" type="button" onClick={(event) => { event.stopPropagation(); showPrevious(); }} aria-label="Предыдущая фотография"><Image src="/icons/chevron-right.svg" alt="" width={24} height={24} unoptimized /></button>
           <div className="haircut-viewer__image-wrap" onClick={(event) => event.stopPropagation()}>
-            <Image className="haircut-viewer__image" src={haircutCards[selectedIndex]} alt={`Стрижка ${selectedIndex + 1}`} width={1600} height={1200} sizes="100vw" unoptimized priority />
+            <Image className="haircut-viewer__image" src={haircutCards[selectedIndex]} alt={`Мужская стрижка «${haircutNames[selectedIndex]}»`} width={1600} height={1200} sizes="100vw" unoptimized priority />
           </div>
           <button className="haircut-viewer__arrow haircut-viewer__arrow--next" type="button" onClick={(event) => { event.stopPropagation(); showNext(); }} aria-label="Следующая фотография"><Image src="/icons/chevron-right.svg" alt="" width={24} height={24} unoptimized /></button>
         </div>

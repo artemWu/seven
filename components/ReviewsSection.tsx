@@ -1,5 +1,6 @@
 import Button from "./button";
 import Reveal from "./Reveal";
+import Image from "next/image";
 
 const reviews = [
   {
@@ -85,11 +86,13 @@ export default function ReviewsSection() {
 
             <div className="review-card__inner">
               <div className="review-card__header">
-                <div
+                <Image
                   className="review-card__avatar"
-                  style={{
-                    backgroundImage: `url("${review.avatar}")`,
-                  }}
+                  src={review.avatar}
+                  alt={`Аватар автора отзыва ${review.name}`}
+                  width={32}
+                  height={32}
+                  unoptimized
                 />
 
                 <div className="review-card__person">
