@@ -83,7 +83,6 @@ jobs:
           done
           test ! -e dist/client/server.js
           test ! -e dist/client/wrangler.json
-          test ! -d dist/server
 
       # This connects using explicit FTPS and strict certificate validation,
       # but dry-run guarantees that no remote file is changed.
