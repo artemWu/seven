@@ -1,9 +1,6 @@
 name: REG.RU deploy (dry-run)
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
@@ -99,6 +96,9 @@ jobs:
           server-dir: ./
           dry-run: true
           dangerous-clean-slate: false
+          # Keep the action's remote manifest so later runs can calculate
+          # incremental uploads/deletions. Do not exclude this file.
+          state-name: .ftp-deploy-sync-state.json
           log-level: standard
           exclude: |
             **/.htaccess
@@ -108,4 +108,7 @@ jobs:
             .well-known/**
             cgi-bin/**
             logs/**
-            .ftp-deploy-sync-state.json
+            **/.vite/**
+            .vite/**
+            **/.assetsignore
+            .assetsignore
