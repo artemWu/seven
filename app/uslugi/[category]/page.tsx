@@ -14,6 +14,11 @@ export function generateStaticParams() {
   return Object.keys(categories).map((category) => ({ category }));
 }
 
+// Only the enumerated categories exist in the static export. This prevents
+// vinext from treating a request for the dynamic route as runtime-rendered
+// before it applies the configured trailing-slash policy.
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params;
   const title = categories[category as keyof typeof categories] ?? "Услуги";
