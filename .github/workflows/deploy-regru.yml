@@ -1,0 +1,86 @@
+name: REG.RU deploy (dry-run)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Do not let two builds compare/upload against the same FTP state at once.
+concurrency:
+  group: regru-production
+  cancel-in-progress: false
+
+jobs:
+  build-and-dry-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm exec tsc --noEmit --pretty false
+
+      - name: Build production static site
+        env:
+          SITE_TARGET: production
+          NEXT_PUBLIC_SITE_TARGET: production
+        run: pnpm build
+
+      - name: Verify static output and SEO files
+        run: |
+          test -d out
+          test -f out/index.html
+          test -f out/robots.txt
+          test -f out/sitemap.xml
+          test -f out/_redirects
+          echo "Static output: out/"
+          find out -type f -print | sort
+
+      # This connects using explicit FTPS and strict certificate validation,
+      # but dry-run guarantees that no remote file is changed.
+      - name: Preview REG.RU changes over explicit FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: server207.hosting.reg.ru
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          security: strict
+          local-dir: ./out/
+          server-dir: ./
+          dry-run: true
+          dangerous-clean-slate: false
+          log-level: standard
+          exclude: |
+            **/.htaccess
+            .htaccess
+            seven-new.zip
+            **/seven-new.zip
+            .well-known/**
+            cgi-bin/**
+            logs/**
+            .ftp-deploy-sync-state.json
