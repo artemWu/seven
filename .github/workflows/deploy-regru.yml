@@ -51,20 +51,22 @@ jobs:
 
       - name: Verify static output and SEO files
         run: |
-          echo "Static output: out/"
-          find out -type f -print | sort
-          test -d out || { echo "Missing out/"; exit 1; }
+          echo "Static output: dist/client/"
+          find dist/client -type f -print | sort
+          test -d dist/client || { echo "Missing dist/client/"; exit 1; }
           for file in \
-            out/index.html \
-            out/robots.txt \
-            out/sitemap.xml \
-            out/_redirects \
-            out/uslugi/mujskie-strigki/index.html \
-            out/uslugi/strigka-borody/index.html \
-            out/uslugi/dopolnitelnye-uslugi/index.html \
-            out/uslugi/mujskie-strigki-lysye/index.html; do
+            dist/client/index.html \
+            dist/client/robots.txt \
+            dist/client/sitemap.xml \
+            dist/client/_redirects \
+            dist/client/uslugi/mujskie-strigki/index.html \
+            dist/client/uslugi/strigka-borody/index.html \
+            dist/client/uslugi/dopolnitelnye-uslugi/index.html \
+            dist/client/uslugi/mujskie-strigki-lysye/index.html; do
             test -f "$file" || { echo "Missing expected file: $file"; exit 1; }
           done
+          test ! -e dist/client/server.js
+          test ! -e dist/client/wrangler.json
 
       # This connects using explicit FTPS and strict certificate validation,
       # but dry-run guarantees that no remote file is changed.
@@ -77,7 +79,7 @@ jobs:
           protocol: ftps
           port: 21
           security: strict
-          local-dir: ./out/
+          local-dir: ./dist/client/
           server-dir: ./
           dry-run: true
           dangerous-clean-slate: false
