@@ -10,7 +10,10 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_SITE_TARGET: siteTarget,
   },
-  trailingSlash: true,
+  // vinext 1.0.0-beta.5 prerender requests omit the trailing slash. Using
+  // false during export avoids its 308 response being treated as a failure;
+  // Apache keeps serving the public slash URLs from the normalized folders.
+  trailingSlash: siteTarget === "production" ? false : true,
   images: {
     unoptimized: true,
   },

@@ -49,6 +49,21 @@ jobs:
           NEXT_PUBLIC_SITE_TARGET: production
         run: pnpm build
 
+      - name: Normalize HTML routes for Apache
+        run: |
+          set -euo pipefail
+          # vinext exports non-root routes as route.html with trailingSlash=false.
+          # Move only HTML route documents into DirectoryIndex locations; keep
+          # 404.html and the root index.html unchanged.
+          while IFS= read -r -d '' file; do
+            case "$file" in
+              dist/client/index.html|dist/client/404.html) continue ;;
+            esac
+            target="${file%.html}/index.html"
+            mkdir -p "$(dirname "$target")"
+            mv "$file" "$target"
+          done < <(find dist/client -type f -name '*.html' -print0)
+
       - name: Verify static output and SEO files
         run: |
           echo "Static output: dist/client/"
@@ -56,6 +71,7 @@ jobs:
           test -d dist/client || { echo "Missing dist/client/"; exit 1; }
           for file in \
             dist/client/index.html \
+            dist/client/uslugi/index.html \
             dist/client/robots.txt \
             dist/client/sitemap.xml \
             dist/client/_redirects \
@@ -67,6 +83,7 @@ jobs:
           done
           test ! -e dist/client/server.js
           test ! -e dist/client/wrangler.json
+          test ! -d dist/server
 
       # This connects using explicit FTPS and strict certificate validation,
       # but dry-run guarantees that no remote file is changed.
