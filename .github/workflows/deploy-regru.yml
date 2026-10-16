@@ -51,13 +51,20 @@ jobs:
 
       - name: Verify static output and SEO files
         run: |
-          test -d out
-          test -f out/index.html
-          test -f out/robots.txt
-          test -f out/sitemap.xml
-          test -f out/_redirects
           echo "Static output: out/"
           find out -type f -print | sort
+          test -d out || { echo "Missing out/"; exit 1; }
+          for file in \
+            out/index.html \
+            out/robots.txt \
+            out/sitemap.xml \
+            out/_redirects \
+            out/uslugi/mujskie-strigki/index.html \
+            out/uslugi/strigka-borody/index.html \
+            out/uslugi/dopolnitelnye-uslugi/index.html \
+            out/uslugi/mujskie-strigki-lysye/index.html; do
+            test -f "$file" || { echo "Missing expected file: $file"; exit 1; }
+          done
 
       # This connects using explicit FTPS and strict certificate validation,
       # but dry-run guarantees that no remote file is changed.
