@@ -10,6 +10,12 @@ const isPublishedTarget =
   process.env.NEXT_PUBLIC_SITE_TARGET === "github-pages" ||
   process.env.NEXT_PUBLIC_SITE_TARGET === "production";
 
+function isAnalyticsHost() {
+  if (process.env.NEXT_PUBLIC_SITE_TARGET === "github-pages") return true;
+  if (typeof window === "undefined") return false;
+  return window.location.hostname === "www.7barbershop.ru";
+}
+
 declare global {
   interface Window {
     ym?: (...args: unknown[]) => void;
@@ -22,7 +28,7 @@ export default function YandexMetrika() {
   const hasMountedRef = useRef(false);
 
   useEffect(() => {
-    if (!isPublishedTarget) return;
+    if (!isPublishedTarget || !isAnalyticsHost()) return;
 
     const updateConsent = () => setHasConsent(hasCookieConsent());
     updateConsent();
@@ -31,7 +37,7 @@ export default function YandexMetrika() {
   }, []);
 
   useEffect(() => {
-    if (!isPublishedTarget || !hasConsent) return;
+    if (!isPublishedTarget || !isAnalyticsHost() || !hasConsent) return;
     if (!hasMountedRef.current) {
       hasMountedRef.current = true;
       return;
@@ -40,7 +46,7 @@ export default function YandexMetrika() {
     window.ym?.(COUNTER_ID, "hit", window.location.href);
   }, [hasConsent, pathname]);
 
-  if (!isPublishedTarget || !hasConsent) return null;
+  if (!isPublishedTarget || !isAnalyticsHost() || !hasConsent) return null;
 
   return (
     <>
