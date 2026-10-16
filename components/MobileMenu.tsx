@@ -5,6 +5,7 @@ import styles from "./MobileMenu.module.css";
 import { BOOKING_URL } from "@/data/site";
 import { sitePath } from "@/lib/site-path";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type MobileMenuProps = {
   isOpen: boolean;
@@ -13,6 +14,11 @@ type MobileMenuProps = {
 };
 
 export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps) {
+  const pathname = usePathname();
+  const sectionHref = (section: string) => pathname.startsWith("/barbershop-")
+    ? sitePath(`${pathname}${section}`)
+    : sitePath(`/${section}`);
+
   return (
     <div
       ref={menuRef}
@@ -27,10 +33,11 @@ export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps
 
       <div className={styles.links}>
         <nav aria-label="Мобильная навигация">
-          <a href={sitePath("/#about")} onClick={onClose}>цифры</a>
-          <a href={sitePath("/#services")} onClick={onClose}>услуги</a>
-          <a href={sitePath("/#team")} onClick={onClose}>команда</a>
-          <a href={sitePath("/#reviews")} onClick={onClose}>отзывы</a>
+          <a href={sitePath("/#top")} onClick={onClose}>главная</a>
+          <a href={sectionHref("#about")} onClick={onClose}>цифры</a>
+          <a href={sectionHref("#services")} onClick={onClose}>услуги</a>
+          <a href={sectionHref("#team")} onClick={onClose}>команда</a>
+          <a href={sectionHref("#reviews")} onClick={onClose}>отзывы</a>
           <Link href="/galereya" onClick={onClose}>галерея</Link>
         </nav>
         <nav aria-label="Филиалы">
@@ -41,9 +48,9 @@ export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps
         </nav>
         <nav aria-label="Сотрудничество">
           <span className={styles.subheading}>Сотрудничество</span>
-          <a href={sitePath("/#contacts")} onClick={onClose}>вакансии</a>
+          <a href={sectionHref("#contacts")} onClick={onClose}>вакансии</a>
           <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer" onClick={onClose}>мастер-классы</a>
-          <a href={sitePath("/#contacts")} onClick={onClose}>стать моделью</a>
+          <a href={sectionHref("#contacts")} onClick={onClose}>стать моделью</a>
         </nav>
       </div>
 

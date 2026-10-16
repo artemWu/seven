@@ -4,7 +4,6 @@
   --background: #fafafa;
   --foreground: #161618;
   --accent: #a29588;
-  --font-montserrat: "Montserrat", sans-serif;
   --radius-card: 24px;
   --radius-button: 12px;
   --shadow-card: 0 10px 28px rgb(22 22 24 / 5%);
@@ -26,7 +25,7 @@ body {
   background: var(--background);
   color: var(--foreground);
 
-  font-family: var(--font-montserrat);
+  font-family: var(--font-montserrat), sans-serif;
 
 }
 
@@ -917,6 +916,14 @@ button:active {
   font-size: 14px;
   line-height: 16px;
   white-space: nowrap;
+  text-decoration: none;
+  transition: transform 140ms ease, background-color 220ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .location-tag:hover {
+    background-color: rgb(22 22 24 / 0.46);
+  }
 }
 
 .location-tag::before {
@@ -933,6 +940,10 @@ button:active {
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+}
+
+.location-tag:active {
+  transform: scale(.97);
 }
 
 .location-tag img {
@@ -1519,6 +1530,9 @@ button:active {
 .services-table__hint-trigger {
   position: relative;
   display: inline-flex;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
   padding: 0;
   border: 0;
   background: transparent;

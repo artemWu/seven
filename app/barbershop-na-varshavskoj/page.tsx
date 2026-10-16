@@ -18,7 +18,7 @@ export default function VarshavskayaPage() {
   return (
     <Home
       location={{ station: "м. Варшавская", titleSuffix: " на Варшавской" }}
-      teamNames={["Анна Ашрапова", "Александр", "Имам", "Тулиген", "Михаил", "Залина"]}
+      teamNames={["Анна Ашрапова", "Александр", "Имам", "Тулиген", "Залина"]}
     />
   );
 }

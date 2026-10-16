@@ -5,10 +5,10 @@ import CookiePopup from "@/components/CookiePopup";
 import YandexMetrika from "@/components/YandexMetrika";
 
 const montserrat = localFont({
-  src: "../public/fonts/montserrat-cyrillic.woff2",
+  src: "../public/fonts/Montserrat-VariableFont_wght.ttf",
   display: "swap",
   variable: "--font-montserrat",
-  weight: "300 700",
+  weight: "100 900",
 });
 
 export const metadata: Metadata = {

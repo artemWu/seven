@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import Button from "./button";
 import MobileMenu from "./MobileMenu";
 import { BOOKING_URL } from "@/data/site";
@@ -14,6 +15,10 @@ type HeaderProps = {
 };
 
 export default function Header({ forceLight = false }: HeaderProps) {
+  const pathname = usePathname();
+  const sectionHref = (section: string) => pathname.startsWith("/barbershop-")
+    ? sitePath(`${pathname}${section}`)
+    : sitePath(`/${section}`);
   const [isLight, setIsLight] = useState(forceLight);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBranchesOpen, setIsBranchesOpen] = useState(false);
@@ -130,8 +135,8 @@ export default function Header({ forceLight = false }: HeaderProps) {
         }}
       >
         <Link className="site-header__nav-link--active" href="/">Главная</Link>
-        <a href={sitePath("/#services")}>Услуги</a>
-        <a href={sitePath("/#team")}>Команда</a>
+        <a href={sectionHref("#services")}>Услуги</a>
+        <a href={sectionHref("#team")}>Команда</a>
         <div className="site-header__branches">
           <span
             ref={branchesTriggerRef}
@@ -144,8 +149,8 @@ export default function Header({ forceLight = false }: HeaderProps) {
           >Филиалы</span>
         </div>
         <Link href="/galereya">Галерея</Link>
-        <a href={sitePath("/#reviews")}>Отзывы</a>
-        <a href={sitePath("/#contacts")}>Контакты</a>
+        <a href={sectionHref("#reviews")}>Отзывы</a>
+        <a href={sectionHref("#contacts")}>Контакты</a>
         <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer">Мастер-классы</a>
       </nav>
 
