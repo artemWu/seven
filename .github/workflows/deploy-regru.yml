@@ -2,6 +2,12 @@ name: REG.RU deploy (dry-run)
 
 on:
   workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Разрешить реальную публикацию на REG.RU"
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -94,7 +100,7 @@ jobs:
           security: strict
           local-dir: ./dist/client/
           server-dir: ./
-          dry-run: true
+          dry-run: ${{ !inputs.deploy }}
           dangerous-clean-slate: false
           # Keep the action's remote manifest so later runs can calculate
           # incremental uploads/deletions. Do not exclude this file.
