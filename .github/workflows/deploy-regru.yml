@@ -1,6 +1,9 @@
-name: REG.RU deploy (dry-run)
+name: REG.RU deploy
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       deploy:
@@ -18,7 +21,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-dry-run:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -87,9 +90,9 @@ jobs:
           test ! -e dist/client/server.js
           test ! -e dist/client/wrangler.json
 
-      # This connects using explicit FTPS and strict certificate validation,
-      # but dry-run guarantees that no remote file is changed.
-      - name: Preview REG.RU changes over explicit FTPS
+      # Pushes to main publish after all checks. Manual runs publish only when
+      # deploy=true; deploy=false remains a remote dry-run.
+      - name: Deploy or preview REG.RU changes over explicit FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: server207.hosting.reg.ru
@@ -100,7 +103,7 @@ jobs:
           security: strict
           local-dir: ./dist/client/
           server-dir: ./
-          dry-run: ${{ !inputs.deploy }}
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && !inputs.deploy }}
           dangerous-clean-slate: false
           # Keep the action's remote manifest so later runs can calculate
           # incremental uploads/deletions. Do not exclude this file.
