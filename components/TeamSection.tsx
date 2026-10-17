@@ -16,14 +16,16 @@ const team: TeamMember[] = [
   { name: "Яна", role: "Топ-барбер", image: "/images/barbers/яна.webp", theme: "light" },
   { name: "Дмитрий", role: "Барбер", image: "/images/barbers/дмитрий.webp", theme: "light" },
   { name: "Алексей", role: "Бренд-барбер", image: "/images/barbers/алексей.webp", theme: "light" },
-  { name: "Павел", role: "Творческий партнёр", image: "/images/barbers/павел.webp", theme: "light" },
+  { name: "Павел", role: "Творческий партнёр", image: "/images/barbers/павел.webp", theme: "purple" },
   { name: "Анна Антонова", role: "Барбер", image: "/images/barbers/анна антонова.webp", theme: "light" },
   { name: "Залина", role: "Бренд-барбер", image: "/images/barbers/залина.webp", theme: "light" },
   { name: "Имам", role: "Топ-барбер", image: "/images/barbers/имам.webp", theme: "dark" },
-  { name: "Анна Ашрапова", role: "Барбер", image: "/images/barbers/анна ашрапова.webp", theme: "purple" },
+  { name: "Анна Ашрапова", role: "Барбер", image: "/images/barbers/анна ашрапова.webp", theme: "light" },
   { name: "Тулиген", role: "Старший барбер", image: "/images/barbers/тулиген.webp", theme: "light" },
-  { name: "Александр", role: "Творческий партнёр", image: "/images/barbers/александр.webp", theme: "light" },
+  { name: "Александр", role: "Творческий партнёр", image: "/images/barbers/александр.webp", theme: "purple" },
   { name: "Тимур", role: "Барбер", image: "/images/barbers/тимур.webp", theme: "light" },
+  { name: "Алина", role: "Барбер", image: "/images/barbers/алина.webp", theme: "light" },
+  { name: "Ангелина", role: "Старший барбер", image: "/images/barbers/ангелина.webp", theme: "dark" },
 ];
 
 export default function TeamSection({ onlyNames }: { onlyNames?: string[] }) {

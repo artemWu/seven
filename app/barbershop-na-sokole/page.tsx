@@ -16,5 +16,5 @@ export const metadata: Metadata = {
 };
 
 export default function SokolPage() {
-  return <Home location={{ station: "м. Сокол", titleSuffix: " на Соколе" }} teamNames={["Роман", "Артем", "Дарья", "Влад", "Яна", "Дмитрий", "Алексей"]} />;
+  return <Home location={{ station: "м. Сокол", titleSuffix: " на Соколе" }} teamNames={["Роман", "Артем", "Дарья", "Влад", "Яна", "Дмитрий", "Алексей", "Алина"]} />;
 }

@@ -18,7 +18,7 @@ export default function PreobrazhenskayaPage() {
   return (
     <Home
       location={{ station: "м. Преображенская", titleSuffix: " на Преображенской" }}
-      teamNames={["Тимур", "Анна Антонова", "Павел"]}
+      teamNames={["Тимур", "Анна Антонова", "Павел", "Ангелина"]}
     />
   );
 }
