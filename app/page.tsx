@@ -29,10 +29,12 @@ export default function Home({
   servicesVariant?: "table" | "cards";
   servicesCategory?: string;
 }) {
-  const isBranchPage = Boolean(location);
   const currentBranch = location
     ? branches.find((branch) => branch.station === location.station)
     : undefined;
+  const heroBranches = currentBranch
+    ? [currentBranch]
+    : branches.filter((branch) => branch.name !== "Курская");
   const schemaAddresses = currentBranch
     ? {
         "@type": "PostalAddress",
@@ -114,7 +116,7 @@ export default function Home({
           <Reveal delay={340} y={16}>
             <div className="location">
               <div className="location__stations" aria-label="Локации барбершопа">
-                {branches.filter((branch) => branch.name !== "Курская").map((branch) => (
+                {heroBranches.map((branch) => (
                   <a className="location-tag" href={branch.path} key={branch.station}><Image src="/svg/geotag.svg" alt="" width={20} height={20} /> {branch.station}</a>
                 ))}
               </div>

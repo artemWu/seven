@@ -22,7 +22,7 @@ declare global {
   }
 }
 
-export default function YandexMetrika() {
+export default function Analytics() {
   const pathname = usePathname();
   const [hasConsent, setHasConsent] = useState(false);
   const hasMountedRef = useRef(false);
@@ -51,8 +51,11 @@ export default function YandexMetrika() {
   return (
     <>
       <Script
-        id="yandex-metrika"
+        id="site-analytics"
         strategy="afterInteractive"
+        onError={() => {
+          // Analytics is optional and may be blocked by privacy extensions.
+        }}
         dangerouslySetInnerHTML={{
           __html: `
             (function(m,e,t,r,i,k,a){

@@ -1527,6 +1527,16 @@ button:active {
   gap: 8px;
 }
 
+.services-table__service-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.services-table td.services-table__range-price {
+  text-align: center;
+}
+
 .services-table__hint-trigger {
   position: relative;
   display: inline-flex;
@@ -3852,6 +3862,10 @@ button:active {
 .contacts-card__copy { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 12px; }
 .contacts-card__address { color: #17151a; font-size: 24px; font-weight: 600; line-height: 1.05; letter-spacing: -.05em; opacity: 1; text-decoration: none; }
 .contacts-card__phone, .contacts-card__station { color: #17151a; font-size: 16px; font-weight: 500; line-height: 1; letter-spacing: -.03em; opacity: 1; text-decoration: none; }
+.contacts-card__phone-row { display: flex; align-items: center; gap: 8px; }
+.contacts-card__phone { display: inline-flex; align-items: center; width: fit-content; }
+.contacts-card__max-link { display: inline-flex; align-items: center; line-height: 0; }
+.contacts-card__phone-icon { width: 24px; height: 24px; flex: 0 0 24px; }
 .contacts-card__email { color: #8b4bdd; font-size: 18px; font-weight: 600; line-height: 1; letter-spacing: -.03em; text-decoration: none; }
 .contacts-map__frame { filter: none; }
 .contacts-map::after { display: none; }
@@ -3874,6 +3888,7 @@ button:active {
   .contacts-card__inner { padding: 16px; }
   .contacts-card__details { min-height: 260px; }
   .contacts-card__address { font-size: 24px; }
+  .contacts-card__phone-icon { width: 16px; height: 16px; flex-basis: 16px; }
 }
 
 @media (max-width: 899px) {

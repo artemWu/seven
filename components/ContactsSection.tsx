@@ -10,6 +10,11 @@ export default function ContactsSection({ initialBranchName }: { initialBranchNa
   const [activeBranch, setActiveBranch] = useState(initialBranch >= 0 ? initialBranch : 0);
   const branch = branches[activeBranch] ?? branches[0];
   const branchNames = branches.map(({ name }) => name);
+  const maxLink = branch.name === "Преображенская"
+    ? "https://max.ru/u/f9LHodD0cOJc_3KsSRKm7pYGyy7Z8F-s8pnoExj4JsXgc9J_n_o5XRrQF44"
+    : branch.name === "Сокол"
+      ? "https://max.ru/u/f9LHodD0cOLFXKYcb1yzwou63AzLJkOEamM6TdXrvjUis9cxBnkaWzCWYOY"
+      : null;
 
   return (
     <section className="contacts-section" id="contacts">
@@ -27,7 +32,16 @@ export default function ContactsSection({ initialBranchName }: { initialBranchNa
             <div className="contacts-card__details">
               <div className="contacts-card__copy">
                 <a className="contacts-card__address" href={branch.mapSrc} target="_blank" rel="noopener noreferrer">{branch.address}</a>
-                <a className="contacts-card__phone" href={`tel:${branch.phone.replace(/[^\d+]/g, "")}`}>{branch.phone}</a>
+                <div className="contacts-card__phone-row">
+                  <a className="contacts-card__phone" href={`tel:${branch.phone.replace(/[^\d+]/g, "")}`}>
+                  <span>{branch.phone}</span>
+                  </a>
+                  {maxLink ? (
+                    <a className="contacts-card__max-link" href={maxLink} target="_blank" rel="noopener noreferrer" aria-label={`Написать в MAX: ${branch.name}`}>
+                      <Image className="contacts-card__phone-icon" src="/icons/MAX.svg" alt="" width={24} height={24} aria-hidden="true" />
+                    </a>
+                  ) : null}
+                </div>
                 <div className="contacts-card__station">{branch.station}</div>
                 <a className="contacts-card__email" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
               </div>

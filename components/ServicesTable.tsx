@@ -13,12 +13,14 @@ type ServiceCategory = {
 };
 
 const levelHints = {
+  bio: "Стоимость зависит от объёма работы: верхняя зона или вся голова.",
   senior: "Мастера, которые находятся в нашей компании минимум полгода, сдали внутренние и внешние аттестации, имеют определённый уровень подготовки и навыков для необычных запросов наших гостей, могут предложить большую вариативность стрижек и укладок.",
   top: "Мастера с высоким уровнем подготовки и большим опытом, которые уверенно работают со сложными запросами и создают индивидуальный образ.",
   brand: "Ведущие мастера бренда с максимальным уровнем экспертизы, авторским подходом и большим опытом работы.",
 };
 
 const levelLabels = {
+  bio: "Биозавивка",
   senior: "Старший барбер",
   top: "Топ барбер",
   brand: "Бренд барбер",
@@ -35,7 +37,7 @@ const categories: ServiceCategory[] = [
       ["Детская стрижка (4–10 лет)", "1 400 ₽", "1 700 ₽", "1 900 ₽", "2 100 ₽"],
       ["Окантовка и укладка", "900 ₽", "1 100 ₽", "1 300 ₽", "1 600 ₽"],
       ["Укладка", "700 ₽", "800 ₽", "1 100 ₽", "1 300 ₽"],
-      ["Hair tattoo", "—", "—", "700 ₽", "700 ₽"],
+      ["Биозавивка", "от 10 000 ₽ до 12 000 ₽", "", "", ""],
       ["Удаление волос воском (1 зона)", "400 ₽", "500 ₽", "500 ₽", "500 ₽"],
       ["Удаление волос воском (2–3 зоны)", "600 ₽", "700 ₽", "700 ₽", "700 ₽"],
     ],
@@ -148,6 +150,25 @@ export default function ServicesTable({ categoryLabel }: { categoryLabel?: strin
     </span>
   );
 
+  const renderServiceHint = () => (
+    <span className="services-table__service-name">
+      Биозавивка
+      <button
+        className="services-table__hint-trigger"
+        type="button"
+        ref={hoveredHint === "bio" ? hintTriggerRef : undefined}
+        aria-label="Подробнее о биозавивке"
+        onClick={() => setOpenHint((current) => current === "bio" ? null : "bio")}
+        onMouseEnter={() => setHoveredHint("bio")}
+        onMouseLeave={() => setHoveredHint(null)}
+        onFocus={() => setHoveredHint("bio")}
+        onBlur={() => setHoveredHint(null)}
+      >
+        <Image src="/svg/interactive-icon.svg" alt="" width={20} height={20} />
+      </button>
+    </span>
+  );
+
   return (
     <div className="services-table" aria-label="Прайс-лист услуг">
       {!categoryLabel && (
@@ -177,11 +198,17 @@ export default function ServicesTable({ categoryLabel }: { categoryLabel?: strin
             <tbody>
               {category.rows.map(([name, barber, senior, top, brand]) => (
                 <tr key={name}>
-                  <th scope="row">{name}</th>
-                  <td>{barber}</td>
-                  <td>{senior}</td>
-                  <td>{top}</td>
-                  <td>{brand}</td>
+                  <th scope="row">{name === "Биозавивка" ? renderServiceHint() : name}</th>
+                  {name === "Биозавивка" ? (
+                    <td colSpan={4} className="services-table__range-price">{barber}</td>
+                  ) : (
+                    <>
+                      <td>{barber}</td>
+                      <td>{senior}</td>
+                      <td>{top}</td>
+                      <td>{brand}</td>
+                    </>
+                  )}
                 </tr>
               ))}
             </tbody>

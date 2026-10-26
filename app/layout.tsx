@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import CookiePopup from "@/components/CookiePopup";
-import YandexMetrika from "@/components/YandexMetrika";
 
 const montserrat = localFont({
   src: "../public/fonts/Montserrat-VariableFont_wght.ttf",
@@ -62,11 +60,10 @@ export default function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="yandex-verification" content="759a3978ae927cea" />
       </head>
       <body className={`${montserrat.variable} antialiased`}>
         {children}
-        <CookiePopup />
-        <YandexMetrika />
       </body>
     </html>
   );

@@ -9,6 +9,8 @@ import Button from "./button";
 import MobileMenu from "./MobileMenu";
 import { BOOKING_URL } from "@/data/site";
 import { sitePath } from "@/lib/site-path";
+import OptionalConsentNotice from "./OptionalConsentNotice";
+import OptionalAnalytics from "./OptionalAnalytics";
 
 type HeaderProps = {
   forceLight?: boolean;
@@ -193,6 +195,8 @@ export default function Header({ forceLight = false }: HeaderProps) {
       </button>
 
       <MobileMenu isOpen={isMenuOpen} menuRef={mobileMenuRef} onClose={closeMenu} />
+      <OptionalConsentNotice />
+      <OptionalAnalytics />
     </header>
   );
 }

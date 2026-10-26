@@ -6,7 +6,7 @@ import Button from "./button";
 import { sitePath } from "@/lib/site-path";
 import { COOKIE_CONSENT_EVENT, COOKIE_CONSENT_KEY } from "@/lib/cookie-consent";
 
-export default function CookiePopup() {
+export default function ConsentNotice() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
