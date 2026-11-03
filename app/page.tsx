@@ -122,6 +122,14 @@ export default function Home({
               </div>
 
               <p className="location__hours">с 10:00 до 22:00</p>
+              {currentBranch ? (
+                <a
+                  className="location__phone"
+                  href={`tel:${currentBranch.phone.replace(/[^\d+]/g, "")}`}
+                >
+                  {currentBranch.phone}
+                </a>
+              ) : null}
               <p className="location__schedule">Ежедневно</p>
             </div>
           </Reveal>

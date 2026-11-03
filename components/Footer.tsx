@@ -55,15 +55,14 @@ export default function Footer() {
         <div className="footer__group">
           <div className="footer__group-title">Сотрудничество</div>
           <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer" className="footer__link">Мастер-классы</a>
-          <a href="#contacts" className="footer__link">Стать моделью</a>
-          <a href="#contacts" className="footer__link">Вакансии</a>
+          <a href="https://t.me/alex_makarenya" target="_blank" rel="noopener noreferrer" className="footer__link">Вакансии</a>
         </div>
 
         {/* CONTACTS */}
         <div className="footer__group">
           <div className="footer__contact-group">
             <div className="footer__contact-label">Номер сети</div>
-            <a href="tel:+79777977177" className="footer__contact-value">{NETWORK_PHONE}</a>
+            <a href={`tel:${NETWORK_PHONE.replace(/[^\d+]/g, "")}`} className="footer__contact-value">{NETWORK_PHONE}</a>
           </div>
           <div className="footer__contact-group">
             <div className="footer__contact-label">{branches[0].name}</div>

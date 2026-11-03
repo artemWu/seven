@@ -962,6 +962,23 @@ button:active {
 
 .location .location__hours { margin-top: 24px; }
 
+.location__phone {
+  display: block;
+  margin: 12px 8px 0;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 12px;
+  text-decoration: none;
+  transform: scaleX(1.1);
+  transform-origin: center;
+}
+
+.location__phone:hover,
+.location__phone:focus-visible {
+  text-decoration: none;
+}
+
 .location__schedule {
   margin-top: 16px;
   margin-bottom: 8px;
@@ -2436,6 +2453,31 @@ button:active {
 .why-us__card p { max-width: 290px; margin: 8px 0 0; font-size: 14px; line-height: 17px; opacity: .78; }
 .why-us__image { position: absolute; right: 50%; bottom: 0; width: 88%; height: 62%; transform: translateX(50%); object-fit: contain; object-position: center bottom; filter: drop-shadow(0 18px 14px rgba(0,0,0,.18)); pointer-events: none; user-select: none; }
 @media (max-width: 899px) { .why-us { padding-top: 80px; } .why-us__grid { width: 100%; max-width: none; margin-left: 0; gap: 12px; padding-inline: 4px; scroll-padding-inline: 4px; scroll-snap-type: x proximity; } .why-us__grid > .reveal { flex: 0 0 min(82vw, 360px); } .why-us__card { min-height: 460px; padding: 16px; } }
+
+@media (min-width: 1081px) {
+  .why-us__viewport {
+    width: 100%;
+    max-width: none;
+  }
+
+  .why-us__viewport::before,
+  .why-us__viewport::after {
+    display: none;
+  }
+
+  .why-us__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: 100%;
+    margin-left: 0;
+    padding-inline: 0;
+    overflow-x: hidden;
+  }
+
+  .why-us__grid > .reveal {
+    min-width: 0;
+  }
+}
 
 .team-stage {
   position: relative;

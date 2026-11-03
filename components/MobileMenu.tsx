@@ -3,6 +3,7 @@ import Image from "next/image";
 import Button from "./button";
 import styles from "./MobileMenu.module.css";
 import { BOOKING_URL } from "@/data/site";
+import { CONTACT_EMAIL, NETWORK_PHONE } from "@/data/branches";
 import { sitePath } from "@/lib/site-path";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -48,16 +49,15 @@ export default function MobileMenu({ isOpen, menuRef, onClose }: MobileMenuProps
         </nav>
         <nav aria-label="Сотрудничество">
           <span className={styles.subheading}>Сотрудничество</span>
-          <a href={sectionHref("#contacts")} onClick={onClose}>вакансии</a>
           <a href="https://academy7.ru/" target="_blank" rel="noopener noreferrer" onClick={onClose}>мастер-классы</a>
-          <a href={sectionHref("#contacts")} onClick={onClose}>стать моделью</a>
+          <a href="https://t.me/alex_makarenya" target="_blank" rel="noopener noreferrer" onClick={onClose}>вакансии</a>
         </nav>
       </div>
 
       <div className={styles.contacts}>
         <span>Номер сети</span>
-        <a href="tel:+79777977177">+7 (977) 797 71 77</a>
-        <a href="mailto:7studioru@gmail.com">7studioru@gmail.com</a>
+        <a href={`tel:${NETWORK_PHONE.replace(/[^\d+]/g, "")}`}>{NETWORK_PHONE}</a>
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
       </div>
 
       <div className={styles.footer}>
