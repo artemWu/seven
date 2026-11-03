@@ -14,13 +14,15 @@ export default function MobileBookingButton() {
     let lastTime = performance.now();
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const mobileViewport = window.matchMedia("(max-width: 899px)");
+    const portraitTablet = window.matchMedia("(min-width: 700px) and (max-width: 899px) and (orientation: portrait)");
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
     const render = (progress: number) => {
       const button = buttonRef.current;
       if (!button) return;
       const fullWidth = window.innerWidth - 48;
-      button.style.width = `${44 + (fullWidth - 44) * (1 - progress)}px`;
+      const compactWidth = portraitTablet.matches ? 200 : 44;
+      button.style.width = `${compactWidth + (fullWidth - compactWidth) * (1 - progress)}px`;
       button.style.borderRadius = isSafari ? "12px" : `${16 + (22 - 16) * progress}px`;
       button.style.setProperty("--booking-progress", String(progress));
     };

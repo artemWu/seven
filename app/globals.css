@@ -2948,6 +2948,13 @@ button:active {
 
 }
 
+/* На вертикальных планшетах верхний блок начинается примерно с трети viewport. */
+@media (min-width: 700px) and (max-width: 899px) and (orientation: portrait) {
+  .hero__content {
+    padding-top: 33.333dvh;
+  }
+}
+
 @media (min-width: 900px) {
   .site-header {
     position: fixed;
@@ -3345,6 +3352,18 @@ button:active {
     will-change: opacity, transform;
   }
 
+}
+
+@media (min-width: 700px) and (max-width: 899px) and (orientation: portrait) {
+  .hero__cta-mobile-label {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero__cta-mobile-icon {
+    opacity: 0;
+    transform: none;
+  }
 }
 
 /* Safari renders corner-shape differently on the compact CTA. */
