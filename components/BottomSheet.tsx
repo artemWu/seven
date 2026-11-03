@@ -1,17 +1,21 @@
 "use client";
 
 import { ReactNode, TouchEvent, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import Image from "next/image";
 
 type BottomSheetProps = {
   title: string;
   open: boolean;
   onClose: () => void;
   children: ReactNode;
+  hideTitle?: boolean;
 };
 
-export default function BottomSheet({ title, open, onClose, children }: BottomSheetProps) {
+export default function BottomSheet({ title, open, onClose, children, hideTitle = false }: BottomSheetProps) {
   const [mounted, setMounted] = useState(open);
   const [closing, setClosing] = useState(false);
+  const [contentScrolled, setContentScrolled] = useState(false);
   const touchStart = useRef<number | null>(null);
 
   useEffect(() => {
@@ -34,7 +38,7 @@ export default function BottomSheet({ title, open, onClose, children }: BottomSh
     };
   }, [open, mounted]);
 
-  if (!mounted) return null;
+  if (!mounted && !open) return null;
 
   const requestClose = () => {
     if (!closing) onClose();
@@ -51,15 +55,25 @@ export default function BottomSheet({ title, open, onClose, children }: BottomSh
     if (start !== null && end !== undefined && end - start > 60) requestClose();
   };
 
-  return (
+  return createPortal(
     <>
       <button className={`bottom-sheet__backdrop${closing ? " bottom-sheet__backdrop--closing" : ""}`} type="button" aria-label="Закрыть окно" onClick={requestClose} />
       <div className={`bottom-sheet${closing ? " bottom-sheet--closing" : ""}`} role="dialog" aria-modal="true" aria-label={title} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-        <div className="bottom-sheet__handle" />
-        <button className="bottom-sheet__close" type="button" aria-label="Закрыть окно" onClick={requestClose}>×</button>
-        <strong className="bottom-sheet__title">{title}</strong>
-        <div className="bottom-sheet__content">{children}</div>
+        <div className="bottom-sheet__topbar">
+          <div className="bottom-sheet__handle" />
+          <button className="bottom-sheet__close" type="button" aria-label="Закрыть окно" onClick={requestClose}>
+            <Image src="/icons/close.svg" alt="" width={36} height={36} unoptimized />
+          </button>
+        </div>
+        {!hideTitle && <strong className="bottom-sheet__title">{title}</strong>}
+        <div
+          className={`bottom-sheet__content${contentScrolled ? " bottom-sheet__content--scrolled" : ""}`}
+          onScroll={(event) => setContentScrolled(event.currentTarget.scrollTop > 0)}
+        >
+          {children}
+        </div>
       </div>
-    </>
+    </>,
+    document.body,
   );
 }

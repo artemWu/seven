@@ -8,6 +8,7 @@ type ButtonProps = {
   theme?: "default" | "dark" | "primary" | "secondary";
   size?: "default" | "small";
   onClick?: () => void;
+  className?: string;
 };
 
 export default function Button({
@@ -18,8 +19,9 @@ export default function Button({
   theme = "default",
   size = "default",
   onClick,
+  className = "",
 }: ButtonProps) {
-  const buttonClassName = `button button--glass${theme === "dark" ? " button--dark" : theme === "primary" ? " button--primary" : theme === "secondary" ? " button--secondary" : ""}${size === "small" ? " button--small" : ""}`;
+  const buttonClassName = `button button--glass${theme === "dark" ? " button--dark" : theme === "primary" ? " button--primary" : theme === "secondary" ? " button--secondary" : ""}${size === "small" ? " button--small" : ""}${className ? ` ${className}` : ""}`;
   if (href) {
     return (
       <a className={buttonClassName} href={href} target={target} rel={rel}>
