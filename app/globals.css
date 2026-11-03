@@ -1881,9 +1881,11 @@ button:not(.bottom-sheet__backdrop):active {
     min-height: 50dvh;
     max-height: calc(100dvh - 20px);
     overflow: hidden;
-    padding: 32px 24px calc(48px + env(safe-area-inset-bottom));
+    padding: 32px 24px 0;
     border-radius: 36px 36px 0 0;
     corner-shape: superellipse(1.8);
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
     background: #fff;
     color: #17151a;
     box-shadow: 0 -12px 36px rgb(22 22 24 / 18%);
@@ -1918,19 +1920,7 @@ button:not(.bottom-sheet__backdrop):active {
   }
 
   .bottom-sheet__close {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    display: grid;
-    place-items: center;
-    width: 64px;
-    height: 64px;
-    padding: 0;
-    pointer-events: auto;
-    border: 0;
-    background: transparent;
-    color: #17151a;
-    cursor: pointer;
+    display: none;
   }
 
   .bottom-sheet__close img {
@@ -1949,6 +1939,7 @@ button:not(.bottom-sheet__backdrop):active {
   .bottom-sheet__content {
     position: relative;
     max-height: calc(100dvh - 112px);
+    padding-bottom: calc(48px + env(safe-area-inset-bottom));
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;

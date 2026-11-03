@@ -16,7 +16,7 @@ export default function BottomSheet({ title, open, onClose, children, hideTitle 
   const [mounted, setMounted] = useState(open);
   const [closing, setClosing] = useState(false);
   const [contentScrolled, setContentScrolled] = useState(false);
-  const touchStart = useRef<number | null>(null);
+  const touchStart = useRef<{ y: number; canDismiss: boolean } | null>(null);
 
   useEffect(() => {
     if (open) {
@@ -45,14 +45,20 @@ export default function BottomSheet({ title, open, onClose, children, hideTitle 
   };
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    touchStart.current = event.touches[0]?.clientY ?? null;
+    const touch = event.touches[0];
+    if (!touch) return;
+    const sheetTop = event.currentTarget.getBoundingClientRect().top;
+    touchStart.current = {
+      y: touch.clientY,
+      canDismiss: touch.clientY <= sheetTop + 100,
+    };
   };
 
   const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
     const start = touchStart.current;
     const end = event.changedTouches[0]?.clientY;
     touchStart.current = null;
-    if (start !== null && end !== undefined && end - start > 60) requestClose();
+    if (start?.canDismiss && end !== undefined && end - start.y > 60) requestClose();
   };
 
   return createPortal(
