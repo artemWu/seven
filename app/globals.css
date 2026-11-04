@@ -1967,7 +1967,7 @@ button:not(.bottom-sheet__backdrop):active {
     flex-direction: column;
     height: calc(80dvh - 32px);
     max-height: calc(80dvh - 32px);
-    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
     overflow-y: auto;
     overscroll-behavior: contain;
     touch-action: pan-y;
@@ -2008,7 +2008,7 @@ button:not(.bottom-sheet__backdrop):active {
   }
 
   .bottom-sheet__content .barber-details__description-line {
-    animation-delay: calc(320ms + var(--description-line) * 32ms);
+    animation-delay: calc(220ms + var(--description-line) * 32ms);
   }
 
   .bottom-sheet__content .barber-details__role {
@@ -2034,7 +2034,7 @@ button:not(.bottom-sheet__backdrop):active {
   .barber-details__booking-sticky::before {
     position: absolute;
     z-index: -1;
-    inset: calc(100% - 12px) 0 calc(-24px - env(safe-area-inset-bottom));
+    inset: calc(100% - 12px) 0 calc(-12px - env(safe-area-inset-bottom));
     background: linear-gradient(to bottom, rgb(255 255 255 / 0%) 0%, rgb(255 255 255 / .35) 45%, #fff 100%);
     content: "";
     opacity: 0;
