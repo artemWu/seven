@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import type { PointerEvent, UIEvent } from "react";
 import Image from "next/image";
 import Reveal from "./Reveal";
+import { BOOKING_URL } from "@/data/site";
 
 type Reason = { title: string; text: string; image: string; theme: "dark" | "purple" };
 
@@ -20,7 +21,8 @@ export default function WhyUsSection() {
   const [isDragging, setIsDragging] = useState(false);
   const [scrollEdges, setScrollEdges] = useState({ left: false, right: true });
   const scrollTimeout = useRef<number | undefined>(undefined);
-  const dragState = useRef({ startX: 0, startScrollLeft: 0 });
+  const dragState = useRef({ startX: 0, startScrollLeft: 0, pointerId: -1, dragging: false });
+  const suppressClick = useRef(false);
   const handleScroll = (event: UIEvent<HTMLDivElement>) => {
     const element = event.currentTarget;
     setScrollEdges({
@@ -33,18 +35,39 @@ export default function WhyUsSection() {
   };
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "touch") return;
-    dragState.current = { startX: event.clientX, startScrollLeft: event.currentTarget.scrollLeft };
-    event.currentTarget.setPointerCapture(event.pointerId);
-    setIsDragging(true);
+    dragState.current = {
+      startX: event.clientX,
+      startScrollLeft: event.currentTarget.scrollLeft,
+      pointerId: event.pointerId,
+      dragging: false,
+    };
   };
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    if (!isDragging) return;
-    event.currentTarget.scrollLeft = dragState.current.startScrollLeft - (event.clientX - dragState.current.startX);
+    const drag = dragState.current;
+    if (drag.pointerId !== event.pointerId) return;
+    const distance = event.clientX - drag.startX;
+    if (!drag.dragging && Math.abs(distance) > 6) {
+      drag.dragging = true;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      setIsDragging(true);
+    }
+    if (drag.dragging) {
+      event.preventDefault();
+      event.currentTarget.scrollLeft = drag.startScrollLeft - distance;
+    }
   };
   const stopDragging = (event: PointerEvent<HTMLDivElement>) => {
-    if (!isDragging) return;
-    event.currentTarget.releasePointerCapture(event.pointerId);
-    setIsDragging(false);
+    const drag = dragState.current;
+    if (drag.pointerId !== event.pointerId) return;
+    if (drag.dragging) {
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+      suppressClick.current = true;
+      window.setTimeout(() => { suppressClick.current = false; }, 0);
+      setIsDragging(false);
+    }
+    dragState.current = { startX: 0, startScrollLeft: 0, pointerId: -1, dragging: false };
   };
 
   return (
@@ -54,10 +77,15 @@ export default function WhyUsSection() {
         <div className={`why-us__grid${isDragging ? " why-us__grid--dragging" : ""}`} onScroll={handleScroll} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={stopDragging} onPointerCancel={stopDragging}>
           {reasons.map((reason, index) => (
             <Reveal key={reason.title} delay={index * 90} y={0} x={0}>
-              <article className={`why-us__card why-us__card--${reason.theme}`}>
+              <a className={`why-us__card why-us__card--${reason.theme}`} href={BOOKING_URL} target="_blank" rel="noopener noreferrer" onClickCapture={(event) => {
+                if (!suppressClick.current) return;
+                suppressClick.current = false;
+                event.preventDefault();
+                event.stopPropagation();
+              }}>
                 <div className="why-us__copy"><h3>{reason.title}</h3><p>{reason.text}</p></div>
                 <Image className="why-us__image" src={reason.image} alt={`${reason.title} в барбершопе СЕМЬ`} width={720} height={520} sizes="(max-width: 760px) 80vw, 40vw" draggable={false} />
-              </article>
+              </a>
             </Reveal>
           ))}
         </div>

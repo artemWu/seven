@@ -39,6 +39,13 @@ export default function MobileBookingButton() {
     };
 
     const requestUpdate = () => {
+      const bodyState = document.body.dataset;
+      if (
+        bodyState.bottomSheetOpen === "true" ||
+        bodyState.bottomSheetRestoring === "true" ||
+        bodyState.galleryViewerOpen === "true" ||
+        bodyState.galleryViewerRestoring === "true"
+      ) return;
       targetProgress = Math.min(1, Math.max(0, window.scrollY / 240));
       if (reducedMotion.matches) currentProgress = targetProgress;
       if (!frame) {

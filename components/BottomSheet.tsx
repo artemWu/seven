@@ -42,12 +42,20 @@ type DocumentScrollStyles = {
 let activeScrollLocks = 0;
 let lockedScrollY = 0;
 let previousDocumentScrollStyles: DocumentScrollStyles | null = null;
+let ctaRestoreFrame = 0;
+
+function clearCtaRestoreLock() {
+  if (ctaRestoreFrame) window.cancelAnimationFrame(ctaRestoreFrame);
+  ctaRestoreFrame = 0;
+  delete document.body.dataset.bottomSheetRestoring;
+}
 
 function lockDocumentScroll() {
   const body = document.body;
   const html = document.documentElement;
 
   if (activeScrollLocks === 0) {
+    clearCtaRestoreLock();
     lockedScrollY = window.scrollY;
     previousDocumentScrollStyles = {
       bodyPosition: body.style.position,
@@ -67,6 +75,7 @@ function lockDocumentScroll() {
     body.style.right = "0";
     body.style.width = "100%";
     body.style.overflow = "hidden";
+    body.dataset.bottomSheetOpen = "true";
     html.style.overflow = "hidden";
     html.style.overscrollBehavior = "none";
   }
@@ -84,11 +93,19 @@ function lockDocumentScroll() {
     body.style.right = previous.bodyRight;
     body.style.width = previous.bodyWidth;
     body.style.overflow = previous.bodyOverflow;
+    delete body.dataset.bottomSheetOpen;
     html.style.overflow = previous.htmlOverflow;
     html.style.overscrollBehavior = previous.htmlOverscroll;
     html.style.scrollBehavior = "auto";
     window.scrollTo(0, lockedScrollY);
     html.style.scrollBehavior = previous.htmlScrollBehavior;
+    body.dataset.bottomSheetRestoring = "true";
+    ctaRestoreFrame = window.requestAnimationFrame(() => {
+      ctaRestoreFrame = window.requestAnimationFrame(() => {
+        ctaRestoreFrame = 0;
+        if (activeScrollLocks === 0) delete body.dataset.bottomSheetRestoring;
+      });
+    });
   };
 }
 
@@ -99,6 +116,7 @@ export default function BottomSheet({ title, open, onClose, children, hideTitle 
   const gestureRef = useRef<Gesture | null>(null);
   const settleTimeoutRef = useRef<number | null>(null);
   const closingRef = useRef(false);
+  const swipeClosingRef = useRef(false);
   const onCloseRef = useRef(onClose);
 
   useLayoutEffect(() => {
@@ -108,9 +126,10 @@ export default function BottomSheet({ title, open, onClose, children, hideTitle 
   useLayoutEffect(() => {
     if (open) {
       closingRef.current = false;
+      swipeClosingRef.current = false;
       if (settleTimeoutRef.current !== null) window.clearTimeout(settleTimeoutRef.current);
       settleTimeoutRef.current = null;
-      // Keep the portal mounted through the opening frame and later through its exit animation.
+      // Keep the portal mounted through opening and exit animations.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setMounted(true);
       gestureRef.current = null;
@@ -138,6 +157,16 @@ export default function BottomSheet({ title, open, onClose, children, hideTitle 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const closeDuration = reducedMotion ? 1 : CLOSE_DURATION;
     const mobile = window.matchMedia("(max-width: 899px)").matches;
+
+    if (mobile && swipeClosingRef.current) {
+      const timeout = window.setTimeout(() => {
+        setMounted(false);
+        closingRef.current = false;
+        swipeClosingRef.current = false;
+        gestureRef.current = null;
+      }, closeDuration + 24);
+      return () => window.clearTimeout(timeout);
+    }
 
     if (mobile) {
       if (sheet) {
@@ -180,6 +209,26 @@ export default function BottomSheet({ title, open, onClose, children, hideTitle 
     if (!mounted) return;
     return lockDocumentScroll();
   }, [mounted]);
+
+  useLayoutEffect(() => {
+    if (!mounted) return;
+    const content = sheetRef.current?.querySelector<HTMLElement>(".bottom-sheet__content");
+    if (!content) return;
+
+    const updateOverflowState = () => {
+      content.classList.toggle("bottom-sheet__content--overflowing", content.scrollHeight > content.clientHeight + 1);
+    };
+    updateOverflowState();
+    const observer = new ResizeObserver(updateOverflowState);
+    observer.observe(content);
+    if (content.firstElementChild) observer.observe(content.firstElementChild);
+    window.addEventListener("resize", updateOverflowState);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateOverflowState);
+      content.classList.remove("bottom-sheet__content--overflowing");
+    };
+  }, [mounted, children]);
 
   // Non-passive listeners are installed only while the sheet exists. We wait
   // for the gesture direction before preventing native scrolling.
@@ -264,16 +313,30 @@ export default function BottomSheet({ title, open, onClose, children, hideTitle 
       gestureRef.current = null;
       if (settleTimeoutRef.current !== null) window.clearTimeout(settleTimeoutRef.current);
       settleTimeoutRef.current = null;
+      const backdrop = backdropRef.current;
 
       if (offset >= CLOSE_DISTANCE || (offset >= VELOCITY_CLOSE_DISTANCE && velocity >= CLOSE_VELOCITY)) {
         if (!closingRef.current) {
+          const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 : 300;
           closingRef.current = true;
+          swipeClosingRef.current = true;
+          sheet.style.animation = "none";
+          sheet.style.transition = "none";
+          sheet.style.transform = `translate3d(0, ${offset}px, 0)`;
+          void window.getComputedStyle(sheet).transform;
+          sheet.style.transition = `transform ${duration}ms cubic-bezier(.32, .72, .2, 1), opacity ${duration}ms ease`;
+          void window.getComputedStyle(sheet).transition;
+          sheet.style.transform = "translate3d(0, 100%, 0)";
+          sheet.style.opacity = "0";
+          if (backdrop) {
+            backdrop.style.transition = `opacity ${duration}ms cubic-bezier(.32, .72, .2, 1)`;
+            backdrop.style.opacity = "0";
+          }
           onCloseRef.current();
         }
         return;
       }
 
-      const backdrop = backdropRef.current;
       sheet.style.transition = "transform 320ms cubic-bezier(.22, 1, .36, 1)";
       sheet.style.transform = "translate3d(0, 0, 0)";
       if (backdrop) {

@@ -26,6 +26,7 @@ const team: TeamMember[] = [
   { name: "Тимур", role: "Барбер", image: "/images/barbers/тимур.webp", theme: "light" },
   { name: "Алина", role: "Барбер", image: "/images/barbers/алина.webp", theme: "light" },
   { name: "Ангелина", role: "Старший барбер", image: "/images/barbers/ангелина.webp", theme: "dark" },
+  { name: "Максим", role: "Барбер", image: "/images/barbers/максим.webp", theme: "light" },
 ];
 
 export default function TeamSection({ onlyNames }: { onlyNames?: string[] }) {
