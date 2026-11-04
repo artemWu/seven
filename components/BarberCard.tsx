@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import BottomSheet from "./BottomSheet";
 import Button from "./button";
@@ -33,9 +34,65 @@ type BarberCardProps = {
   theme?: "light" | "dark" | "purple";
 };
 
+function AnimatedDescription({ text }: { text: string }) {
+  const paragraphRef = useRef<HTMLParagraphElement>(null);
+  const measureRef = useRef<HTMLSpanElement>(null);
+  const [lines, setLines] = useState<string[] | null>(null);
+
+  useLayoutEffect(() => {
+    const paragraph = paragraphRef.current;
+    const textNode = measureRef.current?.firstChild;
+    if (!paragraph || !textNode || textNode.nodeType !== Node.TEXT_NODE) return;
+
+    const measureLines = () => {
+      const content = textNode.textContent ?? "";
+      const words = [...content.matchAll(/\S+/g)];
+      const range = document.createRange();
+      const measuredLines: string[] = [];
+      let currentTop: number | null = null;
+      let currentWords: string[] = [];
+
+      for (const word of words) {
+        const start = word.index ?? 0;
+        range.setStart(textNode, start);
+        range.setEnd(textNode, start + word[0].length);
+        const top = Math.round(range.getBoundingClientRect().top);
+        if (currentTop !== null && top !== currentTop) {
+          measuredLines.push(currentWords.join(" "));
+          currentWords = [];
+        }
+        currentTop = top;
+        currentWords.push(word[0]);
+      }
+
+      if (currentWords.length) measuredLines.push(currentWords.join(" "));
+      setLines((previous) => previous?.join("\n") === measuredLines.join("\n") ? previous : measuredLines);
+    };
+
+    measureLines();
+    const observer = new ResizeObserver(measureLines);
+    observer.observe(paragraph);
+    return () => observer.disconnect();
+  }, [text]);
+
+  return (
+    <p ref={paragraphRef} className="barber-details__description" aria-label={text}>
+      <span className="barber-details__description-measure" ref={measureRef} aria-hidden="true">{text}</span>
+      {lines
+        ? lines.map((line, index) => (
+            <span className="barber-details__description-line" style={{ "--description-line": index } as CSSProperties} key={`${index}-${line}`}>
+              {line}
+            </span>
+          ))
+        : <span>{text}</span>}
+    </p>
+  );
+}
+
 export default function BarberCard({ name, role, image, theme = "light" }: BarberCardProps) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const descriptions: Record<string, string> = {
+    "Роман": "Привет! Меня зовут Роман, я стригу и брею с 2019 года. Для меня ремесло — это не просто стрижки, а возможность подчеркнуть индивидуальность каждого человека, создать стиль и уделить внимание деталям. В работе ценю качество и комфорт клиента. Постоянно стремлюсь развиваться, совершенствовать навыки и добиваться результата, которым хочется гордиться. За пределами барберинга увлекаюсь спортом и силовыми тренировками, люблю кино, аниме, книги, видеоигры, музыку и историю. Свободно говорю по-итальянски. Считаю, что интерес к разным вещам помогает смотреть на мир шире и формировать собственный стиль.",
     "Дарья": "Дарья всегда внимательна к пожеланиям клиента и любит создавать красивые и практичные стрижки. Отлично справляется со стрижками и бородами любой длины. В профессии ценит то, что можно общаться с разными людьми и творчески реализовываться.",
     "Артем": "Привет, меня зовут Артём. Я стригу уже больше пяти лет. До барберинга работал на заводе в глубинке на севере России, где строил подводные лодки. Затем пришёл учиться в Академию СЕМЬ, а со временем дорос до преподавателя и вёл курс удлинённых стрижек. Сегодня я также работаю в дизайн-студии и проектирую приложения. Но стрижки по-прежнему остаются моим любимым делом: они вдохновляют меня и помогают оставаться частью индустрии красоты.",
     "Алексей": "Алексей — учтивый и приветливый. Он всегда пребывает в благоприятном расположении духа. Выслушает все ваши пожелания и поднимет настроение!",
@@ -43,6 +100,7 @@ export default function BarberCard({ name, role, image, theme = "light" }: Barbe
     "Влад": "Владислав приехал в Москву, чтобы работать в нашей СЕМЬе. Трудолюбивый и внимательный, он сможет воплотить ваши желания в реальность. Любит шутить и учиться новому. Делает все виды стрижек, оформляет бороды и выполняет уходы на высоком уровне.",
     "Яна": "Мне нравится создавать гостю индивидуальный образ, именно поэтому я здесь. Вижу свою главную задачу в том, чтобы стрижка дополняла стиль клиента и при этом отвечала его требованиям удобства. Моя особая любовь — удлинённый дизайн волос. Внимательна к пожеланиям, общительна. Увлекаюсь дизайном интерьера и планирую пройти курсы, чтобы это направление стало моей второй профессией.",
     "Алина": "Я приехала с Камчатки, где работала на протяжении 7 лет в маленьком уютном салоне, поэтому очень ценю атмосферу. Для меня важен индивидуальный подход и умение слышать пожелания гостя. Всегда рада предложить новое, если вы готовы к экспериментам. Я пришла в профессию, потому что в первую очередь для меня это творчество. От классических стрижек до принтов на голове. Если вы хотите стрижку, например, как у вашего любимого аниме-персонажа — пожалуйста, вам ко мне!",
+    "Имам": "Привет! Меня зовут Имам. Я топ-барбер сети «СЕМЬ». Аккуратность, пунктуальность и внимание к деталям — основные принципы моей работы. Я пробовал себя в разных сферах — от строительства до работы на кухне, — пока не открыл для себя барберинг и не понял, что нашёл дело, которое действительно приносит мне удовольствие. Я люблю свою профессию, постоянно развиваюсь и стремлюсь к тому, чтобы каждый клиент оставался доволен результатом. Легко поддержу беседу, но всегда чувствую, когда человеку хочется просто расслабиться и насладиться процессом. Помимо работы с клиентами, я преподаю в академии барберинга «СЕМЬ» и с удовольствием делюсь опытом и знаниями с будущими мастерами.",
     "Анна Ашрапова": "Привет! Меня зовут Аня. До прихода в барберинг я работала там, где, по мнению многих, и должна работать женщина — на кухне. Отдав семь лет лучшим ресторанам Москвы, я решила, что хочу создавать стиль не только на тарелке, но и в парикмахерском кресле. Так что если хотите удивить свою даму и крутой стрижкой, и рецептом идеального завтрака — записывайтесь. До встречи!",
     "Александр": "Александр — потрясающий барбер: помимо роскошных усов, как в мультиках, он является образцом для подражания. Его умение сочетать спокойный характер и огромное множество интересов поражает. Он считает, что нужно постоянно учиться, чтобы становиться лучше, и что знаний никогда не будет достаточно.",
     "Тулиген": "Привет, меня зовут Тулиген! Всю жизнь мечтал стать барбером. Раньше был шеф-поваром в ресторанах, поэтому с радостью могу обсудить с вами тонкости приготовления разных блюд и подсказать идеальный рецепт, а ещё сделать классную стрижку и бороду и рассказать о лучшем уходе за волосами и кожей дома!",
@@ -90,7 +148,7 @@ export default function BarberCard({ name, role, image, theme = "light" }: Barbe
           </div>
           <h2 className="barber-details__name">{name}</h2>
           <p className={`barber-details__role${role === "Творческий партнёр" ? " barber-details__role--creative" : ""}`}>{role}</p>
-          <p className="barber-details__description">{description}</p>
+          <AnimatedDescription text={description} />
           {bookingUrl && <div className="barber-details__booking-sticky">
             <Button className="barber-details__booking" href={bookingUrl} target="_blank" rel="noopener noreferrer" theme="primary" size="small">
               Записаться
