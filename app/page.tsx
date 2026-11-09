@@ -16,7 +16,7 @@ import ServicesCards from "../components/ServicesCards";
 import BookingModal from "../components/BookingModal";
 import MobileBookingButton from "../components/MobileBookingButton";
 import { branches, NETWORK_PHONE } from "@/data/branches";
-import { BOOKING_URL } from "@/data/site";
+import { BOOKING_URL, BRANCH_BOOKING_URLS } from "@/data/site";
 
 export default function Home({
   location,
@@ -32,6 +32,9 @@ export default function Home({
   const currentBranch = location
     ? branches.find((branch) => branch.station === location.station)
     : undefined;
+  const firstVisitBookingUrl = currentBranch
+    ? BRANCH_BOOKING_URLS[currentBranch.name] ?? BOOKING_URL
+    : BOOKING_URL;
   const heroBranches = currentBranch
     ? [currentBranch]
     : branches.filter((branch) => branch.name !== "Курская");
@@ -194,6 +197,26 @@ export default function Home({
         >
           все услуги
         </Button>
+
+        {servicesVariant === "table" && !servicesCategory && (
+          <Reveal y={20} className="first-visit-reveal">
+            <aside className="first-visit-card" aria-label="Бонус на первый визит">
+              <div className="first-visit-card__copy">
+                <p className="first-visit-card__amount">1<span className="first-visit-card__amount-rest">000</span></p>
+                <h3>Бонусов на первый визит</h3>
+                <p className="first-visit-card__description">
+                  При записи через Яндекс Карты укажите промокод «Чибан» и получите 1000 бонусов
+                </p>
+                <Button className="first-visit-card__button" href={firstVisitBookingUrl} target="_blank" rel="noopener noreferrer" theme="default">
+                  Записаться
+                </Button>
+              </div>
+              <div className="first-visit-card__media" aria-hidden="true" />
+              <img className="first-visit-card__scissors" src="/images/first-visit-scissors.webp" alt="" aria-hidden="true" />
+              <img className="first-visit-card__coins" src="/images/first-visit-coins.webp" alt="" aria-hidden="true" />
+            </aside>
+          </Reveal>
+        )}
       </section>
 
       {/* TEAM */}

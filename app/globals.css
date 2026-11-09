@@ -4,7 +4,7 @@
   --background: #fafafa;
   --foreground: #161618;
   --accent: #a29588;
-  --radius-card: 24px;
+  --radius-card: 32px;
   --radius-button: 12px;
   --shadow-card: 0 10px 28px rgb(22 22 24 / 5%);
   --mobile-gutter: 16px;
@@ -325,6 +325,20 @@ main {
   }
 }
 
+/* Use plain rounded corners in Safari/WebKit for reliable clipping. */
+@supports (-webkit-touch-callout: none) {
+  .first-visit-card,
+  .services-table {
+    border-radius: 32px !important;
+    corner-shape: round !important;
+  }
+
+  .first-visit-card__button {
+    border-radius: 12px !important;
+    corner-shape: round !important;
+  }
+}
+
 /* Safari fallback must come last so unsupported/partial corner-shape
    declarations above cannot win the cascade. */
 @supports not (corner-shape: superellipse(1.8)) {
@@ -334,7 +348,9 @@ main {
   .why-us__card,
   .about-section__card,
   .review-card,
-  .footer__inner {
+  .footer__inner,
+  .first-visit-card,
+  .services-table {
     corner-shape: round !important;
   }
 
@@ -346,6 +362,8 @@ main {
   .about-section__card { border-radius: 24px !important; }
   .review-card { border-radius: 20px !important; }
   .footer__inner { border-radius: 32px !important; }
+  .first-visit-card,
+  .services-table { border-radius: 32px !important; }
 }
 
 @supports not (corner-shape: superellipse(1.5)) {
@@ -1315,11 +1333,131 @@ button:not(.bottom-sheet__backdrop):active {
   transform-origin: center;
 }
 
+.first-visit-reveal {
+  width: 100%;
+}
+
+.first-visit-card {
+  position: relative;
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 24px;
+  align-items: center;
+  border-radius: var(--radius-card);
+  corner-shape: superellipse(1.8);
+  background: linear-gradient(112deg, #795bc9 0%, #9271d6 55%, #a482df 100%);
+  color: #fff;
+  text-align: left;
+}
+
+.first-visit-card__copy {
+  position: relative;
+  z-index: 2;
+  width: min(54%, 650px);
+}
+
+.first-visit-card__amount {
+  margin: 0 0 40px;
+  font-size: clamp(100px, 10vw, 160px);
+  font-weight: 600;
+  letter-spacing: -.075em;
+  line-height: .82;
+}
+
+.first-visit-card__amount-rest {
+  margin-inline-start: .09em;
+}
+
+.first-visit-card h3 {
+  margin: 0;
+  font-size: clamp(27px, 3vw, 42px);
+  font-weight: 600;
+  letter-spacing: -.055em;
+  line-height: 1.08;
+}
+
+.first-visit-card__description {
+  max-width: 490px;
+  margin: 12px 0 28px;
+  font-size: 16px;
+  line-height: 1.5;
+  opacity: .88;
+}
+
+.first-visit-card__button {
+  width: 248px;
+  background: #fff !important;
+  corner-shape: superellipse(1.5);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.first-visit-card__button .button__text { color: #201d25; }
+.first-visit-card__button:hover { transform: none !important; filter: none !important; }
+
+.first-visit-card__media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, #795bc9 0%, rgb(121 91 201 / 98%) 36%, rgb(121 91 201 / 42%) 63%, rgb(121 91 201 / 4%) 100%);
+  pointer-events: none;
+}
+
+.first-visit-card__scissors,
+.first-visit-card__coins {
+  position: absolute;
+  z-index: 0;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.first-visit-card__scissors {
+  top: 50%;
+  right: 31%;
+  width: min(30%, 420px);
+  transform: translateY(-50%) rotate(-8deg);
+}
+
+.first-visit-card__coins {
+  top: 50%;
+  right: 4%;
+  width: min(29%, 540px);
+  max-height: none;
+  object-fit: contain;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 899px) {
+  .first-visit-card__copy { width: 72%; }
+  .first-visit-card__amount { margin-bottom: 34px; font-size: clamp(92px, 18vw, 140px); }
+  .first-visit-card h3 { font-size: clamp(26px, 5.6vw, 36px); }
+  .first-visit-card__description { max-width: 390px; font-size: 14px; }
+  .first-visit-card__media { background: linear-gradient(90deg, #795bc9 0%, rgb(121 91 201 / 94%) 48%, rgb(121 91 201 / 34%) 100%); }
+  .first-visit-card__scissors { top: 50%; right: 18%; width: 39%; opacity: .85; transform: translateY(-50%) rotate(-8deg); }
+  .first-visit-card__coins { top: 50%; right: 1%; width: 48%; max-height: none; opacity: .75; transform: translateY(-50%); }
+}
+
+@media (max-width: 520px) {
+  .first-visit-card__copy { width: 100%; }
+  .first-visit-card__amount { margin-bottom: 30px; font-size: 100px; }
+  .first-visit-card h3 { max-width: 330px; font-size: 30px; }
+  .first-visit-card__description { max-width: 300px; font-size: 13px; }
+  .first-visit-card__button { width: 100%; }
+  .first-visit-card__media { background: linear-gradient(90deg, #795bc9 0%, rgb(121 91 201 / 94%) 62%, rgb(121 91 201 / 50%) 100%); }
+  .first-visit-card__scissors { display: none; }
+  .first-visit-card__coins { top: 50%; right: 0; width: 68%; max-height: none; opacity: .3; transform: translateY(-50%); }
+}
+
 .services-table {
   width: 100%;
   margin: 8px auto 0;
   padding: 24px;
-  border-radius: 24px;
+  border-radius: var(--radius-card);
+  corner-shape: superellipse(1.8);
   background: #fff;
   color: #161618;
   box-shadow: 0 12px 40px rgb(22 22 24 / 8%);
