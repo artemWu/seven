@@ -205,7 +205,7 @@ export default function Home({
                 <p className="first-visit-card__amount">1<span className="first-visit-card__amount-rest">000</span></p>
                 <h3>Бонусов на первый визит</h3>
                 <p className="first-visit-card__description">
-                  При записи через Яндекс Карты укажите промокод «Чибан» и получите 1000 бонусов
+                  При записи укажите промокод «ИЧИБАН» и получите 1000 бонусов
                 </p>
                 <Button className="first-visit-card__button" href={firstVisitBookingUrl} target="_blank" rel="noopener noreferrer" theme="default">
                   Записаться
